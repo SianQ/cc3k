@@ -2,10 +2,11 @@
 
 // export
 
-
-#include "Dwarf.h"
-#include "Elf.h"
-// TODO: 记得导入别的种族
+#include "Drow.h"
+#include "Vampire.h"
+#include "Troll.h"
+#include "Goblin.h"
+#include "Shade.h"
 
 #include <memory>
 #include <string>
@@ -16,17 +17,19 @@ private:
 
 public:
     inline static const std::vector<std::string> RaceNames = {
-        "Human",
-        "Dwarf",
-        "Elf",
-        "Orc",
-        "Merchant"
+        "Shade",
+        "Vampire",
+        "Troll",
+        "Goblin",
+        "Drow"
     };
 
     static std::unique_ptr<Player> create(const std::string& race) {
         std::string key = race;
-        if (key == "dwarf")    return std::make_unique<Dwarf>(new Dwarf());
-        else if (key == "elf") return std::make_unique<Elf>(new Elf());
-        // TODO: 加上别的玩家种族
+        if (key == "drow")    return std::make_unique<Drow>(new Drow());
+        else if (key == "vampire") return std::make_unique<Vampire>(new Vampire());
+        else if (key == "troll") return std::make_unique<Troll>(new Troll());
+        else if (key == "goblin") return std::make_unique<Goblin>(new Goblin());
+        else return std::make_unique<Shade>(new Shade());
     }
 };
