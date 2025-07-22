@@ -5,7 +5,10 @@
 #include <string>
 #include <vector>
 
-class Player {    
+class Player {
+private:
+
+public:
     inline static const std::vector<std::string> RaceNames = {
         "Human",
         "Dwarf",
