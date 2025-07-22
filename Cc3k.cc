@@ -41,4 +41,15 @@ void Cc3k::run() {
 
     string playerRace = chooseRace();
     output.clearScreen();
+    level.setPlayer(Player::create(playerRace));
+
+    output.render(level);
+
+    while(!level.isGameOver()) {
+        input.applyInput(level);
+        output.render(level);
+
+        level.updateEnemies();
+        output.render(level);
+    }
 }

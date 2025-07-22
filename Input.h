@@ -14,5 +14,4 @@
 class Input{
 public:
     void applyInput(Level& level);
-    void choosePlayer(Level& level);
 };

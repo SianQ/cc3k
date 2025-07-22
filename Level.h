@@ -28,8 +28,9 @@ private:
 
 public:
     Level(std::string mapPath);
+    void setPlayer(unique_ptr<Player> player);
     bool isGameOver();
-    void handleCommand(std::string command);
+    void handleCommand(string command);
     void movePlayer(int dx, int dy);
-    void update();
+    void updateEnemies();
 };
