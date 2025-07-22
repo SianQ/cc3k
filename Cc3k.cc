@@ -20,10 +20,7 @@ void displayStartScreen() {
     getline(cin, temp);
 }
 
-void Cc3k::run() {
-    displayStartScreen();
-    output.clearScreen();
-
+string chooseRace() {
     cout << "Choose Player Race:" << endl;
     for (size_t i = 0; i < Player::RaceNames.size(); ++i) {
         cout << i + 1 << ". " << Player::RaceNames[i] << endl;
@@ -31,5 +28,17 @@ void Cc3k::run() {
     cout << "> ";
     size_t choice = 1;
     cin >> choice;
-    if (choice >= 1 && choice <= Player::RaceNames.size())
+    if (choice < 1 || choice > Player::RaceNames.size()) {
+        return chooseRace();
+    }
+    cout << "Your race is: " << Player::RaceNames[choice] << endl;
+    return Player::RaceNames[choice];
+}
+
+void Cc3k::run() {
+    displayStartScreen();
+    output.clearScreen();
+
+    string playerRace = chooseRace();
+    output.clearScreen();
 }

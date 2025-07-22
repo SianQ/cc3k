@@ -11,18 +11,20 @@
 #pragma once
 #include "Map.h"
 
+#include <memory>
 #include <vector>
 #include <string>
 
+using namespace std;
 
 class Level {
 private:
     Map map;
-    Player player;
-    std::vector<Enemy*> enemies;
-    std::vector<Item*> items;
+    unique_ptr<Player> player;
+    vector<Enemy*> enemies;
+    vector<Item*> items;
     bool gameOver;
-    std::string messageLog;
+    string messageLog;
 
 public:
     Level(std::string mapPath);
