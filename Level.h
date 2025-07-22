@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 
+
 class Level {
 private:
     Map map;
@@ -24,7 +25,7 @@ private:
     std::string messageLog;
 
 public:
-    Level();
+    Level(std::string mapPath);
     bool isGameOver();
     void handleCommand(std::string command);
     void movePlayer(int dx, int dy);

@@ -6,11 +6,7 @@
 #pragma once
 #include "Character.h"
 #include "Item.h"
-
-enum class TerrainType {
-    Wall,
-    floor
-};
+#include "TerrainType.h"
 
 // export
 class Tile {

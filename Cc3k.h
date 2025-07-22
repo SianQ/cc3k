@@ -17,6 +17,6 @@ private:
     bool isRunning;
 
 public:
-    Cc3k();
+    Cc3k(std::string mapPath);
     void run();
 };
