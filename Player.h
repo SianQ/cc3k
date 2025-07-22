@@ -24,7 +24,7 @@ public:
         "Drow"
     };
 
-    static std::unique_ptr<Player> create(const std::string& race) {
+    static bool create(const std::string& race, std::unique_ptr<Player>) {
         std::string key = race;
         if (key == "drow")    return std::make_unique<Drow>(new Drow());
         else if (key == "vampire") return std::make_unique<Vampire>(new Vampire());
