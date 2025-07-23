@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Direction.h"
 
 using namespace std;
 
@@ -35,7 +36,12 @@ public:
     void setEnemies(vector<unique_ptr<Enemy>> enemies);
     void setItems(vector<unique_ptr<Item>> items);
     bool isGameOver();
-    void handleCommand(string command);
-    void movePlayer(int dx, int dy);
+
+    // Player logic
+    void playerMove(Direction dir);
+    void playerAttack(Direction dir);
+    void playerPotion(Direction dir);
+
+    // Enemy logic
     void updateEnemies();
 };
