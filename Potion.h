@@ -35,6 +35,6 @@ public:
     bool isTemporary() const;
 
 private:
-    PotionType type;
-    bool       discovered = false;
+    std::string type;
+    // bool discovered = false;
 };

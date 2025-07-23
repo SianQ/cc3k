@@ -32,5 +32,10 @@ public:
     virtual void resetFloorEffects();
     virtual void attack(Character* target);
     virtual void beAttackedBy(Character* enemy);
+    virtual void pickUp(Item* item);
+    virtual void useItem(Item* item);
+
+    friend class Level; // Allow Level to access private members
+    friend class Enemy; // Allow Enemy to access private members
 };
 #endif
