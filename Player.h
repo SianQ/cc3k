@@ -5,7 +5,8 @@
 #define PLAYER_H
 
 #include "Character.h"
-
+class Potion;
+class Gold;
 #include <memory>
 #include <string>
 #include <vector>

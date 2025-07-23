@@ -1,7 +1,4 @@
-#ifndef VAMPIRE_H
-#define VAMPIRE_H
-
-#include "Player.h"  // ✅ this is fine as long as Player.h doesn't include Troll.h
+#include "Player.h"
 
 class Vampire : public Player {
 public:
@@ -9,4 +6,3 @@ public:
     ~Vampire() override;
 };
 
-#endif

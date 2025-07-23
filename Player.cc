@@ -1,5 +1,3 @@
-#include "Player.h"
-
 #include "Shade.h"
 #include "Drow.h"
 #include "Vampire.h"

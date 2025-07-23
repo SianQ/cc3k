@@ -2,7 +2,7 @@
 #include <cmath>
 #include <utility>
 
-int Character::getHp() const { return hp; }
+int Character::getHP() const { return hp; }
 int Character::getAtk() const { return atk; }
 int Character::getDef() const { return def; }
 bool Character::isDead() { return hp <= 0; }
