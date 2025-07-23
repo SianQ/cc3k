@@ -6,9 +6,10 @@
 
 // export
 #pragma once
-#include "Player.h"
+class Player;
 #include "Enemy.h"
 #include "Item.h"
+#include <utility>
 
 class Character {    
 protected:
@@ -30,4 +31,7 @@ public:
     virtual bool isDead();
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);
+    virtual void attack(Character* target);
+    virtual void beAttackedBy(Character* attacker);
+    static int calculateDamage(int atk, int def);
 };
