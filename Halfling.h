@@ -1,16 +1,18 @@
-// Halfling.h
 #pragma once
-
 #include "Enemy.h"
-#include <vector>
 
 /**
- * Halfling: has a 50% chance to dodge player attacks
+ * Halfling: HP=100, Atk=15, Def=20.
+ * When attacked by player, 50% chance to evade.
+ * Drops one pile of 2 gold.
  */
 class Halfling : public Enemy {
 public:
-    Halfling(int x, int y);
+    Halfling(int row, int col);
 
-    void act(Level &level, Player &pc) override;
+    void act(Map& map, Player& pc) override;
+    void attack(Player& pc) override;
     std::vector<Item*> dropLoot() const override;
+
+    void beAttackedBy(Character* attacker) override;
 };

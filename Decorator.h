@@ -1,4 +1,3 @@
-
 class CharacterDecorator : public Character {
     protected:
         std::shared_ptr<Character> base;
