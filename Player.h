@@ -41,6 +41,7 @@ public:
     virtual int getAtk() const;
     virtual int getDef() const;
     virtual int getHP() const;
+    virtual char getSymbol() const;
 
     friend class Level; // Allow Level to access private members
     friend class Enemy; // Allow Enemy to access private members

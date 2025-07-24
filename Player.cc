@@ -9,6 +9,14 @@ int Player::getAtk() const { return atk; }
 int Player::getDef() const { return def; }
 int Player::getHP() const { return hp; }
 int Player::getGoldNum() const { return gold; }
+char Player::getSymbol() const {
+    if (race == "Dwarf") return 'D';
+    if (race == "Vampire") return 'V';
+    if (race == "Troll") return 'T';
+    if (race == "Goblin") return 'G';
+    if (race == "Drow") return 'D';
+    return ' ';
+}
 
 void Player::attack(Character* target) {
     target->beAttackedBy(this);  // player always hits
