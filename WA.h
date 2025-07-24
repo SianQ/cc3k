@@ -4,7 +4,5 @@ class WoundAtkDecorator : public CharacterDecorator {
     int penalty;
 public:
     WoundAtkDecorator(std::shared_ptr<Character> base, int amount);
-    int getAtk() const override {
-        return std::max(0, base->getAtk() - penalty);
-    }
+    int getAtk() const override;
 };
