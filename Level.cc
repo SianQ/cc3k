@@ -111,7 +111,7 @@ void Level::placeNonPlayerObjects() {
     // 4) Gold (Treasure)
     for (int i = 0; i < GOLD_COUNT; ++i) {
         Tile* t = spawnSpots[idx++];
-        auto g = std::make_unique<Treasure>();
+        auto g = std::make_unique<Gold>();
         t->setItem(g.get());
         itemStore.push_back(std::move(g));
     }
