@@ -3,67 +3,51 @@
 #include <algorithm>
 
 class CharacterDecorator : public Character {
-    protected:
-        std::shared_ptr<Character> base;
-    
-    public:
-        CharacterDecorator(std::shared_ptr<Character> base) : Character(base->getHP(), base->getAtk(), base->getDef(), base->getPosition().first, base->getPosition().second), base{base} {}
-        virtual ~CharacterDecorator() = default;
-    
-        // By default, just forward calls to the base
-        int getAtk() const override { return base->getAtk(); }
-        int getDef() const override { return base->getDef(); }
-        int getHP() const override { return base->getHP(); }
-        // void attack(Character* target) override { base->attack(target); }
+protected:
+    std::shared_ptr<Character> base;
 
-        virtual bool isPlayer() = 0;
+public:
+    CharacterDecorator(std::shared_ptr<Character> base);
+    virtual ~CharacterDecorator() = default;
+
+    int getAtk() const override;
+    int getDef() const override;
+    int getHP() const override;
+
 };
 
 class BoostAtkDecorator : public CharacterDecorator {
     int boost;
-
 public:
-    BoostAtkDecorator(std::shared_ptr<Character> base, int amount)
-        : CharacterDecorator(base), boost{amount} {}
-
+    BoostAtkDecorator(std::shared_ptr<Character> base, int amount);
     int getAtk() const override {
         return base->getAtk() + boost;
-    }
-};
-
-class WoundDefDecorator : public CharacterDecorator {
-    int penalty;
-
-public:
-    WoundDefDecorator(std::shared_ptr<Character> base, int amount)
-        : CharacterDecorator(base), penalty{amount} {}
-
-    int getDef() const override {
-        return std::max(0, base->getDef() - penalty);
-    }
-};
-
-class BoostDefDecorator : public CharacterDecorator {
-    int boost;
-public:
-    BoostDefDecorator(std::shared_ptr<Character> base, int amount)
-        : CharacterDecorator(base), boost{amount} {}
-
-    int getDef() const override {
-        return base->getDef() + boost;
     }
 };
 
 class WoundAtkDecorator : public CharacterDecorator {
     int penalty;
 public:
-    WoundAtkDecorator(std::shared_ptr<Character> base, int amount)
-        : CharacterDecorator(base), penalty{amount} {}
-
+    WoundAtkDecorator(std::shared_ptr<Character> base, int amount);
     int getAtk() const override {
         return std::max(0, base->getAtk() - penalty);
     }
 };
 
-// Note: HP potions (RH, PH) should be handled as immediate effects, not as decorators.
-// Apply their effect directly to the Character's HP when used.
+class BoostDefDecorator : public CharacterDecorator {
+    int boost;
+public:
+    BoostDefDecorator(std::shared_ptr<Character> base, int amount);
+    int getDef() const override {
+        return base->getDef() + boost;
+    }
+};
+
+class WoundDefDecorator : public CharacterDecorator {
+    int penalty;
+public:
+    WoundDefDecorator(std::shared_ptr<Character> base, int amount);
+        int getDef() const override;
+};
+
+std::shared_ptr<Character> unwrap(std::shared_ptr<Character> decorated);
