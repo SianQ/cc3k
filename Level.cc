@@ -7,8 +7,8 @@
 #include "Merchant.h"
 #include "Dragon.h"
 #include "Potion.h"
-#include "Treasure.h"
-#include "Staircase.h"
+#include "Gold.h"
+#include "Stair.h"
 
 #include <algorithm>    // std::shuffle
 #include <stdexcept>    // std::runtime_error
