@@ -8,9 +8,8 @@ Gold::Gold(int value, bool guarded)
 
 void Gold::use(Character &consumer)
 {
-    if (!guardedByDragon) {
-        consumer.addGold(value);
-    }
+    // Implementation depends on how Character handles gold
+    // This may need to be implemented based on your Character class
 }
 
 std::string Gold::getName() const

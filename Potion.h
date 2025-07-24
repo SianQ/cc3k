@@ -36,7 +36,7 @@ public:
     // otherwise returns "Unknown Potion"
     std::string getName() const override;
 
-    PotionType getType() const;
+    virtual PotionType getType() const;
     bool isDiscovered() const;
     void markDiscovered();
 
