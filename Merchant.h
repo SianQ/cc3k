@@ -1,18 +1,17 @@
+// Merchant.h
 #pragma once
+
 #include "Enemy.h"
+#include <vector>
 
 /**
- * Merchant: HP=30, Atk=70, Def=5.
- * Neutral until one is attacked → all become hostile.
- * Drops one merchant hoard (4 gold).
+ * Merchant: starts neutral; if attacked, becomes hostile globally.
+ * Drops one pile of merchant gold.
  */
 class Merchant : public Enemy {
 public:
-    Merchant(int row, int col);
+    Merchant(int x, int y);
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
+    void act(Level &level, Player &pc) override;
     std::vector<Item*> dropLoot() const override;
-
-    static bool hostileAll;
 };

@@ -1,15 +1,19 @@
+// Human.h
 #pragma once
+
 #include "Enemy.h"
+#include <vector>
 
 /**
- * Human: HP=140, Atk=20, Def=20.
- * Drops two piles of 2 gold each.
+ * Human: drops two piles of normal gold
  */
 class Human : public Enemy {
 public:
-    Human(int row, int col);
+    Human(int x, int y);
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
+    // Enemy behavior on its turn
+    void act(Level &level, Player &pc) override;
+
+    // Loot dropped on death
     std::vector<Item*> dropLoot() const override;
 };

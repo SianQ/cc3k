@@ -1,15 +1,17 @@
+// Dwarf.h
 #pragma once
+
 #include "Enemy.h"
+#include <vector>
 
 /**
- * Dwarf: HP=100, Atk=20, Def=30.
- * Drops one pile of 2 gold.
+ * Dwarf: special interaction when attacked by Vampire,
+ * drops one pile of normal gold
  */
 class Dwarf : public Enemy {
 public:
-    Dwarf(int row, int col);
+    Dwarf(int x, int y);
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
+    void act(Level &level, Player &pc) override;
     std::vector<Item*> dropLoot() const override;
 };

@@ -1,16 +1,16 @@
+// Elf.h
 #pragma once
+
 #include "Enemy.h"
+#include <vector>
 
 /**
- * Elf: HP=140, Atk=30, Def=10.
- * Attacks twice per turn except against Drow.
- * Drops one pile of 2 gold.
+ * Elf: attacks twice in one turn when attacking non-Drow characters
  */
 class Elf : public Enemy {
 public:
-    Elf(int row, int col);
+    Elf(int x, int y);
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
+    void act(Level &level, Player &pc) override;
     std::vector<Item*> dropLoot() const override;
 };

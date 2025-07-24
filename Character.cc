@@ -14,3 +14,4 @@ void Character::setPosition(int r, int c) { row = r; col = c; }
 int Character::calculateDamage(int attackerAtk, int defenderDef) {
     return std::ceil((100.0 / (100 + defenderDef)) * attackerAtk);
 }
+

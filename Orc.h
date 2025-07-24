@@ -1,16 +1,16 @@
+// Orc.h
 #pragma once
+
 #include "Enemy.h"
+#include <vector>
 
 /**
- * Orc: HP=180, Atk=30, Def=25.
- * Deals 1.5× damage to Goblin players.
- * Drops one pile of 2 gold.
+ * Orc: deals 1.5× damage when attacking Goblin
  */
 class Orc : public Enemy {
 public:
-    Orc(int row, int col);
+    Orc(int x, int y);
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
+    void act(Level &level, Player &pc) override;
     std::vector<Item*> dropLoot() const override;
 };
