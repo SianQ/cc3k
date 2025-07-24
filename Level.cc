@@ -72,7 +72,7 @@ void Level::playerAttack(Direction dir) {
     Tile character_tile = map.getTile(player->getPosition().first + a, player->getPosition().second + b);
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
-        enemy->beAttackedBy(player);
+        enemy->beAttackedBy(player.get());
     }
 }
 

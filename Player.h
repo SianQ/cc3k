@@ -35,7 +35,12 @@ public:
     virtual void beAttackedBy(Character* enemy);
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);
+    virtual bool isPlayer() const;
     virtual std::string getRace() const;
+    virtual int getGoldNum() const;
+    virtual int getAtk() const;
+    virtual int getDef() const;
+    virtual int getHP() const;
 
     friend class Level; // Allow Level to access private members
     friend class Enemy; // Allow Enemy to access private members

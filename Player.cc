@@ -4,9 +4,11 @@
 #include "Troll.h"
 #include "Goblin.h"
 
-std::string Player::getRace() const {
-    return race;
-}
+std::string Player::getRace() const { return race; }
+int Player::getAtk() const { return atk; }
+int Player::getDef() const { return def; }
+int Player::getHP() const { return hp; }
+int Player::getGoldNum() const { return gold; }
 
 void Player::attack(Character* target) {
     target->beAttackedBy(this);  // player always hits
@@ -17,6 +19,7 @@ void Player::beAttackedBy(Character* enemy) {
     this->hp = std::max(0, this->hp - dmg);
 }
 
+bool Player::isPlayer() const { return true; }
 
 std::unique_ptr<Player> Player::create(const std::string& race) {
     std::string key = race;
