@@ -16,4 +16,5 @@ public:
 
     // Loot dropped on death
     std::vector<Item*> dropLoot() const override;
+    
 };

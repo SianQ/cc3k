@@ -14,4 +14,5 @@ public:
 
     void act(Level &level, Player &pc) override;
     std::vector<Item*> dropLoot() const override;
+    
 };

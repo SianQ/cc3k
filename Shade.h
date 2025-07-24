@@ -4,4 +4,5 @@ class Shade : public Player {
 public:
     Shade();
     ~Shade() override;
+    
 };

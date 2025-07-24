@@ -36,9 +36,6 @@ class Enemy : public Character {
         bool              isHostile() const;
         void              setHostile(bool h);
         const std::string& getType() const;
-        virtual int getAtk() const override;
-        virtual int getDef() const override;
-        virtual int getHP() const override;
         virtual char getSymbol() const override;
 
     protected:

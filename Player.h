@@ -38,9 +38,6 @@ public:
     virtual bool isPlayer() const override;
     virtual std::string getRace() const;
     virtual int getGoldNum() const;
-    virtual int getAtk() const override;
-    virtual int getDef() const override;
-    virtual int getHP() const override;
     virtual char getSymbol() const override;
 
     friend class Level; // Allow Level to access private members
