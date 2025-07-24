@@ -4,6 +4,10 @@
 #include "Troll.h"
 #include "Goblin.h"
 
+std::string Player::getRace() const {
+    return race;
+}
+
 void Player::attack(Character* target) {
     target->beAttackedBy(this);  // player always hits
 }
