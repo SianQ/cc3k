@@ -1,17 +1,15 @@
-// Dragon.h
 #pragma once
-
 #include "Enemy.h"
-#include <vector>
 
 /**
- * Dragon: never moves, always hostile,
- * guards its treasure hoard
+ * Dragon: HP=150, Atk=20, Def=20.
+ * Stationary; guards a hoard placed on map.
  */
 class Dragon : public Enemy {
 public:
-    Dragon(int x, int y);
+    Dragon(int row, int col);
 
-    void act(Level &level, Player &pc) override;
+    void act(Map &map, Player &pc) override;
+    void attack(Player &pc) override;
     std::vector<Item*> dropLoot() const override;
 };

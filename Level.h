@@ -37,6 +37,7 @@ public:
     void setItems(vector<unique_ptr<Item>> items);
     bool isGameOver();
     void clearLog();
+    void appendMessage(const std::string& message);
 
     // Player logic
     void playerMove(Direction dir);   

@@ -20,6 +20,9 @@ public:
     Character* getCharacter();
     void setCharacter(Character* character);
     Item* getItem();
+    virtual bool isGold();
+    virtual bool isPotion();
+    virtual bool isStair();
     void setItem(Item* item);
     TerrainType getTerrain();
     void setTerrain(TerrainType terrain);
