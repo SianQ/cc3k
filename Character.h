@@ -25,7 +25,7 @@ public:
     virtual int getAtk() const;
     virtual int getDef() const;
     virtual int getHP() const; 
-    
+    virtual std::string getRace() const = 0;
     virtual char getSymbol() const = 0;
     virtual bool isPlayer() const;
     virtual int getMaxHP() const;
@@ -34,9 +34,9 @@ public:
     virtual std::pair<int, int> getPosition() const;
 
     virtual void move(int row, int col);
-    // virtual void takeDamage(Character* enemy);
+    virtual void takeDamage(int damage);
     virtual bool isDead();
-    // virtual void attack(Character* target);
+    virtual void attack(Character* target);
     virtual void beAttackedBy(Character* attacker);
     static int calculateDamage(int atk, int def);
 
