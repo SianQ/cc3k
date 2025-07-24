@@ -17,14 +17,18 @@ private:
 
 public:
     Tile();
-    Character* getCharacter();
+    
+    Character* getCharacter() const;
     void setCharacter(Character* character);
-    Item* getItem();
+
+    Item* getItem() const;
     virtual bool isGold();
     virtual bool isPotion();
     virtual bool isStair();
     void setItem(Item* item);
-    TerrainType getTerrain();
+
+    TerrainType getTerrain() const;
     void setTerrain(TerrainType terrain);
+
     bool isPassable();
 };

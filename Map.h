@@ -14,7 +14,9 @@ private:
     std::vector<Tile> grid;
 public:
     Map(int width, int height);
-    Tile& getTile(int x, int y);
+    int getWidth() const;
+    int getHeight() const;
+    Tile& getTile(int x, int y) const;
     bool isPassible(int x, int y);
     void moveCharacter(int fromX, int fromY, int toX, int toY);
     // void detectAroundPlayer(unique_ptr<Player> player, std::vector<Tile>& grid);

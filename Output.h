@@ -9,7 +9,6 @@
 
 class Output{
 public:
-    void displayMenu();
     void render(const Level& level);
     void renderGameOver();
     void clearScreen();

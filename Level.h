@@ -26,7 +26,6 @@ private:
     Map map;
     unique_ptr<Player> player;
     vector<Enemy*> enemies;
-    vector<Item*> items;
     bool gameOver;
     string messageLog;
 
@@ -35,6 +34,8 @@ public:
     bool setPlayer(unique_ptr<Player> player);
     void setEnemies(vector<unique_ptr<Enemy>> enemies);
     void setItems(vector<unique_ptr<Item>> items);
+    const Map& getMap() const;
+    const string getMessage() const;
     bool isGameOver();
     void clearLog();
     void appendMessage(const std::string& message);
