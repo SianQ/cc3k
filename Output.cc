@@ -62,7 +62,13 @@ void Output::render(const Level & level) {
                 case TerrainType::Passage:
                     std::cout << '#';
                     break;
-                case TerrainType::Wall:
+                case TerrainType::WallHorizontal:
+                    std::cout << '-';
+                    break;
+                case TerrainType::WallVertical:
+                    std::cout << '|';
+                    break;
+                case TerrainType::Door:
                     std::cout << '+';
                     break;
                 case TerrainType::Empty:

@@ -1,6 +1,8 @@
 enum class TerrainType {
-    Wall,
+    WallVertical,
+    WallHorizontal,
     Floor,
     Passage,
+    Door,
     Empty
 };
