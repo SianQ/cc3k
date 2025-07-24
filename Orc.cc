@@ -39,7 +39,7 @@ void Orc::attack(Player& pc) {
     int dmg  = (pc.getRace()=="Goblin")
              ? static_cast<int>(std::ceil(base*1.5))
              : base;
-    pc.takeDamage(dmg);
+    pc.takeDamage(dmg); 
 }
 
 std::vector<Item*> Orc::dropLoot() const {
