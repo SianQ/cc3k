@@ -23,3 +23,4 @@ bool Enemy::dragon() const {
 char Enemy::getSymbol() const {
     return type[0];
 }
+std::string Enemy::getRace() const { return race; }

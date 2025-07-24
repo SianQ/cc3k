@@ -5,7 +5,6 @@
 #include <vector>
 #include "Map.h"
 #include "Player.h"
-#include "Level.h"
 
 /**
  * Abstract base class for all enemies.
@@ -17,6 +16,7 @@ protected:
     bool        isDragon;  // dragons never move
     std::string type;      // symbol code
     bool isDead;
+    std::string race;
 
 public:
     Enemy(int hp, int atk, int def,
@@ -39,6 +39,7 @@ public:
     bool isHostile() const;
     void setHostile(bool h);
     bool dragon() const;
-    virtual char getSymbol() const;  
+    virtual char getSymbol() const override;  
+    virtual std::string getRace() const override;
 };
 
