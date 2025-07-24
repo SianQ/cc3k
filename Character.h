@@ -50,6 +50,8 @@ class CharacterDecorator : public Character {
         int getDef() const override { return base->getDef(); }
         int getHP() const override { return base->getHP(); }
         // void attack(Character* target) override { base->attack(target); }
+
+        virtual isPlayer() = 0;
 };
 
 class BoostAtkDecorator : public CharacterDecorator {
