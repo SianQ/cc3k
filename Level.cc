@@ -1,5 +1,40 @@
 #include "Level.h"
 
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+void Level::generateEnemies(unsigned seed) {
+    // Reseed our RNG so that generation is reproducible
+    rng.seed(seed);
+
+    // Roll a 1..18 “d18” to pick each non‐dragon enemy by weight:
+    //  1–4   = Human (4)
+    //  5–7   = Dwarf (3)
+    //  8–12  = Halfling (5)
+    //  13–14 = Elf (2)
+    //  15–16 = Orc (2)
+    //  17–18 = Merchant (2)
+    std::uniform_int_distribution<int> roll(1, 18);
+
+    for (int i = 0; i < 20; ++i) {
+        int r = roll(rng);
+        std::unique_ptr<Character> e;
+
+        if      (r <=  4) e = make_unique<Human>();
+        else if (r <=  7) e = make_unique<Dwarf>();
+        else if (r <= 12) e = make_unique<Halfling>();
+        else if (r <= 14) e = make_unique<Elf>();
+        else if (r <= 16) e = make_unique<Orc>();
+        else              e = make_unique<Merchant>();
+
+        enemies.push_back(std::move(e));
+    }
+
+    // Always include one Dragon
+    enemies.push_back(std::make_unique<Dragon>());
+}
 void get_xy(Direction dir, int& x, int& y) {
     switch (dir) {
         case Direction::North:
@@ -65,3 +100,5 @@ void Level::playerPotion(Direction dir) {
         delete item;
     }
 }
+
+

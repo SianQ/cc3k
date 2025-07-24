@@ -10,14 +10,23 @@
 
 #pragma once
 #include "Map.h"
-
-#include <memory>
-#include <vector>
-#include <string>
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
 #include "Direction.h"
+#include "Level.h"
+#include "Human.h"
+#include "Dwarf.h"
+#include "Halfling.h"
+#include "Elf.h"
+#include "Orc.h"
+#include "Merchant.h"
+#include "Dragon.h"
+
+#include <memory>
+#include <vector>
+#include <string>
+#include <random>
 
 using namespace std;
 
@@ -28,6 +37,7 @@ private:
     vector<Enemy*> enemies;
     bool gameOver;
     string messageLog;
+    std::default_random_engine rng;
 
 public:
     Level(std::string mapPath, int seed);
@@ -40,6 +50,8 @@ public:
     bool isGameOver();
     void clearLog();
     void appendMessage(const std::string& message);
+    void generateEnemies(unsigned seed);
+
 
     // Player logic
     void playerMove(Direction dir);   
