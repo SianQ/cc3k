@@ -14,6 +14,7 @@ class Gold;
 class Player: public Character {
 protected:
     int gold = 0;
+    std::string race;
 
 public:
     inline static const std::vector<std::string> RaceNames = {
@@ -34,6 +35,7 @@ public:
     virtual void beAttackedBy(Character* enemy);
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);
+    virtual std::string getRace() const;
 
     friend class Level; // Allow Level to access private members
     friend class Enemy; // Allow Enemy to access private members
