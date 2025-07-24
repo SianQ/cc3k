@@ -34,7 +34,7 @@ public:
 
     // If discovered, returns the specific name (e.g. "Restore Health Potion"),
     // otherwise returns "Unknown Potion"
-    std::string getName() const override;
+    char getSymbol() const override;
 
     virtual PotionType getType() const;
     bool isDiscovered() const;

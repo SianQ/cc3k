@@ -20,7 +20,7 @@ public:
     void use(Character &consumer) override;
 
     // Returns "Gold" or a formatted display name
-    std::string getName() const override;
+    char getSymbol() const override;
 
     // Override pure virtual functions from Item
     bool isGold() override { return true; }

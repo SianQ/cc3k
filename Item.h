@@ -21,5 +21,6 @@ public:
     virtual void use(Character &consumer) = 0;
 
     // Returns the item name for display
-    virtual std::string getName() const = 0;
+    virtual char getSymbol() const = 0;
+
 };

@@ -12,9 +12,9 @@ void Gold::use(Character &consumer)
     // This may need to be implemented based on your Character class
 }
 
-std::string Gold::getName() const
+char Gold::getSymbol() const
 {
-    return "Gold (" + std::to_string(value) + ")";
+    return 'G';
 }
 
 bool Gold::isGold()
