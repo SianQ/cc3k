@@ -5,6 +5,59 @@
 
 using namespace std;
 
+static constexpr int TOTAL_ENEMIES    = 21;  // including Dragon
+static constexpr int POTION_COUNT     = 10;
+static constexpr int TREASURE_COUNT   = 10;
+
+Level::Level(const std::string& mapPath, unsigned seed): map(mapPath, seed), rng(seed) {
+  generateEnemies(seed);
+
+    // 2) Compute how many distinct tiles we need:
+    //    1 PC + 1 stair + 21 enemies + 10 potions + 10 treasures
+    size_t total = 1 + 1 + TOTAL_ENEMIES + POTION_COUNT + TREASURE_COUNT;
+
+    // 3) Sample exactly 'total' unique passable tiles
+    auto spots = samplePassableTiles(total);
+    size_t idx = 0;
+
+    // 4) Place the PC
+    {
+        Tile* t = spots[idx++];
+        player = Player::create(chosenRace);
+        t->setCharacter(pc.get());
+    }
+
+    // 5) Place the staircase
+    {
+        Tile* t = spots[idx++];
+        staircase = std::make_unique<Staircase>();
+        t->setItem(staircase.get());
+    }
+
+    // 6) Place all enemies
+    for (int i = 0; i < TOTAL_ENEMIES; ++i) {
+        Tile* t = spots[idx++];
+        t->setCharacter(enemies[i].get());
+    }
+
+    // 7) Place potions
+    for (int i = 0; i < POTION_COUNT; ++i) {
+        Tile* t = spots[idx++];
+        auto p = std::make_unique<Potion>();
+        t->setItem(p.get());
+        potions.push_back(std::move(p));
+    }
+
+    // 8) Place treasures
+    for (int i = 0; i < TREASURE_COUNT; ++i) {
+        Tile* t = spots[idx++];
+        auto g = std::make_unique<Treasure>();
+        t->setItem(g.get());
+        treasures.push_back(std::move(g));
+    }
+}
+
+
 void Level::generateEnemies(unsigned seed) {
     rng.seed(seed);
 
@@ -28,7 +81,7 @@ void Level::generateEnemies(unsigned seed) {
         else if (r <= 16) e = make_unique<Orc>();
         else              e = make_unique<Merchant>();
 
-        enemies.push_back(move(e));
+        enemies.push_back(std::move(e));
     }
 
     // Always include one Dragon

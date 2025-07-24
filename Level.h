@@ -40,7 +40,7 @@ private:
     std::default_random_engine rng;
 
 public:
-    Level(std::string mapPath, int seed);
+    Level(std::string mapPath, unsigned seed);
     bool setPlayer(unique_ptr<Player> player);
     void setEnemies(vector<unique_ptr<Enemy>> enemies);
     void setItems(vector<unique_ptr<Item>> items);
