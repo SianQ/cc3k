@@ -7,7 +7,7 @@
  */
 class Dragon : public Enemy {
 public:
-    Dragon(int row, int col);
+    Dragon();
 
     void act(Map &map, Player &pc) override;
     void attack(Player &pc) override;

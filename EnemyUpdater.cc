@@ -1,5 +1,5 @@
-// EnemyUpdater.cpp
-
+// EnemyUpdater.cc
+#include "EnemyUpdater.h"
 #include "Level.h"
 #include "Enemy.h"
 #include "Map.h"
@@ -10,9 +10,6 @@
 ///   • call act(map,*player)
 ///   • if the player died, set gameOver, append a message, and stop.
 void Level::updateEnemies() {
-    // Start fresh for this enemy turn
-    clearLog();
-
     // Loop in spawn order
     for (auto& up : enemyStore) {
         Enemy* e = up.get();

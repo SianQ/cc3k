@@ -4,8 +4,8 @@
 
 bool Merchant::hostileAll = false;
 
-Merchant::Merchant(int row, int col)
-  : Enemy(30,70,5,row,col,"M",false,false) {}
+Merchant::Merchant()
+  : Enemy(30,70,5,"M",false,false) {}
 
 void Merchant::act(Map& map, Player& pc) {
     if(!hostileAll) return;

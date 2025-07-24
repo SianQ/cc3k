@@ -2,8 +2,8 @@
 #include "Gold.h"
 #include <cstdlib>
 
-Human::Human(int row, int col)
-  : Enemy(140,20,20,row,col,"H",true,false) {}
+Human::Human()
+  : Enemy(140,20,20,"H",true,false) {}
 
 void Human::act(Map& map, Player& pc) {
     // If player in 8 adjacent cells, attack

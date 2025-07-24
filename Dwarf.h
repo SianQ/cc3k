@@ -7,7 +7,7 @@
  */
 class Dwarf : public Enemy {
 public:
-    Dwarf(int row, int col);
+    Dwarf();
 
     void act(Map& map, Player& pc) override;
     void attack(Player& pc) override;
