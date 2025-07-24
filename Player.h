@@ -32,16 +32,16 @@ public:
     virtual void pickUpGold(class Gold* gold) = 0;
     virtual void resetFloorEffects();
     virtual void attack(Character* target);
-    virtual void beAttackedBy(Character* enemy);
+    virtual void beAttackedBy(Character* enemy) override;
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);
-    virtual bool isPlayer() const;
+    virtual bool isPlayer() const override;
     virtual std::string getRace() const;
     virtual int getGoldNum() const;
-    virtual int getAtk() const;
-    virtual int getDef() const;
-    virtual int getHP() const;
-    virtual char getSymbol() const;
+    virtual int getAtk() const override;
+    virtual int getDef() const override;
+    virtual int getHP() const override;
+    virtual char getSymbol() const override;
 
     friend class Level; // Allow Level to access private members
     friend class Enemy; // Allow Enemy to access private members
