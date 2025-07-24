@@ -7,6 +7,9 @@ int Character::getAtk() const { return atk; }
 int Character::getDef() const { return def; }
 bool Character::isDead() { return hp <= 0; }
 bool Character::isPlayer() const { return false; }
+char Character::getSymbol() const {
+    
+}
 
 std::pair<int, int> Character::getPosition() const { return {row, col}; }
 void Character::setPosition(int r, int c) { row = r; col = c; }
