@@ -49,6 +49,6 @@ int main( int argc, char * argv[] ) {
 		print(v);		
 	} // for
 
-	for ( int i = 0; i < 5; ++i ) cout << (rng() % 10)+1 << endl;
+	for ( int i = 0; i < 5; ++i ) std::cout << (rng() % 10)+1 << std::endl;
 	return 0;
 } // main

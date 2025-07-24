@@ -6,8 +6,8 @@
 
 using namespace std;
 
-Cc3k::Cc3k(std::string mapPath):
-    level(mapPath),
+Cc3k::Cc3k(std::string mapPath, int seed):
+    level(mapPath, seed),
     input(),
     output(),
     isRunning(true) 

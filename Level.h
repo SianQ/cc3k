@@ -30,7 +30,7 @@ private:
     string messageLog;
 
 public:
-    Level(std::string mapPath);
+    Level(std::string mapPath, int seed);
     bool setPlayer(unique_ptr<Player> player);
     void setEnemies(vector<unique_ptr<Enemy>> enemies);
     void setItems(vector<unique_ptr<Item>> items);

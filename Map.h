@@ -13,7 +13,7 @@ private:
     int height;
     std::vector<Tile> grid;
 public:
-    Map(int width, int height);
+    Map(std::string mapPath, int seed);
     int getWidth() const;
     int getHeight() const;
     Tile& getTile(int x, int y) const;
