@@ -23,7 +23,7 @@ void displayStartScreen() {
 string chooseRace() {
     cout << "Choose Player Race:" << endl;
     for (size_t i = 0; i < Player::RaceNames.size(); ++i) {
-        cout << i + 1 << ". " << Player::RaceNames[i] << endl;
+        cout << Player::RaceNames[i].substr(0, 1) << ": " << Player::RaceNames[i] << endl;
     }
     cout << "> ";
     size_t choice = 1;

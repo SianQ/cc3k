@@ -39,7 +39,7 @@ public:
     void clearLog();
 
     // Player logic
-    void playerMove(Direction dir);
+    void playerMove(Direction dir);   
     void playerAttack(Direction dir);
     void playerPotion(Direction dir);
 
