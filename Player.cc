@@ -5,9 +5,6 @@
 #include "Goblin.h"
 
 std::string Player::getRace() const { return race; }
-int Player::getAtk() const { return atk; }
-int Player::getDef() const { return def; }
-int Player::getHP() const { return hp; }
 int Player::getGoldNum() const { return gold; }
 char Player::getSymbol() const {
     if (race == "Dwarf") return 'D';

@@ -28,15 +28,15 @@ public:
     static std::unique_ptr<Player> create(const std::string& race);
     virtual ~Player() = default;
 
-    virtual void usePotion(class Potion* potion) = 0;
-    virtual void pickUpGold(class Gold* gold) = 0;
+    void usePotion(class Potion* potion);
+    void pickUpGold(class Gold* gold);
     virtual void resetFloorEffects();
-    virtual void attack(Character* target);
+    virtual void attack(Character* target) override;
     virtual void beAttackedBy(Character* enemy) override;
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);
     virtual bool isPlayer() const override;
-    virtual std::string getRace() const;
+    virtual std::string getRace() const override;
     virtual int getGoldNum() const;
     virtual char getSymbol() const override;
 
