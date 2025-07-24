@@ -19,11 +19,11 @@ protected:
     std::string race;
 
 public:
-    Enemy(int hp, int atk, int def,
-          int row, int col,
+    Enemy(int hp, int atk, int def,          
           const std::string& typeSymbol,
           bool hostile = true,
-          bool isDragon = false);
+          bool isDragon = false,
+          int row = 0, int col = 0);
     virtual ~Enemy() = default;
 
     // One turn of behavior: either attack or move
