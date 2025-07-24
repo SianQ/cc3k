@@ -6,7 +6,6 @@
 using namespace std;
 
 void Level::generateEnemies(unsigned seed) {
-    // Reseed our RNG so that generation is reproducible
     rng.seed(seed);
 
     // Roll a 1..18 “d18” to pick each non‐dragon enemy by weight:
@@ -16,11 +15,11 @@ void Level::generateEnemies(unsigned seed) {
     //  13–14 = Elf (2)
     //  15–16 = Orc (2)
     //  17–18 = Merchant (2)
-    std::uniform_int_distribution<int> roll(1, 18);
+    uniform_int_distribution<int> roll(1, 18);
 
     for (int i = 0; i < 20; ++i) {
         int r = roll(rng);
-        std::unique_ptr<Character> e;
+        unique_ptr<Character> e;
 
         if      (r <=  4) e = make_unique<Human>();
         else if (r <=  7) e = make_unique<Dwarf>();
@@ -29,12 +28,33 @@ void Level::generateEnemies(unsigned seed) {
         else if (r <= 16) e = make_unique<Orc>();
         else              e = make_unique<Merchant>();
 
-        enemies.push_back(std::move(e));
+        enemies.push_back(move(e));
     }
 
     // Always include one Dragon
-    enemies.push_back(std::make_unique<Dragon>());
+    enemies.push_back(make_unique<Dragon>());
 }
+
+vector<Tile*> Level::samplePassableTiles(size_t N) {
+    vector<Tile*> tiles;
+    int W = map.getWidth(), H = map.getHeight();
+    tiles.reserve(W * H);
+    for (int y = 0; y < H; ++y) {
+        for (int x = 0; x < W; ++x) {
+            Tile & t = map.getTile(x,y);
+            if (t.isPassable()) tiles.push_back(&t);
+        }
+    }
+
+    if (N > tiles.size()) {
+        throw runtime_error("Not enough passable tiles");
+    }
+
+    shuffle(tiles.begin(), tiles.end(), rng);
+    tiles.resize(N);
+    return tiles;
+}
+
 void get_xy(Direction dir, int& x, int& y) {
     switch (dir) {
         case Direction::North:

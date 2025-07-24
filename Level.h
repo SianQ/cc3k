@@ -51,6 +51,7 @@ public:
     void clearLog();
     void appendMessage(const std::string& message);
     void generateEnemies(unsigned seed);
+    vector<Tile*> samplePassableTiles(size_t N);
 
 
     // Player logic
