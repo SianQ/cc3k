@@ -4,5 +4,6 @@ class Vampire : public Player {
 public:
     Vampire();
     ~Vampire() override;
+    
 };
 

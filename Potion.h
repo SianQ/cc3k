@@ -10,13 +10,22 @@ class Character;
 /**
  * Enumeration of potion types
  */
-enum class PotionType { RH, BA, BD, PH, WA, WD };
+enum class PotionType
+{
+    RH,
+    BA,
+    BD,
+    PH,
+    WA,
+    WD
+};
 
 /**
  * Potion: applying use() applies an effect to the consumer
  * and marks the potion as discovered.
  */
-class Potion : public Item {
+class Potion : public Item
+{
 public:
     Potion(PotionType t);
 
@@ -27,12 +36,17 @@ public:
     // otherwise returns "Unknown Potion"
     std::string getName() const override;
 
-    PotionType getType() const;
-    bool       isDiscovered() const;
-    void       markDiscovered();
+    virtual PotionType getType() const;
+    bool isDiscovered() const;
+    void markDiscovered();
 
     // Returns true for temporary effects (BA/BD/WA/WD), false for permanent (RH/PH)
     bool isTemporary() const;
+
+    // Override pure virtual functions from Item
+    bool isGold() override { return false; }
+    bool isPotion() override { return true; }
+    bool isStair() override { return false; }
 
 private:
     std::string type;
