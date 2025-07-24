@@ -36,6 +36,7 @@ public:
     void setEnemies(vector<unique_ptr<Enemy>> enemies);
     void setItems(vector<unique_ptr<Item>> items);
     bool isGameOver();
+    void clearLog();
 
     // Player logic
     void playerMove(Direction dir);
