@@ -15,7 +15,7 @@ protected:
     bool        hostile;   // whether this enemy attacks on sight
     bool        isDragon;  // dragons never move
     std::string type;      // symbol code
-    bool isDead;
+    bool isEnemyDead; 
     std::string race;
 
 public:
