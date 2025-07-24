@@ -1,64 +1,53 @@
-// export module level;
-
-// import Output;
-// import Map;
-
-// import <vector>;
-// import <string>;
-
-// export
-
 #pragma once
+
 #include "Map.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
 #include "Direction.h"
-#include "Level.h"
-#include "Human.h"
-#include "Dwarf.h"
-#include "Halfling.h"
-#include "Elf.h"
-#include "Orc.h"
-#include "Merchant.h"
-#include "Dragon.h"
-
 #include <memory>
 #include <vector>
 #include <string>
 #include <random>
 
-using namespace std;
-
 class Level {
-private:
-    Map map;
-    unique_ptr<Player> player;
-    vector<Enemy*> enemies;
-    bool gameOver;
-    string messageLog;
-    std::default_random_engine rng;
-
 public:
-    Level(std::string mapPath, unsigned seed);
-    bool setPlayer(unique_ptr<Player> player);
-    void setEnemies(vector<unique_ptr<Enemy>> enemies);
-    void setItems(vector<unique_ptr<Item>> items);
-    const Player& getPlayer() const;
-    const Map& getMap() const;
-    const string getMessage() const;
-    bool isGameOver();
+    /// Load terrain from `mapPath` and seed RNG with `seed`
+    Level(const std::string& mapPath, unsigned seed);
+
+    /// Once race is chosen, place the PC and return success
+    bool spawnPlayer(const std::string& race);
+
+    const Player&    getPlayer()  const;
+    const Map&       getMap()     const;
+    const std::string getMessage() const;
+    bool             isGameOver() const;
+
     void clearLog();
     void appendMessage(const std::string& message);
-    void generateEnemies(unsigned seed);
-    vector<Tile*> samplePassableTiles(size_t N);
 
-
-    // Player logic
-    void playerMove(Direction dir);   
+    // Player actions
+    void playerMove(Direction dir);
     void playerAttack(Direction dir);
     void playerPotion(Direction dir);
 
-    // Enemy logic
+    // Enemy turn
     void updateEnemies();
+
+private:
+    Map                                   map;
+    std::unique_ptr<Player>               player;
+    std::vector<std::unique_ptr<Enemy>>   enemyStore;   // owns all Enemy objects
+    std::vector<std::unique_ptr<Item>>    itemStore;    // owns all Item objects
+    bool                                  gameOver;
+    std::string                           messageLog;
+    std::default_random_engine            rng;
+
+    // [0]=PC, [1]=stair, [2..] everything else
+    std::vector<Tile*>                    spawnSpots;
+
+    // helpers for setup
+    void generateEnemies(unsigned seed);
+    std::vector<Tile*> samplePassableTiles(size_t N);
+    void placeNonPlayerObjects();
 };
