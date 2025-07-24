@@ -1,111 +1,130 @@
 #include "Level.h"
+#include "Human.h"
+#include "Dwarf.h"
+#include "Halfling.h"
+#include "Elf.h"
+#include "Orc.h"
+#include "Merchant.h"
+#include "Dragon.h"
+#include "Potion.h"
+#include "Treasure.h"
+#include "Staircase.h"
 
-#include <vector>
-#include <memory>
+#include <algorithm>    // std::shuffle
+#include <stdexcept>    // std::runtime_error
+#include <random>
 
-using namespace std;
+static constexpr int NON_DRAGON_ENEMIES = 20;
+static constexpr int POTION_COUNT       = 10;
+static constexpr int GOLD_COUNT         = 10;
 
-static constexpr int TOTAL_ENEMIES    = 21;  // including Dragon
-static constexpr int POTION_COUNT     = 10;
-static constexpr int TREASURE_COUNT   = 10;
+Level::Level(const std::string& mapPath, unsigned seed)
+  : map(mapPath, seed),
+    rng(seed),
+    gameOver(false)
+{
+    // 1) Build 20 weighted foes + 1 Dragon
+    generateEnemies(seed);
 
-Level::Level(const std::string& mapPath, unsigned seed): map(mapPath, seed), rng(seed) {
-  generateEnemies(seed);
+    // 2) Reserve spots for PC + stair + enemies + potions + gold
+    size_t totalSpots = 1                      // PC
+                      + 1                      // staircase
+                      + 21    // 21 enemies
+                      + 10
+                      + 10;
+    spawnSpots = samplePassableTiles(totalSpots);
 
-    // 2) Compute how many distinct tiles we need:
-    //    1 PC + 1 stair + 21 enemies + 10 potions + 10 treasures
-    size_t total = 1 + 1 + TOTAL_ENEMIES + POTION_COUNT + TREASURE_COUNT;
-
-    // 3) Sample exactly 'total' unique passable tiles
-    auto spots = samplePassableTiles(total);
-    size_t idx = 0;
-
-    // 4) Place the PC
-    {
-        Tile* t = spots[idx++];
-        player = Player::create(chosenRace);
-        t->setCharacter(pc.get());
-    }
-
-    // 5) Place the staircase
-    {
-        Tile* t = spots[idx++];
-        staircase = std::make_unique<Staircase>();
-        t->setItem(staircase.get());
-    }
-
-    // 6) Place all enemies
-    for (int i = 0; i < TOTAL_ENEMIES; ++i) {
-        Tile* t = spots[idx++];
-        t->setCharacter(enemies[i].get());
-    }
-
-    // 7) Place potions
-    for (int i = 0; i < POTION_COUNT; ++i) {
-        Tile* t = spots[idx++];
-        auto p = std::make_unique<Potion>();
-        t->setItem(p.get());
-        potions.push_back(std::move(p));
-    }
-
-    // 8) Place treasures
-    for (int i = 0; i < TREASURE_COUNT; ++i) {
-        Tile* t = spots[idx++];
-        auto g = std::make_unique<Treasure>();
-        t->setItem(g.get());
-        treasures.push_back(std::move(g));
-    }
+    // 3) Place everything except the PC
+    placeNonPlayerObjects();
 }
-
 
 void Level::generateEnemies(unsigned seed) {
     rng.seed(seed);
+    std::uniform_int_distribution<int> roll(1, 18);
 
-    // Roll a 1..18 “d18” to pick each non‐dragon enemy by weight:
-    //  1–4   = Human (4)
-    //  5–7   = Dwarf (3)
-    //  8–12  = Halfling (5)
-    //  13–14 = Elf (2)
-    //  15–16 = Orc (2)
-    //  17–18 = Merchant (2)
-    uniform_int_distribution<int> roll(1, 18);
+    enemyStore.clear();
+    enemyStore.reserve(NON_DRAGON_ENEMIES + 1);
 
-    for (int i = 0; i < 20; ++i) {
+    // 20 non‑dragon foes
+    for (int i = 0; i < NON_DRAGON_ENEMIES; ++i) {
         int r = roll(rng);
-        unique_ptr<Character> e;
-
-        if      (r <=  4) e = make_unique<Human>();
-        else if (r <=  7) e = make_unique<Dwarf>();
-        else if (r <= 12) e = make_unique<Halfling>();
-        else if (r <= 14) e = make_unique<Elf>();
-        else if (r <= 16) e = make_unique<Orc>();
-        else              e = make_unique<Merchant>();
-
-        enemies.push_back(std::move(e));
+        if      (r <=  4) enemyStore.push_back(std::make_unique<Human>());
+        else if (r <=  7) enemyStore.push_back(std::make_unique<Dwarf>());
+        else if (r <= 12) enemyStore.push_back(std::make_unique<Halfling>());
+        else if (r <= 14) enemyStore.push_back(std::make_unique<Elf>());
+        else if (r <= 16) enemyStore.push_back(std::make_unique<Orc>());
+        else              enemyStore.push_back(std::make_unique<Merchant>());
     }
-
-    // Always include one Dragon
-    enemies.push_back(make_unique<Dragon>());
+    // +1 Dragon
+    enemyStore.push_back(std::make_unique<Dragon>());
 }
 
-vector<Tile*> Level::samplePassableTiles(size_t N) {
-    vector<Tile*> tiles;
+std::vector<Tile*> Level::samplePassableTiles(size_t N) {
+    std::vector<Tile*> tiles;
     int W = map.getWidth(), H = map.getHeight();
     tiles.reserve(W * H);
+
     for (int y = 0; y < H; ++y) {
         for (int x = 0; x < W; ++x) {
-            Tile & t = map.getTile(x,y);
-            if (t.isPassable()) tiles.push_back(&t);
+            Tile& t = map.getTile(x,y);
+            if (t.isPassable() &&
+                t.getCharacter() == nullptr &&
+                t.getItem()      == nullptr) {
+                tiles.push_back(&t);
+            }
         }
     }
 
-    if (N > tiles.size()) {
-        throw runtime_error("Not enough passable tiles");
-    }
+    if (N > tiles.size())
+        throw std::runtime_error("Not enough passable tiles");
 
-    shuffle(tiles.begin(), tiles.end(), rng);
+    std::shuffle(tiles.begin(), tiles.end(), rng);
     tiles.resize(N);
     return tiles;
+}
+
+void Level::placeNonPlayerObjects() {
+    size_t idx = 1;  // [0] reserved for PC
+
+    // 1) Staircase
+    {
+        Tile* t = spawnSpots[idx++];
+        auto stair = std::make_unique<Stair>();
+        t->setItem(stair.get());
+        itemStore.push_back(std::move(stair));
+    }
+
+    // 2) Enemies
+    for (auto& uptr : enemyStore) {
+        Tile* t = spawnSpots[idx++];
+        t->setCharacter(uptr.get());
+    }
+
+    // 3) Potions
+    for (int i = 0; i < POTION_COUNT; ++i) {
+        Tile* t = spawnSpots[idx++];
+        auto p = std::make_unique<Potion>();
+        t->setItem(p.get());
+        itemStore.push_back(std::move(p));
+    }
+
+    // 4) Gold (Treasure)
+    for (int i = 0; i < GOLD_COUNT; ++i) {
+        Tile* t = spawnSpots[idx++];
+        auto g = std::make_unique<Gold>();
+        t->setItem(g.get());
+        itemStore.push_back(std::move(g));
+    }
+}
+
+bool Level::spawnPlayer(const std::string& race) {
+    auto p = Player::create(race);
+    if (!p) return false;
+
+    Tile* t = spawnSpots[0];  // reserved PC spot
+    t->setCharacter(p.get());
+    player = std::move(p);
+    return true;
 }
 
 void get_xy(Direction dir, int& x, int& y) {
@@ -156,7 +175,7 @@ void Level::playerMove(Direction dir) {
 void Level::playerAttack(Direction dir) {
     int x, y;
     get_xy(dir, x, y);
-    Tile character_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
+    Tile& character_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
         enemy->beAttackedBy(player.get());
@@ -173,5 +192,3 @@ void Level::playerPotion(Direction dir) {
         delete item;
     }
 }
-
-
