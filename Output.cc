@@ -74,7 +74,12 @@ void Output::render(const Level & level) {
         std::cout << '\n';
     }
 
-    cout << "Race"
+    cout << "Race: "   << level.getPlayer().getRace()    << " ";
+    cout << "Gold: "   << level.getPlayer().getGoldNum() << endl;
+    cout << "HP: "     << level.getPlayer().getHp()      << endl;
+    cout << "Atk: "    << level.getPlayer().getAtk()     << endl;
+    cout << "Def: "    << level.getPlayer().getDef()     << endl;
+    cout << "Action: " << level.getMessage()             << endl;
 }
 
 void Output::clearScreen() {
