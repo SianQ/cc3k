@@ -20,7 +20,7 @@ public:
     // If discovered, returns the specific name (e.g. "Restore Health Potion"),
     // otherwise returns "Unknown Potion"
     char getSymbol() const override;
-
+    virtual void use(Character &consumer) override;
     virtual PotionType getType() const;
 
     // Override pure virtual functions from Item

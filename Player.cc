@@ -22,9 +22,10 @@ void Player::attack(Character* target) {
     target->beAttackedBy(this);  // player always hits
 }
 
-void Player::beAttackedBy(Character* enemy) {
+int Player::beAttackedBy(Character* enemy) {
     int dmg = Character::calculateDamage(enemy->getAtk(), this->getDef());
     this->hp = std::max(0, this->hp - dmg);
+    return dmg;
 }
 
 bool Player::isPlayer() const { return true; }
