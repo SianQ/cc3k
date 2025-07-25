@@ -232,3 +232,18 @@ bool Level::isGameOver() const {
     }
     return false;
 }
+
+bool Level::isAttackSuccess() {
+    static std::bernoulli_distribution coin(0.5);
+    return coin(rng);
+}
+
+Direction Level::randomDir() {
+    int r = static_cast<int>(rng() % 4);
+    switch (r) {
+      case 0: return Direction::North;
+      case 1: return Direction::South;
+      case 2: return Direction::East;
+      default: return Direction::West;
+    }
+}

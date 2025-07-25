@@ -37,6 +37,7 @@ public:
     bool spawnPlayer(const std::string& race);
 
     bool isAttackSuccess();
+    Direction randomDir();
 
     const Player&     getPlayer()  const;
     const Map&        getMap()     const;
