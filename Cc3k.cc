@@ -20,19 +20,35 @@ void displayStartScreen() {
     getline(cin, temp);
 }
 
-string chooseRace() {
-    cout << "Choose Player Race:" << endl;
-    for (size_t i = 0; i < Player::RaceNames.size(); ++i) {
-        cout << Player::RaceNames[i].substr(0, 1) << ": " << Player::RaceNames[i] << endl;
+std::string chooseRace() {
+    std::string line;
+    while (true) {
+        std::cout
+            << "Choose your race (or q to quit):\n"
+               "  (s)hade   (d)row   (v)ampire   (g)oblin   (t)roll   (q)uit\n"
+               "Enter s, d, v, g, t, or q: ";
+        if (!std::getline(std::cin, line)) {
+            // EOF or error: exit
+            std::exit(0);
+        }
+        if (line.empty()) {
+            std::cout << "No input given. Please try again.\n";
+            continue;
+        }
+        char c = std::tolower(line[0]);
+        switch (c) {
+            case 's': return "Shade";
+            case 'd': return "Drow";
+            case 'v': return "Vampire";
+            case 'g': return "Goblin";
+            case 't': return "Troll";
+            case 'q': std::exit(0);
+            default:
+                std::cout 
+                    << "Invalid choice '" << line[0] 
+                    << "'. Please enter s, d, v, g, t, or q.\n";
+        }
     }
-    cout << "> ";
-    size_t choice = 1;
-    cin >> choice;
-    if (choice < 1 || choice > Player::RaceNames.size()) {
-        return chooseRace();
-    }
-    cout << "Your race is: " << Player::RaceNames[choice] << endl;
-    return Player::RaceNames[choice];
 }
 
 void Cc3k::run() {
