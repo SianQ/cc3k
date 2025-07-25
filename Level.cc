@@ -208,19 +208,19 @@ void get_xy(Direction dir, int& x, int& y) {
             break;  
         case Direction::NorthEast:
             x = 1;
-            y = 1;
+            y = -1;
             break;
         case Direction::NorthWest:
             x = -1; 
-            y = 1;
+            y = -1;
             break;
         case Direction::SouthEast:
             x = 1;
-            y = -1;
+            y = 1;
             break;
         case Direction::SouthWest:
             x = -1;
-            y = -1;
+            y = 1;
             break;
         default:
             break;
