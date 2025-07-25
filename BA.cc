@@ -1,8 +1,12 @@
 #pragma once
 #include "BA.h"
 
-BoostAtkDecorator::BoostAtkDecorator(std::shared_ptr<Character> base, int amount)
-    : CharacterDecorator(base), boost(amount) {}
+BoostAtkDecorator::BoostAtkDecorator(std::shared_ptr<Character> base, int amount = 5)
+    : CharacterDecorator(base), boost(amount) {
+        if (base->getRace() == "D") {
+            boost = boost * 1.5;
+        }
+    }
 
 int BoostAtkDecorator::getAtk() const {
     return base->getAtk() + boost;
