@@ -55,12 +55,12 @@ std::string chooseRace() {
 }
 
 void Cc3k::run() {
-    output.clearScreen();
+    // output.clearScreen();
     displayStartScreen();
-    output.clearScreen();
+    // output.clearScreen();
 
     string playerRace = chooseRace();
-    output.clearScreen();
+    // output.clearScreen();
     level.spawnPlayer(playerRace);
 
     output.render(level);
