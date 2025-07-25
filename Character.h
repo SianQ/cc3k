@@ -37,7 +37,7 @@ public:
     virtual void takeDamage(int damage);
     virtual bool isDead();
     virtual void attack(Character* target);
-    virtual void beAttackedBy(Character* attacker);
+    virtual int beAttackedBy(Character* attacker);
     static int calculateDamage(int atk, int def);
 
 };
