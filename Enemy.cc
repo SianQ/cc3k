@@ -23,10 +23,6 @@ void Enemy::setHostile(bool h) {
     hostile = h;
 }
 
-bool Enemy::dragon() const {
-    return isDragon;
-}
-
 char Enemy::getSymbol() const {
     return type[0];
 }

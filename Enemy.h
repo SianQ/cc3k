@@ -13,7 +13,6 @@ protected:
     bool        hostile;   // whether this enemy attacks on sight
     bool        isDragon;  // dragons never move
     std::string type;      // symbol code
-    bool isEnemyDead; 
     std::string race;
 
 public:
@@ -36,7 +35,6 @@ public:
 
     bool isHostile() const;
     void setHostile(bool h);
-    bool dragon() const;
     virtual char getSymbol() const override;  
     virtual std::string getRace() const override;
 };
