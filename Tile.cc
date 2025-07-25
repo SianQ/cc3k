@@ -52,7 +52,8 @@ void Tile::setY(int y) {
 bool Tile::isPassable() const {
     bool walkableTerrain = 
         terrain == TerrainType::Floor ||
-        terrain == TerrainType::Passage;
+        terrain == TerrainType::Passage ||
+        terrain == TerrainType::Door;
     bool emptyOfCharacters = (getCharacter() == nullptr);
 
     return walkableTerrain && emptyOfCharacters;
