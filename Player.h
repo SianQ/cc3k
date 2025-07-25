@@ -37,6 +37,7 @@ public:
     virtual std::string getRace() const override;
     virtual int getGoldNum() const;
     virtual char getSymbol() const override;
+    virtual void resetFloorEffects();
 
     friend class Level; // Allow Level to access private members
     friend class Enemy; // Allow Enemy to access private members

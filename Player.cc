@@ -38,3 +38,7 @@ std::unique_ptr<Player> Player::create(const std::string& race) {
     if (key == "s" || key == "S") return std::make_unique<Shade>();
     return nullptr;
 }
+
+void Player::resetFloorEffects() {
+    
+}

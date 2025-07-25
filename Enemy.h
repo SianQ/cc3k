@@ -20,7 +20,7 @@ public:
           const std::string& typeSymbol,
           bool hostile = true,
           bool isDragon = false,
-          int row = -1, int col = -1);
+          int x = -1, int y = -1);
     virtual ~Enemy() = default;
 
     // One turn of behavior: either attack or move

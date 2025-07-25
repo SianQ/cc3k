@@ -13,7 +13,7 @@ Dragon::Dragon()
 void Dragon::act(Map &map, Player &pc, Level &level) {
     if (this->isDead()) {
         // Clear the tile and drop loot when dead
-        map.clearTile(row, col);
+        map.clearTile(x, y);
         dropLoot(level, map);
         return;
     }
@@ -23,8 +23,8 @@ void Dragon::act(Map &map, Player &pc, Level &level) {
     
     // Check if player is adjacent to dragon
     for (int i = 0; i < 4; ++i) {
-        int nr = row + directions[i][0];
-        int nc = col + directions[i][1];
+        int nr = x + directions[i][0];
+        int nc = y + directions[i][1];
         if (!map.isPassible(nr,nc)) continue;
         if (map.getTile(nr,nc).getCharacter() != nullptr && 
             map.getTile(nr,nc).getCharacter()->isPlayer()) {
@@ -35,12 +35,12 @@ void Dragon::act(Map &map, Player &pc, Level &level) {
     
     // Check if player is adjacent to any guarded gold (dragon's hoard)
     auto playerPos = pc.getPosition();
-    int playerRow = playerPos.first;
-    int playerCol = playerPos.second;
+    int playerx = playerPos.first;
+    int playery = playerPos.second;
     
     for (int i = 0; i < 4; ++i) {
-        int nr = playerRow + directions[i][0];
-        int nc = playerCol + directions[i][1];
+        int nr = playerx + directions[i][0];
+        int nc = playery + directions[i][1];
         if (map.isPassible(nr,nc)) continue;
         
         // Check if this tile has a guarded gold item

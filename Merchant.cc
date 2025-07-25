@@ -13,7 +13,7 @@ Merchant::Merchant()
 void Merchant::act(Map& map, Player& pc, Level& level) {
     if (this->isDead()) {
         // Clear the tile and drop loot when dead
-        map.clearTile(row, col);
+        map.clearTile(x, y);
         dropLoot(level, map);
         return;
     }
@@ -21,7 +21,7 @@ void Merchant::act(Map& map, Player& pc, Level& level) {
     // Only act hostilely if hostileAll is true (after any merchant has been attacked)
     if (hostileAll) {
         // Check if the player is adjacent, if so, attack if isAttackSuccess is true
-        if (std::abs(pc.getPosition().first - row) + std::abs(pc.getPosition().second - col) == 1) {
+        if (std::abs(pc.getPosition().first - x) + std::abs(pc.getPosition().second - y) == 1) {
             attack(pc, level.isAttackSuccess(), level);
             return; // Don't move after attacking
         }
@@ -42,11 +42,11 @@ void Merchant::act(Map& map, Player& pc, Level& level) {
     for (int tries = 0; tries < 4; ++tries) {
         Direction dir = level.randomDir();
         auto [dr, dc] = dirToDelta(dir);
-        int nr = row + dr, nc = col + dc;
+        int nr = x + dr, nc = y + dc;
         if (map.isPassible(nr, nc)) { 
-            map.moveCharacter(row, col, nr, nc);
-            row = nr;
-            col = nc;
+            map.moveCharacter(x, y, nr, nc);
+            x = nr;
+            y = nc;
             break;
         }
     }
@@ -63,7 +63,7 @@ void Merchant::attack(Player& pc, bool isAttackSuccessful, Level& level) {
 }
 
 void Merchant::dropLoot(Level& level, Map& map) const {
-    level.placeGold(2, map.getTile(row, col));
+    level.placeGold(2, map.getTile(x, y));
 }
 
 int Merchant::beAttackedBy(Character* attacker) {
