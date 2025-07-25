@@ -2,7 +2,7 @@
 #pragma once
 
 #include <string>
-#include "Potion.h"
+#include "PotionType.h"
 
 // Forward declaration
 class Character;

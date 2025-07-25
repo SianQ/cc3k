@@ -3,7 +3,6 @@
 
 #include <string>
 #include "Item.h"
-#include "PotionType.h"
 
 // Forward declaration
 class Character;
@@ -21,7 +20,7 @@ public:
     // otherwise returns "Unknown Potion"
     char getSymbol() const override;
     virtual void use(Character &consumer) override;
-    virtual PotionType getType() const;
+    virtual PotionType getType() const override;
 
     // Override pure virtual functions from Item
     bool isGold() override { return false; }
