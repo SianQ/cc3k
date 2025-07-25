@@ -98,20 +98,36 @@ void Level::placeNonPlayerObjects() {
     for (auto& uptr : enemyStore) {
         Tile* t = spawnSpots[idx++];
         t->setCharacter(uptr.get());
+        if (dynamic_cast<Dragon*>(uptr.get())) {
+            auto dragon_hoard = std::make_unique<Gold>(4, true);
+            t->setItem(dragon_hoard.get());
+            itemStore.push_back(std::move(dragon_hoard));
+        }
     }
 
     // 3) Potions
+    std::uniform_int_distribution<int> potionDist(0,static_cast<int>(PotionType::WD));
+
     for (int i = 0; i < POTION_COUNT; ++i) {
         Tile* t = spawnSpots[idx++];
-        auto p = std::make_unique<Potion>();
+
+        // pick a random PotionType
+        PotionType type = static_cast<PotionType>(potionDist(rng));
+        auto p = std::make_unique<Potion>(type);
+
         t->setItem(p.get());
         itemStore.push_back(std::move(p));
     }
 
     // 4) Gold (Treasure)
+    std::uniform_int_distribution<int> goldDist(1, 2);
+
     for (int i = 0; i < GOLD_COUNT; ++i) {
         Tile* t = spawnSpots[idx++];
-        auto g = std::make_unique<Gold>();
+
+        int amt = goldDist(rng);
+        auto g = std::make_unique<Gold>(amt, false);
+
         t->setItem(g.get());
         itemStore.push_back(std::move(g));
     }
@@ -121,7 +137,7 @@ bool Level::spawnPlayer(const std::string& race) {
     auto p = Player::create(race);
     if (!p) return false;
 
-    Tile* t = spawnSpots[0];  // reserved PC spot
+    Tile* t = spawnSpots[0];  // reserved player spot
     t->setCharacter(p.get());
     player = std::move(p);
     return true;
