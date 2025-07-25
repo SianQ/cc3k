@@ -104,3 +104,6 @@ void Map::clearTile(int x, int y) {
     t.setItem(nullptr);
 }
 
+bool Map::inBounds(int x, int y) const {
+    return x >= 0 && y >= 0 && x < height && y < width;
+}
