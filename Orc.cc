@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include <cmath>
 
-Orc::Orc(int row, int col)
-  : Enemy(180,30,25,row,col,"O",true,false) {}
+Orc::Orc()
+  : Enemy(180,30,25,"O",true,false) {}
 
 void Orc::act(Map& map, Player& pc) {
     for(int dr=-1; dr<=1; ++dr) {

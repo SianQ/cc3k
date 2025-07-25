@@ -8,7 +8,7 @@
  */
 class Merchant : public Enemy {
 public:
-    Merchant(int row, int col);
+    Merchant();
 
     void act(Map& map, Player& pc) override;
     void attack(Player& pc) override;

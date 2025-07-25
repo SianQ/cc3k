@@ -7,7 +7,7 @@
  */
 class Human : public Enemy {
 public:
-    Human(int row, int col);
+    Human();
 
     void act(Map& map, Player& pc) override;
     void attack(Player& pc) override;

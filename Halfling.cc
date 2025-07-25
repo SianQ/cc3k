@@ -2,8 +2,8 @@
 #include "Gold.h"
 #include <cstdlib>
 
-Halfling::Halfling(int row, int col)
-  : Enemy(100,15,20,row,col,"L",true,false) {}
+Halfling::Halfling()
+  : Enemy(100,15,20,"L",true,false) {}
 
 void Halfling::act(Map& map, Player& pc) {
     for(int dr=-1; dr<=1; ++dr) {

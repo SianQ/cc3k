@@ -2,8 +2,8 @@
 #include "Gold.h"
 #include <cstdlib>
 
-Dwarf::Dwarf(int row, int col)
-  : Enemy(100,20,30,row,col,"W",true,false) {}
+Dwarf::Dwarf()
+  : Enemy(100,20,30,"W",true,false) {}
 
 void Dwarf::act(Map& map, Player& pc) {
     for(int dr=-1; dr<=1; ++dr) {
