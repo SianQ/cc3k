@@ -28,8 +28,10 @@ void Merchant::dropLoot(Level& level, Map& map) const {
 }
 
 int Merchant::beAttackedBy(Character* attacker) {
-    // When any merchant is attacked, all merchants become hostile
-    hostileAll = true;
+    // When any merchant is attacked by player, all merchants become hostile
+    if (attacker && attacker->isPlayer()) {
+        hostileAll = true;
+    }
     
     // Call parent's beAttackedBy to handle damage
     return Enemy::beAttackedBy(attacker);

@@ -12,7 +12,7 @@ Enemy::Enemy(int hp_, int atk_, int def_,
              const std::string& typeSymbol,
              bool hostile_, bool isDragon_,
              int x, int y)
-  : Character(hp_, atk_, def_, x, y), // maxHP is not used in this context
+  : Character(hp_, atk_, def_, x, y, hp_), // Pass hp_ as maxHP
     hostile(hostile_), isDragon(isDragon_), type(typeSymbol) {}
 
 bool Enemy::isHostile() const {
