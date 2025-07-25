@@ -9,14 +9,25 @@
 ///   • call act(map,*player)
 ///   • if the player died, set gameOver, append a message, and stop.
 void Level::updateEnemies() {
-    // Loop in spawn order
-    for (auto& up : enemyStore) {
-        Enemy* e = up.get();
-        if (!e) continue;
-        if (e->isDead()) continue; 
-
-        // Let this enemy act (move or attack)
+    // Loop in spawn order, removing dead enemies after they clean up
+    for (auto it = enemyStore.begin(); it != enemyStore.end(); ) {
+        Enemy* e = it->get();
+        if (!e) {
+            ++it;
+            continue;
+        }
+        
+        bool wasAlive = !e->isDead();
+        
+        // Let this enemy act (it will handle its own death cleanup if needed)
         e->act(map, *player, *this);
+
+        // If the enemy was dead or just died, remove it from the store
+        if (!wasAlive || e->isDead()) {
+            it = enemyStore.erase(it);
+        } else {
+            ++it;
+        }
 
         // If the PC died during that action, end the game
         if (player->isDead()) {
