@@ -2,15 +2,11 @@
 
 #include "Character.h"
 #include <string>
-#include <vector>
-#include "Map.h"
-#include "Player.h"
-#include "Level.h"
 
-/**
- * Abstract base class for all enemies.
- * typeSymbol: one‐letter code (H, W, E, O, M, D, L).
- */
+class Map;
+class Player;
+class Level;
+
 class Enemy : public Character {
 protected:
     bool        hostile;   // whether this enemy attacks on sight
