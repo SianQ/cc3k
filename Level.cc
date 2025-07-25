@@ -18,10 +18,10 @@ static constexpr int NON_DRAGON_ENEMIES = 20;
 static constexpr int POTION_COUNT       = 10;
 static constexpr int GOLD_COUNT         = 10;
 
-Level::Level(const std::string& mapPath, unsigned seed)
-  : map(mapPath, seed),
-    rng(seed),
-    gameOver(false)
+Level::Level(const std::string& mapPath, unsigned seed): 
+    map(mapPath, seed),
+    gameOver(false),
+    rng(seed)
 {
     // 1) Build 20 weighted foes + 1 Dragon
     generateEnemies(seed);
@@ -98,10 +98,16 @@ void Level::placeNonPlayerObjects() {
     for (auto& uptr : enemyStore) {
         Tile* t = spawnSpots[idx++];
         t->setCharacter(uptr.get());
-        if (dynamic_cast<Dragon*>(uptr.get())) {
-            auto dragon_hoard = std::make_unique<Gold>(4, true);
-            t->setItem(dragon_hoard.get());
-            itemStore.push_back(std::move(dragon_hoard));
+
+        if (auto dr = dynamic_cast<Dragon*>(uptr.get())) {
+            // create a 4‑gold pile, owned by itemStore
+            auto g = std::make_unique<Gold>(4, /*isHoard=*/true);
+            Gold* gp = g.get();
+            t->setItem(gp);
+            itemStore.push_back(std::move(g));
+
+            // tell the dragon where its hoard lives
+            dr->setHoard(t);
         }
     }
 
@@ -122,7 +128,7 @@ void Level::placeNonPlayerObjects() {
     // 4) Gold (Treasure)
     std::uniform_int_distribution<int> goldDist(1, 2);
 
-    for (int i = 0; i < GOLD_COUNT; ++i) {
+    for (int i = 1; i < GOLD_COUNT; ++i) {
         Tile* t = spawnSpots[idx++];
 
         int amt = goldDist(rng);
