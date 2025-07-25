@@ -41,6 +41,6 @@ void Merchant::attack(Player& pc) {
     pc.beAttackedBy(this);
 }
 
-std::vector<Item*> Merchant::dropLoot() const {
-    return { new Gold(4,false) };
+void Merchant::dropLoot(Level& level, Map& map) const {
+    level.placeGold(4, map.getTile(row, col));
 }

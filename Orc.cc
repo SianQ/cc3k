@@ -42,6 +42,6 @@ void Orc::attack(Player& pc) {
     pc.takeDamage(dmg); 
 }
 
-std::vector<Item*> Orc::dropLoot() const {
-    return { new Gold(2,false) };
+void Orc::dropLoot(Level& level, Map& map) const {
+    level.placeGold(2, map.getTile(row, col));
 }
