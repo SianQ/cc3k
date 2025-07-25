@@ -31,6 +31,8 @@ Map::Map(std::string mapPath, int seed): width(0), height(0) {
         for (int x = 0; x < width; ++x) {
             Tile tile;
             char c = row[x];
+            tile.setX(x);
+            tile.setY(y);
 
             // 4) Map characters to TerrainType
             switch (c) {
