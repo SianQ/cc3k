@@ -2,14 +2,15 @@
 #include "Level.h"         
 #include "Stair.h"     
 #include "Gold.h"          
-#include "Potion.h"        
+#include "Potion.h"
+#include "Dragon.h"      
 
 #include <algorithm>       
 #include <stdexcept>       
 #include <random>          
 #include <utility>         
 #include <cstdlib>     
-    
+
 static constexpr int NON_DRAGON_ENEMIES = 20;
 static constexpr int POTION_COUNT       = 10;
 static constexpr int GOLD_COUNT         = 10;
@@ -103,8 +104,7 @@ void Level::placeNonPlayerObjects() {
             itemStore.push_back(std::move(g));
 
             // tell the dragon where its hoard lives
-            dr->setHoard(t);
-        }
+            static_cast<Dragon*>(dr)->setHoard(t);        }
     }
 
     // 3) Potions

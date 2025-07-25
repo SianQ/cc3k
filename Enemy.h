@@ -3,9 +3,9 @@
 #include "Character.h"
 #include <string>
 
-class Map;
-class Player;
-class Level;
+#include "Map.h" 
+#include "Player.h" 
+#include "Level.h" 
 
 class Enemy : public Character {
 protected:
