@@ -22,5 +22,5 @@ public:
 
     // Returns the item name for display
     virtual char getSymbol() const = 0;
-
+    virtual std::string getName() const;
 };

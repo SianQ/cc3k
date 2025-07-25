@@ -234,7 +234,7 @@ void Level::playerPotion(Direction dir) {
     if (item->isPotion()) {
         item->use(*player);
         delete item;
-        messageLog = "Player uses " + item->getType() + ".";
+        messageLog = "Player uses " + item->getName() + ".";
     }
 }
 

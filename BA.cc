@@ -15,3 +15,7 @@ int BoostAtkDecorator::getAtk() const {
 PotionType BoostAtkDecorator::getType() const {
     return PotionType::BA;
 }  
+
+std::string BoostAtkDecorator::getName() const {
+    return "BA";
+}

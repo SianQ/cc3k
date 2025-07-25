@@ -15,4 +15,5 @@ public:
     virtual int getDef() const;
     virtual int getHP() const;
     virtual PotionType getType() const;
+    virtual std::string getName() const;
 };

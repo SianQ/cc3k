@@ -5,4 +5,5 @@ class RestoreHealthPotion : public Potion {
 public:
     void use(Character& target) override;
     PotionType getType() const override;
+    std::string getName() const override;
 };
