@@ -18,6 +18,8 @@ void Merchant::attack(Player& pc, bool isAttackSuccessful, Level& level) {
         if (damage > 0) {
             level.appendMessage("M deals " + std::to_string(damage) + " damage to PC.");
         }
+    } else {
+        level.appendMessage("M misses PC.");
     }
 }
 
