@@ -209,6 +209,12 @@ void Level::playerPotion(Direction dir) {
     }
 }
 
+void Level::placeGold(int value, Tile& tile) {
+    auto g = std::make_unique<Gold>(value, false);
+    tile.setItem(g.get());
+    itemStore.push_back(std::move(g));
+}
+
 bool Level::isGameOver() const {
     return gameOver;
 }

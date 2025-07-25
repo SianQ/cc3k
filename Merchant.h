@@ -12,7 +12,7 @@ public:
 
     void act(Map& map, Player& pc) override;
     void attack(Player& pc) override;
-    std::vector<Item*> dropLoot() const override;
+    void dropLoot(Level& level, Map& map) const override;
 
     static bool hostileAll;
 };

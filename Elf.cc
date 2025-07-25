@@ -40,6 +40,6 @@ void Elf::attack(Player& pc) {
     }
 }
 
-std::vector<Item*> Elf::dropLoot() const {
-    return { new Gold(2,false) };
+void Elf::dropLoot(Level& level, Map& map) const {
+    level.placeGold(2, map.getTile(row, col));
 }

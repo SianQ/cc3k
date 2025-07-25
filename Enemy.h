@@ -5,6 +5,7 @@
 #include <vector>
 #include "Map.h"
 #include "Player.h"
+#include "Level.h"
 
 /**
  * Abstract base class for all enemies.
@@ -33,7 +34,7 @@ public:
     virtual void attack(Player& pc) = 0;
 
     // What items this enemy drops when slain
-    virtual std::vector<Item*> dropLoot() const = 0;
+    virtual void dropLoot(Level& level, Map& map) const = 0;
 
     bool isHostile() const;
     void setHostile(bool h);

@@ -24,7 +24,7 @@ void Dragon::attack(Player& pc) {
     pc.beAttackedBy(this);
 }
 
-std::vector<Item*> Dragon::dropLoot() const {
+void Dragon::dropLoot(Level& level, Map& map) const {
     // Hoard is pre-placed; no drop here
-    return {};
+    return;
 }
