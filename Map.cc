@@ -95,6 +95,7 @@ void Map::moveCharacter(int fromX, int fromY, int toX, int toY) {
     src.setCharacter(nullptr);
 
     dst.setCharacter(c);
+    c->setPosition(dst.getX(), dst.getY());
 }
 
 void Map::clearTile(int x, int y) {
