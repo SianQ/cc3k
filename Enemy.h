@@ -31,7 +31,7 @@ public:
     virtual void act(Map& Map, Player& pc) = 0;
 
     // Perform the actual attack on the player
-    virtual void attack(Player& pc) = 0;
+    virtual void attack(char& pc);
 
     // What items this enemy drops when slain
     virtual void dropLoot(Level& level, Map& map) const;
