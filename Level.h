@@ -15,7 +15,7 @@ private:
     std::shared_ptr<Player>               player;
     std::vector<std::unique_ptr<Enemy>>   enemyStore;   // owns all Enemy objects
     std::vector<std::unique_ptr<Item>>    itemStore;    // owns all Item objects
-    bool                                  gameOver;
+    bool                                  gameOver() const;
     std::string                           messageLog;
     std::default_random_engine            rng;
     inline static int levelNum = 1;

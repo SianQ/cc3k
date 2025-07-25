@@ -31,7 +31,6 @@ void Level::updateEnemies() {
 
         // If the PC died during that action, end the game
         if (player->isDead()) {
-            gameOver = true;
             appendMessage("Player has been slain.");
             break;
         }

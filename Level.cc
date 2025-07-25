@@ -36,7 +36,6 @@ static constexpr int GOLD_COUNT         = 10;
 
 Level::Level(const std::string& mapPath, unsigned seed): 
     map(mapPath, seed),
-    gameOver(false),
     rng(seed)
 {
     // 1) Build 20 weighted foes + 1 Dragon
@@ -237,6 +236,15 @@ void Level::playerMove(Direction dir) {
         map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
         if (player->getRace() == "Troll" && player->getHP() < player->getMaxHP()) {
             player->setHP(player->getHP() + 5);
+        }
+    }
+    else if (map.getTile(destX, destY).getItem() != nullptr) {
+        Item* item = map.getTile(destX, destY).getItem();
+        if (item->isGold()) {
+            Gold* gold = static_cast<Gold*>(item);
+            player->pickUpGold(gold);
+            map.clearTile(destX, destY);
+            messageLog = "Player picks up " + std::to_string(gold->getValue()) + " gold.";
         }
     }
     else {
