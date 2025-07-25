@@ -76,5 +76,6 @@ void Cc3k::run() {
             level.spawnPlayer(playerRace);
             output.render(level);       
         }
+        level.clearLog();
     }
 }

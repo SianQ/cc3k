@@ -1,3 +1,4 @@
+#pragma once
 #include "Decorator.h"
 #include "Player.h"
 

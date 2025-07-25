@@ -1,4 +1,5 @@
 // Level.cpp
+#pragma once
 #include "Level.h"         
 #include "Stair.h"     
 #include "Gold.h"          
@@ -296,9 +297,11 @@ void Level::playerPotion(Direction dir) {
                 break;
             case PotionType::PH:
                 messageLog = "Player uses PH.";
+                player = std::make_shared<PHDecorator>(player);
                 break;
             case PotionType::RH:
                 messageLog = "Player uses RH.";
+                player = std::make_shared<RHDecorator>(player);
                 break;
         }
     }

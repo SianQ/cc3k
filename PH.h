@@ -1,3 +1,4 @@
+#pragma once
 #include "Character.h"
 #include "Decorator.h"
 #include <algorithm>

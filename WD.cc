@@ -1,3 +1,4 @@
+#pragma once
 #include "WD.h"
 #include "Player.h"
 
