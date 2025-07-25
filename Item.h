@@ -4,9 +4,6 @@
 #include <string>
 #include "PotionType.h"
 
-// Forward declaration
-class Character;
-
 /**
  * Abstract base class: common interface for all items (gold, potions, etc.)
  */
