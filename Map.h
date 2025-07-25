@@ -19,4 +19,5 @@ public:
     Tile& getTile(int x, int y) const;
     bool isPassible(int x, int y);
     void moveCharacter(int fromX, int fromY, int toX, int toY);
+    void clearTile(int x, int y);
 };

@@ -11,7 +11,12 @@ Merchant::Merchant()
   : Enemy(30,70,5,"M",false,false) {}
 
 void Merchant::act(Map& map, Player& pc, Level& level) {
-    if (this->isDead()) return;
+    if (this->isDead()) {
+        // Clear the tile and drop loot when dead
+        map.clearTile(row, col);
+        dropLoot(level, map);
+        return;
+    }
 
     // Only act hostilely if hostileAll is true (after any merchant has been attacked)
     if (hostileAll) {

@@ -1,3 +1,4 @@
+#pragma once
 #include "Dragon.h"
 #include "Tile.h"
 #include "Map.h"
@@ -10,7 +11,12 @@ Dragon::Dragon()
     : Enemy(150, 20, 20, "D", true, true), hoard(nullptr) {}
 
 void Dragon::act(Map &map, Player &pc, Level &level) {
-    if (this->isDead()) return;
+    if (this->isDead()) {
+        // Clear the tile and drop loot when dead
+        map.clearTile(row, col);
+        dropLoot(level, map);
+        return;
+    }
 
     // Dragons check 4 adjacent cells around themselves first (up, down, left, right only)
     int directions[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}};
