@@ -107,10 +107,11 @@ void Level::placeNonPlayerObjects() {
     for (auto& uptr : enemyStore) {
         Tile* t = spawnSpots[idx++];
         t->setCharacter(uptr.get());
+        uptr->setPosition(t->getX(), t->getY());
 
         if (auto dr = dynamic_cast<Dragon*>(uptr.get())) {
             // create a 4‑gold pile, owned by itemStore
-            auto g = std::make_unique<Gold>(4, /*isHoard=*/true);
+            auto g = std::make_unique<Gold>(4, true);
             Gold* gp = g.get();
             t->setItem(gp);
             itemStore.push_back(std::move(g));
@@ -153,6 +154,9 @@ bool Level::spawnPlayer(const std::string& race) {
 
     Tile* t = spawnSpots[0];  // reserved player spot
     t->setCharacter(p.get());
+    t->setCharacter(p.get());
+    p->setPosition(t->getX(), t->getY());
+
     player = std::move(p);
     messageLog = "Player character has spawned.";
     return true;

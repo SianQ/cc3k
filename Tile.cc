@@ -4,7 +4,9 @@
 Tile::Tile()
   : terrain(TerrainType::Empty),
     character(nullptr),
-    item(nullptr)
+    item(nullptr),
+    x(-1),
+    y(-1)
 {}
 
 Character* Tile::getCharacter() const {
@@ -29,6 +31,22 @@ TerrainType Tile::getTerrain() const {
 
 void Tile::setTerrain(TerrainType t) {
     terrain = t;
+}
+
+int Tile::getX() {
+    return x;
+}
+
+void Tile::setX(int x) {
+    this->x = x;
+}
+
+int Tile::getY() {
+    return y;
+}
+
+void Tile::setY(int y) {
+    this->y = y;
 }
 
 bool Tile::isPassable() const {

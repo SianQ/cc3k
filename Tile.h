@@ -14,6 +14,8 @@ private:
     TerrainType terrain;
     Character* character;
     Item* item;
+    int x;
+    int y;
 
 public:
     Tile();
@@ -26,6 +28,12 @@ public:
 
     TerrainType getTerrain() const;
     void setTerrain(TerrainType terrain);
+
+    int getX();
+    void setX(int x);
+
+    int getY();
+    void setY(int y);
 
     bool isPassable() const;
 };
