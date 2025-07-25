@@ -67,8 +67,6 @@ void Cc3k::run() {
 
     while(!level.isGameOver()) {
         input.applyInput(level);
-        output.render(level);
-
         level.updateEnemies();
         output.render(level);
 
