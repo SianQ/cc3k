@@ -76,7 +76,7 @@ std::vector<Tile*> Level::samplePassableTiles(size_t N) {
     for (int y = 0; y < H; ++y) {
         for (int x = 0; x < W; ++x) {
             Tile& t = map.getTile(x,y);
-            if (t.isPassable() &&
+            if (t.canSpawn() &&
                 t.getCharacter() == nullptr &&
                 t.getItem()      == nullptr) {
                 tiles.push_back(&t);
