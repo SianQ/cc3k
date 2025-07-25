@@ -22,7 +22,7 @@ void Merchant::act(Map& map, Player& pc, Level& level) {
     if (hostileAll) {
         // Check if the player is adjacent, if so, attack if isAttackSuccess is true
         if (std::abs(pc.getPosition().first - row) + std::abs(pc.getPosition().second - col) == 1) {
-            attack(pc, level.isAttackSuccess());
+            attack(pc, level.isAttackSuccess(), level);
             return; // Don't move after attacking
         }
     }
@@ -52,10 +52,13 @@ void Merchant::act(Map& map, Player& pc, Level& level) {
     }
 }
 
-void Merchant::attack(Player& pc, bool isAttackSuccessful) {
+void Merchant::attack(Player& pc, bool isAttackSuccessful, Level& level) {
     if(!hostileAll) return;
     if (isAttackSuccessful) {
-        pc.beAttackedBy(this);
+        int damage = pc.beAttackedBy(this);
+        if (damage > 0) {
+            level.appendMessage("M deals " + std::to_string(damage) + " damage to PC.");
+        }
     }
 }
 
