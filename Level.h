@@ -30,6 +30,7 @@ private:
 
 public:
     /// Load terrain from `mapPath` and seed RNG with `seed`
+    bool                                  isFinished;
     Level(const std::string& mapPath, unsigned seed);
 
     /// Once race is chosen, place the PC and return success

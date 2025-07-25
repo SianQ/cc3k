@@ -186,6 +186,11 @@ void Level::playerMove(Direction dir) {
     int x, y;
     get_xy(dir, x, y);
     player->move(x, y);
+    Tile tile = map.getTile(player->getPosition().first, player->getPosition().second);
+    if (tile.getItem() != nullptr && tile.getItem()->isStair()) {
+        levelNum++;
+        isFinished = true;
+    }
 }
 
 void Level::playerAttack(Direction dir) {
@@ -216,5 +221,8 @@ void Level::placeGold(int value, Tile& tile) {
 }
 
 bool Level::isGameOver() const {
-    return gameOver;
+    if (levelNum == 5 || player->getHP() <= 0) {
+        return true;
+    }
+    return false;
 }

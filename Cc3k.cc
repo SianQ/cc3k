@@ -67,5 +67,8 @@ void Cc3k::run() {
 
         level.updateEnemies();
         output.render(level);
+        if (level.isFinished()) {
+            level = Level(mapPath, seed);
+        }
     }
 }

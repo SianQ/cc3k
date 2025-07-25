@@ -34,7 +34,7 @@ public:
     virtual void attack(Player& pc) = 0;
 
     // What items this enemy drops when slain
-    virtual void dropLoot(Level& level, Map& map) const = 0;
+    virtual void dropLoot(Level& level, Map& map) const;
 
     bool isHostile() const;
     void setHostile(bool h);
