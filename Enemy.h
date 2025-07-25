@@ -28,7 +28,7 @@ public:
     virtual void act(Map& map, Player& pc, Level& level);
 
     // Perform the actual attack on the player
-    virtual void attack(Player& pc, bool isAttackSuccessful);
+    virtual void attack(Player& pc, bool isAttackSuccessful, Level& level);
     int beAttackedBy(Character* attacker) override;
 
     // What items this enemy drops when slain

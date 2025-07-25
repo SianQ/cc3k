@@ -28,7 +28,7 @@ void Dragon::act(Map &map, Player &pc, Level &level) {
         if (!map.isPassible(nr,nc)) continue;
         if (map.getTile(nr,nc).getCharacter() != nullptr && 
             map.getTile(nr,nc).getCharacter()->isPlayer()) {
-            attack(pc, level.isAttackSuccess());
+            attack(pc, level.isAttackSuccess(), level);
             return;
         }
     }
@@ -48,20 +48,13 @@ void Dragon::act(Map &map, Player &pc, Level &level) {
         if (item != nullptr && item->isGold()) {
             Gold* gold = static_cast<Gold*>(item);
             if (gold->isGuarded()) {
-                attack(pc, level.isAttackSuccess());
+                attack(pc, level.isAttackSuccess(), level);
                 return;
             }
         }
     }
     
     // Dragons never move (they are stationary)
-}
-
-void Dragon::attack(Player &pc, bool isAttackSuccessful)
-{
-    if (isAttackSuccessful) {
-        pc.beAttackedBy(this);
-    }
 }
 
 int Dragon::beAttackedBy(Character* attacker) {

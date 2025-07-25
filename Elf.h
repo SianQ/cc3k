@@ -9,5 +9,5 @@
 class Elf : public Enemy {
 public:
     Elf();
-    void attack(Player& pc, bool isAttackSuccessful) override;    
+    void attack(Player& pc, bool isAttackSuccessful, Level& level) override;    
 };
