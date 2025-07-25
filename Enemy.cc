@@ -1,9 +1,14 @@
 #pragma once
-#include "Enemy.h"
-#include "Potion.h"
-#include "Gold.h"
-#include <cstdlib>
-#include "Direction.h"
+
+#include "Enemy.h"     
+#include "Map.h"       
+#include "Player.h"    
+#include "Level.h"     
+#include "Gold.h"      
+#include "Potion.h"    
+#include <cstdlib>     
+#include <utility>     
+
 
 Enemy::Enemy(int hp_, int atk_, int def_,             
              const std::string& typeSymbol,
