@@ -16,10 +16,10 @@ class Character {
 protected:
     int hp, atk, def;
     int row = -1, col = -1;
-    int maxHP;
+    int maxHP = 1;
 
 public:
-    Character(int hp, int atk, int def, int row, int col, int maxHP);
+    Character(int hp, int atk, int def, int row, int col, int maxHP = 1);
     virtual ~Character() = default;
     
     virtual int getAtk() const;
