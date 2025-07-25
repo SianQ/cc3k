@@ -193,6 +193,9 @@ void Level::playerMove(Direction dir) {
     int x, y;
     get_xy(dir, x, y);
     player->move(x, y);
+    if (player->getRace() == "T" && player->getHP() < player->getMaxHP()) {
+        player->setHP(player->getHP() + 5);
+    }
     Tile tile = map.getTile(player->getPosition().first, player->getPosition().second);
     if (tile.getItem() != nullptr && tile.getItem()->isStair()) {
         levelNum++;

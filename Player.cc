@@ -19,7 +19,10 @@ char Player::getSymbol() const {
 }
 
 void Player::attack(Character* target) {
-    target->beAttackedBy(this);  // player always hits
+    target->beAttackedBy(this);
+    if (this->getRace() == "G" && target->isDead()) {
+        this->gold += 5;
+    }
 }
 
 int Player::beAttackedBy(Character* enemy) {
