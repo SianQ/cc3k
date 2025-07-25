@@ -27,8 +27,10 @@ public:
     bool isGold() override { return false; }
     bool isPotion() override { return true; }
     bool isStair() override { return false; }
+    virtual std::string getName() const;
 
 private:
     PotionType type;
+    std::string name;
     // bool discovered = false;
 };

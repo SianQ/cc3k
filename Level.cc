@@ -154,6 +154,7 @@ bool Level::spawnPlayer(const std::string& race) {
     Tile* t = spawnSpots[0];  // reserved player spot
     t->setCharacter(p.get());
     player = std::move(p);
+    messageLog = "Player character has spawned.";
     return true;
 }
 
@@ -212,17 +213,17 @@ void Level::playerMove(Direction dir) {
 
 void Level::playerAttack(Direction dir) {
     int x, y;
+    int damage = 0;
     get_xy(dir, x, y);
     Tile& character_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
-        if (enemy->getRace() == "L" && Level::isAttackSuccess()) {
-            if (player->getRace() == "V") {
-                player->setHP(player->getHP() + 5);
-            } else { enemy->beAttackedBy(player.get()); }
+        if (enemy->getRace() == "L" && Level::isAttackSuccess() && player->getRace() != "V") {
+            player->setHP(player->getHP() + 5);
         }
+        else { damage = enemy->beAttackedBy(player.get()); }
     }
-        
+    messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getRace() + " ( " + std::to_string(enemy->getHP()) + " HP ).";
 }
 
 void Level::playerPotion(Direction dir) {
@@ -233,6 +234,7 @@ void Level::playerPotion(Direction dir) {
     if (item->isPotion()) {
         item->use(*player);
         delete item;
+        messageLog = "Player uses " + item->getType() + ".";
     }
 }
 

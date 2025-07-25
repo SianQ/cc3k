@@ -11,3 +11,7 @@ BoostAtkDecorator::BoostAtkDecorator(std::shared_ptr<Character> base, int amount
 int BoostAtkDecorator::getAtk() const {
     return base->getAtk() + boost;
 }
+
+PotionType BoostAtkDecorator::getType() const {
+    return PotionType::BA;
+}  

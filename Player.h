@@ -32,7 +32,7 @@ public:
     void usePotion(class Potion* potion);
     void pickUpGold(class Gold* gold);
     virtual void resetFloorEffects();
-    virtual void attack(Character* target) override;
+    virtual void attack(Character* target);
     virtual int beAttackedBy(Character* enemy) override;
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);

@@ -1,6 +1,7 @@
 #include "Character.h"
 #include <memory>
 #include <algorithm>
+#include "Potion.h"
 
 class CharacterDecorator : public Character {
 protected:
@@ -13,5 +14,5 @@ public:
     virtual int getAtk() const;
     virtual int getDef() const;
     virtual int getHP() const;
-
+    virtual PotionType getType() const;
 };

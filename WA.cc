@@ -10,3 +10,7 @@ WoundAtkDecorator::WoundAtkDecorator(std::shared_ptr<Character> base, int amount
 int WoundAtkDecorator::getAtk() const {
     return std::max(0, base->getAtk() - penalty);
 }
+
+PotionType WoundAtkDecorator::getType() const {
+    return PotionType::WA;
+}  

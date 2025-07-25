@@ -2,7 +2,6 @@
 #include "EnemyUpdater.h"
 #include "Level.h"
 #include "Enemy.h"
-#include "Map.h"
 #include "Player.h"
 
 /// Drive the entire enemy phase.

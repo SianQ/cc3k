@@ -4,6 +4,6 @@
 Human::Human()
   : Enemy(140,20,20,"H",true,false) {}
 
-void Enemy::dropLoot(Level& level, Map& map) const {
+void Human::dropLoot(Level& level, Map& map) const {
     level.placeGold(2, map.getTile(row, col));
 }
