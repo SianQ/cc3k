@@ -39,11 +39,11 @@ std::string chooseRace() {
         }
         char c = std::tolower(line[0]);
         switch (c) {
-            case 's': return "Shade";
-            case 'd': return "Drow";
-            case 'v': return "Vampire";
-            case 'g': return "Goblin";
-            case 't': return "Troll";
+            case 's': return "s";
+            case 'd': return "d";
+            case 'v': return "v";
+            case 'g': return "g";
+            case 't': return "t";
             case 'q': std::exit(0);
             default:
                 std::cout 
