@@ -1,6 +1,7 @@
 // Potion.h
 #pragma once
 
+#include <memory>
 #include <string>
 #include "Item.h"
 
@@ -18,6 +19,9 @@ public:
 
     // If discovered, returns the specific name (e.g. "Restore Health Potion"),
     // otherwise returns "Unknown Potion"
+    
+    std::unique_ptr<Potion> create(const PotionType type);
+
     char getSymbol() const override;
     virtual void use(Character &consumer) override;
     virtual PotionType getType() const override;
