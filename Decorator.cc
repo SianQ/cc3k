@@ -1,6 +1,4 @@
 #include "Decorator.h"
-#include "Character.h"
+#include <memory>
 
-Decorator::Decorator(Character* next): next{next} {}
-
-Decorator::~Decorator() {delete next;}
+Decorator::Decorator(std::shared_ptr<Player>): next(next) {}

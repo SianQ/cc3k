@@ -1,10 +1,9 @@
-#include "Character.h"
 #include "Decorator.h"
-#include "Potion.h"
+#include "Player.h"
 
 class WoundAtkDecorator : public Decorator {
     int penalty;
 public:
-    WoundAtkDecorator(Character* base, int amount = 5);
+    WoundAtkDecorator(std::shared_ptr<Player> next, int amount = 5);
     int getAtk() const override;
 };

@@ -1,9 +1,12 @@
 #include "Character.h"
+#include "Player.h"
+#include <memory.h>
+#include <memory>
 
-class Decorator: public Character {
+class Decorator: public Player {
 protected:
-    Character *next;
+    std::shared_ptr<Player> next;
 public:
-    Decorator(Character* next);
-    virtual ~Decorator();
+    Decorator(std::shared_ptr<Player> next);
+    
 };

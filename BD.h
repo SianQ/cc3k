@@ -6,6 +6,6 @@
 class BoostDefDecorator : public Decorator {
     int boost;
 public:
-    BoostDefDecorator(Character* base, int amount = 5);
+    BoostDefDecorator(std::shared_ptr<Player> next, int amount = 5);
     int getDef() const override;
 };

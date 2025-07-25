@@ -15,6 +15,12 @@
 #include "Map.h"
 #include "Character.h"
 #include "Enemy.h"
+#include "BA.h"
+#include "BD.h"
+#include "RH.h"
+#include "PH.h"
+#include "WA.h"
+#include "WD.h"
 
 
 #include <algorithm>       
@@ -274,15 +280,18 @@ void Level::playerPotion(Direction dir) {
         switch (potion->getType()) {
             case PotionType::WD:
                 messageLog = "Player uses WD.";
-                player = new WD ()
+                player = std::make_shared<WoundDefDecorator>(player);
                 break;
             case PotionType::WA:
                 messageLog = "Player uses WA.";
+                player = std::make_shared<BoostAtkDecorator>(player);
                 break;
             case PotionType::BD:
                 messageLog = "Player uses BD.";
+                player = std::make_shared<BoostDefDecorator>(player);
                 break;
             case PotionType::BA:
+                player = std::make_shared<BoostAtkDecorator>(player);
                 messageLog = "Player uses BA.";
                 break;
             case PotionType::PH:

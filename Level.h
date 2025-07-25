@@ -12,7 +12,7 @@
 class Level {
 private:
     Map                                   map;
-    std::unique_ptr<Player>               player;
+    std::shared_ptr<Player>               player;
     std::vector<std::unique_ptr<Enemy>>   enemyStore;   // owns all Enemy objects
     std::vector<std::unique_ptr<Item>>    itemStore;    // owns all Item objects
     bool                                  gameOver;

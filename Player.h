@@ -25,8 +25,10 @@ public:
         "Drow"
     };
 
+
     static std::unique_ptr<Player> create(const std::string& race);
     Player(int hp, int atk, int def, int maxHP, const std::string& race);
+    Player();
     virtual ~Player();
 
     void usePotion(class Potion* potion);

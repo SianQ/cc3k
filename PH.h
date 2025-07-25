@@ -4,8 +4,7 @@
 
 class PHDecorator : public Decorator {
 public:
-    PHDecorator(Character* base);
-    ~PHDecorator();
+    PHDecorator(std::shared_ptr<Player> next);
 
     int getHP() const override;
     bool isPlayer() const override;

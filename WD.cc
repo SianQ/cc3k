@@ -1,7 +1,7 @@
 #include "WD.h"
-#include "Character.h"
+#include "Player.h"
 
-WoundDefDecorator::WoundDefDecorator(Character* next, int amount)
+WoundDefDecorator::WoundDefDecorator(std::shared_ptr<Player> next, int amount)
     : Decorator(next), penalty(amount) {
         if (next->getRace() == "Drow") {
             penalty = penalty * 1.5;

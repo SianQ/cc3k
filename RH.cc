@@ -1,14 +1,10 @@
-#include "PH.h"
+#include "RH.h"
 #include <algorithm>
 
-PHDecorator::PHDecorator(Character* base)
-    : Decorator(base) {
-        int healed = std::min(10, base->getMaxHP() - base->getHP());
-        base->setHP(base->getHP() + healed);
-}
-
-PHDecorator::~PHDecorator() {
-    delete next;
+PHDecorator::PHDecorator(std::shared_ptr<Player> next)
+    : Decorator(next) {
+        int healed = std::min(10, next->getMaxHP() - next->getHP());
+        next->setHP(next->getHP() + healed);
 }
 
 int PHDecorator::getHP() const { return next->getHP(); }

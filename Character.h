@@ -25,8 +25,8 @@ public:
     virtual int getAtk() const;
     virtual int getDef() const;
     virtual int getHP() const; 
-    virtual std::string getRace() const = 0;
-    virtual char getSymbol() const = 0;
+    virtual std::string getRace() const;
+    virtual char getSymbol() const;
     virtual bool isPlayer() const;
     virtual int getMaxHP() const;
     void setHP(int newHp);
