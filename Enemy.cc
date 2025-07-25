@@ -1,3 +1,4 @@
+#pragma once
 #include "Enemy.h"
 #include "Potion.h"
 #include "Gold.h"
