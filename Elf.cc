@@ -1,5 +1,5 @@
 #include "Elf.h"
-#include "Gold.h"
+#include "Player.h"
 #include <cstdlib>
 
 Elf::Elf()

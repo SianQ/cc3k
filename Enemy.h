@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Character.h"
+#include "Character.h"   // we *derive* from Character
 #include <string>
 
-#include "Map.h" 
-#include "Player.h" 
-#include "Level.h" 
+class Map;
+class Player;
+class Level;
+
 
 class Enemy : public Character {
 protected:
