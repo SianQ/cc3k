@@ -4,12 +4,6 @@
 Gold::Gold(int value, bool guarded)
     : Item(), value(value), guardedByDragon(guarded) {}
 
-void Gold::use(Character &consumer)
-{
-    // Implementation depends on how Character handles gold
-    // This may need to be implemented based on your Character class
-}
-
 char Gold::getSymbol() const
 {
     return 'G';
