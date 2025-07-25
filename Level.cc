@@ -224,14 +224,18 @@ void get_xy(Direction dir, int& x, int& y) {
 void Level::playerMove(Direction dir) {
     int x, y;
     get_xy(dir, x, y);
-    map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
-    if (player->getRace() == "T" && player->getHP() < player->getMaxHP()) {
-        player->setHP(player->getHP() + 5);
+    int destX = player->getPosition().first + x;
+    int destY = player->getPosition().second + y;
+    if (map.isPassible(destX, destY)) {
+        map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
+        if (player->getRace() == "T" && player->getHP() < player->getMaxHP()) {
+            player->setHP(player->getHP() + 5);
+        }
     }
-    Tile tile = map.getTile(player->getPosition().first, player->getPosition().second);
 }
 
 bool Level::isFinished() const {
+    Tile tile = map.getTile(player->getPosition().first, player->getPosition().second);
     if (tile.getItem() != nullptr && tile.getItem()->isStair()) {
         levelNum++;
         return true;
