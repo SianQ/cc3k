@@ -14,3 +14,11 @@ int CharacterDecorator::getDef() const {
 int CharacterDecorator::getHP() const {
     return base->getHP();
 }
+
+PotionType CharacterDecorator::getType() const {
+    return PotionType::WD;
+}
+
+std::string CharacterDecorator::getName() const {
+    return "WD";
+}

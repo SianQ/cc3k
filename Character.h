@@ -33,7 +33,6 @@ public:
     virtual std::pair<int, int> getPosition() const;
 
     virtual void move(int row, int col);
-    virtual void takeDamage(int damage);
     virtual bool isDead();
     virtual int beAttackedBy(Character* attacker);
     static int calculateDamage(int atk, int def);

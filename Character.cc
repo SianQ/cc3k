@@ -13,6 +13,11 @@ int Character::getMaxHP() const { return maxHP; }
 void Character::setHP(int newHp) { hp = newHp; }
 std::pair<int, int> Character::getPosition() const { return {row, col}; }
 void Character::setPosition(int r, int c) { row = r; col = c; }
+int Character::beAttackedBy(Character* enemy) {
+    int dmg = Character::calculateDamage(enemy->getAtk(), this->getDef());
+    this->hp = std::max(0, this->hp - dmg);
+    return dmg;
+}
 
 // Shared damage calculation helper (can also be standalone function)
 int Character::calculateDamage(int attackerAtk, int defenderDef) {
