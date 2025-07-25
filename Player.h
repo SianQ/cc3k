@@ -33,7 +33,7 @@ public:
     void pickUpGold(class Gold* gold);
     virtual void resetFloorEffects();
     virtual void attack(Character* target) override;
-    virtual void beAttackedBy(Character* enemy) override;
+    virtual int beAttackedBy(Character* enemy) override;
     virtual void pickUp(Item* item);
     virtual void useItem(Item* item);
     virtual bool isPlayer() const override;
