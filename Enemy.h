@@ -29,7 +29,7 @@ public:
 
     // Perform the actual attack on the player
     virtual void attack(Player& pc, bool isAttackSuccessful);
-    int beAttackedBy(Character* attacker);
+    int beAttackedBy(Character* attacker) override;
 
     // What items this enemy drops when slain
     virtual void dropLoot(Level& level, Map& map) const;

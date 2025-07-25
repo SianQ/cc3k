@@ -1,4 +1,5 @@
 #include "Human.h"
+#include "Level.h"
 
 Human::Human()
   : Enemy(140,20,20,"H",true,false) {}

@@ -10,8 +10,8 @@ class Merchant : public Enemy {
 public:
     Merchant();
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
+    void act(Map& map, Player& pc, Level& level) override;
+    void attack(Player& pc, bool isAttackSuccessful) override;
     void dropLoot(Level& level, Map& map) const override;
 
     static bool hostileAll;

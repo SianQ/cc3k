@@ -1,5 +1,4 @@
 #include "Dwarf.h"
-#include "Gold.h"
 #include <cstdlib>
 
 Dwarf::Dwarf()
