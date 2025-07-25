@@ -1,3 +1,4 @@
+#pragma once
 #include "BD.h"
 
 BoostDefDecorator::BoostDefDecorator(std::shared_ptr<Character> base, int amount)

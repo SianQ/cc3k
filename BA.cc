@@ -1,3 +1,4 @@
+#pragma once
 #include "BA.h"
 
 BoostAtkDecorator::BoostAtkDecorator(std::shared_ptr<Character> base, int amount)

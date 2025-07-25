@@ -1,5 +1,6 @@
 // module Cc3k;
 
+#pragma once
 #include "Cc3k.h"
 #include "Level.h"
 

@@ -6,7 +6,6 @@
 
 // export
 #pragma once
-class Player;
 #include "Item.h"
 #include <utility>
 #include <memory>

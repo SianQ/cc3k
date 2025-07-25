@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Map.h"
 #include "Player.h"
 #include "Enemy.h"

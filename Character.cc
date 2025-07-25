@@ -1,8 +1,9 @@
+#pragma once
 #include "Character.h"
 #include <cmath>
 #include <utility>
 
-Character::Character(int hp, int atk, int def, int row, int col, int maxHP = 1) : hp{hp}, atk{atk}, def{def}, row{row}, col{col}, maxHP{maxHP} {}
+Character::Character(int hp, int atk, int def, int row, int col, int maxHP) : hp{hp}, atk{atk}, def{def}, row{row}, col{col}, maxHP{maxHP} {}
 int Character::getHP() const { return hp; }
 int Character::getAtk() const { return atk; }
 int Character::getDef() const { return def; }

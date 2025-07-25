@@ -1,3 +1,4 @@
+#pragma once
 #include "Decorator.h"
 
 class BoostDefDecorator : public CharacterDecorator {
