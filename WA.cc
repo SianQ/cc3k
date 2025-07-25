@@ -15,6 +15,3 @@ PotionType WoundAtkDecorator::getType() const {
     return PotionType::WA;
 }  
 
-std::string WoundAtkDecorator::getName() const {
-    return "WA";
-} 

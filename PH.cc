@@ -8,7 +8,3 @@ void PotionHealth::use(Character& target) {
 PotionType PotionHealth::getType() const {
     return PotionType::PH; 
 }
-
-std::string PotionHealth::getName() const {
-    return "PH";
-} 

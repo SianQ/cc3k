@@ -19,7 +19,7 @@ protected:
 
 public:
     Character(int hp, int atk, int def, int row, int col, int maxHP = 1);
-    virtual ~Character() = default;
+    virtual ~Character();
     
     virtual int getAtk() const;
     virtual int getDef() const;
@@ -32,7 +32,6 @@ public:
     virtual void setPosition(int r, int c);
     virtual std::pair<int, int> getPosition() const;
 
-    virtual void move(int row, int col);
     virtual bool isDead();
     virtual int beAttackedBy(Character* attacker);
     static int calculateDamage(int atk, int def);

@@ -14,7 +14,3 @@ int WoundDefDecorator::getDef() const {
 PotionType WoundDefDecorator::getType() const {
     return PotionType::WD;
 }
-
-std::string WoundDefDecorator::getName() const {
-    return "WD";
-}

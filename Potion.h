@@ -22,7 +22,6 @@ public:
     char getSymbol() const override;
     virtual void use(Character &consumer) override;
     virtual PotionType getType() const;
-    virtual std::string getName() const;
 
     // Override pure virtual functions from Item
     bool isGold() override { return false; }

@@ -14,6 +14,3 @@ PotionType RestoreHealthPotion::getType() const {
     return PotionType::RH; 
 }
 
-std::string RestoreHealthPotion::getName() const {
-    return "RH";
-} 

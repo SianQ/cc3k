@@ -2,6 +2,7 @@
 #pragma once
 
 #include <string>
+#include "Potion.h"
 
 // Forward declaration
 class Character;
@@ -11,7 +12,7 @@ class Character;
  */
 class Item {
 public:
-    virtual ~Item() = default;
+    virtual ~Item();
 
     virtual bool isGold() = 0;
     virtual bool isPotion() = 0;
@@ -22,5 +23,6 @@ public:
 
     // Returns the item name for display
     virtual char getSymbol() const = 0;
-    virtual std::string getName() const;
+
+    virtual PotionType getType() const;
 };

@@ -200,7 +200,7 @@ void get_xy(Direction dir, int& x, int& y) {
 void Level::playerMove(Direction dir) {
     int x, y;
     get_xy(dir, x, y);
-    player->move(x, y);
+    map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
     if (player->getRace() == "T" && player->getHP() < player->getMaxHP()) {
         player->setHP(player->getHP() + 5);
     }
@@ -234,7 +234,26 @@ void Level::playerPotion(Direction dir) {
     if (item->isPotion()) {
         item->use(*player);
         delete item;
-        messageLog = "Player uses " + item->getName() + ".";
+        switch (item->getType()) {
+            case PotionType::WD:
+                messageLog = "Player uses WD.";
+                break;
+            case PotionType::WA:
+                messageLog = "Player uses WA.";
+                break;
+            case PotionType::BD:
+                messageLog = "Player uses BD.";
+                break;
+            case PotionType::BA:
+                messageLog = "Player uses BA.";
+                break;
+            case PotionType::PH:
+                messageLog = "Player uses PH.";
+                break;
+            case PotionType::RH:
+                messageLog = "Player uses RH.";
+                break;
+        }
     }
 }
 

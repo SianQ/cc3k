@@ -16,6 +16,3 @@ PotionType BoostDefDecorator::getType() const {
     return PotionType::BD;
 }  
 
-std::string BoostDefDecorator::getName() const {
-    return "BD";
-}

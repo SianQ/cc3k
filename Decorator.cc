@@ -18,7 +18,3 @@ int CharacterDecorator::getHP() const {
 PotionType CharacterDecorator::getType() const {
     return PotionType::WD;
 }
-
-std::string CharacterDecorator::getName() const {
-    return "WD";
-}
