@@ -43,6 +43,6 @@ void Halfling::beAttackedBy(Character* attacker) {
     Character::beAttackedBy(attacker);
 }
 
-std::vector<Item*> Halfling::dropLoot() const {
-    return { new Gold(2,false) };
+void Halfling::dropLoot(Level& level, Map& map) const {
+    level.placeGold(2, map.getTile(row, col));
 }

@@ -1,5 +1,6 @@
 #include "Human.h"
 #include "Gold.h"
+#include "Level.h"
 #include <cstdlib>
 
 Human::Human()
@@ -39,6 +40,6 @@ void Human::attack(Player& pc) {
     pc.beAttackedBy(this);
 }
 
-std::vector<Item*> Human::dropLoot() const {
-    return { new Gold(2,false), new Gold(2,false) };
+void Human::dropLoot(Level& level, Map& map) const {
+    level.placeGold(2, map.getTile(row, col));
 }

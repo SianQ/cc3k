@@ -37,6 +37,6 @@ void Dwarf::attack(Player& pc) {
     pc.beAttackedBy(this);
 }
 
-std::vector<Item*> Dwarf::dropLoot() const {
-    return { new Gold(2,false) };
+void Dwarf::dropLoot(Level& level, Map& map) const {
+    level.placeGold(2, map.getTile(row, col));
 }

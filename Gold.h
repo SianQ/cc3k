@@ -23,9 +23,9 @@ public:
     char getSymbol() const override;
 
     // Override pure virtual functions from Item
-    bool isGold() override { return true; }
-    bool isPotion() override { return false; }
-    bool isStair() override { return false; }
+    bool isGold() override;
+    bool isPotion() override;
+    bool isStair() override;
 
     // Amount of gold to add
     int getValue() const;
