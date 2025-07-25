@@ -36,6 +36,8 @@ public:
     /// Once race is chosen, place the PC and return success
     bool spawnPlayer(const std::string& race);
 
+    bool isAttackSuccess();
+
     const Player&     getPlayer()  const;
     const Map&        getMap()     const;
     const std::string getMessage() const;
