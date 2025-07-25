@@ -285,7 +285,7 @@ void Level::playerPotion(Direction dir) {
                 break;
             case PotionType::WA:
                 messageLog = "Player uses WA.";
-                player = std::make_shared<WoundDefDecorator>(player);
+                player = std::make_shared<WoundAtkDecorator>(player);
                 break;
             case PotionType::BD:
                 messageLog = "Player uses BD.";
