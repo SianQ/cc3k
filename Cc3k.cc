@@ -70,7 +70,7 @@ void Cc3k::run() {
         level.updateEnemies();
         output.render(level);
 
-        if (level.isFinished) {
+        if (level.isFinished()) {
             unsigned nextSeed = masterRng();
             level = Level(mapPath, nextSeed);
             level.spawnPlayer(playerRace);
