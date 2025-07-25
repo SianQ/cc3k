@@ -7,10 +7,10 @@
 Dragon::Dragon()
     : Enemy(150, 20, 20, "D", true, true), hoard(nullptr) {}
 
-void Dragon::act(Map &map, Player &pc, Level &level)
-{
+// void Dragon::act(Map &map, Player &pc, Level &level)
+// {
 
-}
+// }
 
 void Dragon::attack(Player &pc, bool isAttackSuccessful)
 {

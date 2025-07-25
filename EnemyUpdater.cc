@@ -17,7 +17,7 @@ void Level::updateEnemies() {
         if (e->isDead()) continue; 
 
         // Let this enemy act (move or attack)
-        e->act(map, *player, this);
+        e->act(map, *player, *this);
 
         // If the PC died during that action, end the game
         if (player->isDead()) {

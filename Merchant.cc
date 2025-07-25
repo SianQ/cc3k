@@ -8,8 +8,8 @@ bool Merchant::hostileAll = false;
 Merchant::Merchant()
   : Enemy(30,70,5,"M",false,false) {}
 
-void Merchant::act(Map& map, Player& pc, Level& level) {
-}
+// void Merchant::act(Map& map, Player& pc, Level& level) {
+// }
 
 void Merchant::attack(Player& pc, bool isAttackSuccessful) {
     if(!hostileAll) return;
