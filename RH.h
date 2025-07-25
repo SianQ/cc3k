@@ -1,8 +1,11 @@
-#include "Potion.h"
 #include "Character.h"
+#include "Decorator.h"
+#include <algorithm>
 
-class RestoreHealthPotion : public Potion {
+class PHDecorator : public Decorator {
 public:
-    void use(Character& target) override;
-    PotionType getType() const override;
+    PHDecorator(Character* base);
+    ~PHDecorator();
+    int getHP() const override;
+    bool isPlayer() const override;
 };

@@ -1,16 +1,15 @@
-#include "RH.h"
+#include "PH.h"
+#include <algorithm>
 
-void RestoreHealthPotion::use(Character& target) {
-    int healed = 0;
-    if (target.getRace() == "Vampire") {
-        healed = 10;
-    } else {
-        healed = std::min(10, target.getMaxHP() - target.getHP());
-    }
-    target.setHP(target.getHP() + healed);
+PHDecorator::PHDecorator(Character* base)
+    : Decorator(base) {
+        int healed = std::min(10, base->getMaxHP() - base->getHP());
+        base->setHP(base->getHP() + healed);
 }
 
-PotionType RestoreHealthPotion::getType() const {
-    return PotionType::RH; 
+PHDecorator::~PHDecorator() {
+    delete next;
 }
 
+int PHDecorator::getHP() const { return next->getHP(); }
+bool PHDecorator::isPlayer() const { return next->isPlayer(); }
