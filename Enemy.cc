@@ -81,7 +81,5 @@ int Enemy::beAttackedBy(Character* attacker) {
     return dmg;
 }
 
-void Enemy::dropLoot(Level& level, Map& map) const {
-    level.placeGold(2, map.getTile(row, col));
-}
+void Enemy::dropLoot(Level& level, Map& map) const {}
 

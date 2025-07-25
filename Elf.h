@@ -10,8 +10,5 @@ class Elf : public Enemy {
 public:
     Elf();
 
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
-    void dropLoot(Level& level, Map& map) const override;
-    
+    void attack(Player& pc, bool isAttackSuccessful) override;    
 };

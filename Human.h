@@ -8,9 +8,5 @@
 class Human : public Enemy {
 public:
     Human();
-
-    void act(Map& map, Player& pc) override;
-    void attack(Player& pc) override;
     void dropLoot(Level& level, Map& map) const override;
-    
 };
