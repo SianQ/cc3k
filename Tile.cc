@@ -1,12 +1,18 @@
 #include "Tile.h"
 #include "Character.h"
 
+Tile::Tile()
+  : terrain(TerrainType::Empty),
+    character(nullptr),
+    item(nullptr)
+{}
+
 Character* Tile::getCharacter() const {
-    return charater;
+    return character;
 }
 
 void Tile::setCharacter(Character* character) {
-    this->charater = character;
+    this->character = character;
 }
 
 Item* Tile::getItem() const {

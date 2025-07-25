@@ -93,5 +93,4 @@ void Map::clearTile(int x, int y) {
     Tile& t = getTile(x, y);
     t.setCharacter(nullptr);
     t.setItem(nullptr);
-    t.setTerrain(TerrainType::Empty);  // Reset terrain to empty
 }

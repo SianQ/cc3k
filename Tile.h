@@ -12,7 +12,7 @@
 class Tile {
 private:
     TerrainType terrain;
-    Character* charater;
+    Character* character;
     Item* item;
 
 public:
