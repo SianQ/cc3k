@@ -6,6 +6,7 @@
 
 Player::Player(int hp, int atk, int def, int maxHP, const std::string& race)
     : Character(hp, atk, def, -1, -1, maxHP), race(race) {}
+Player::~Player() = default;
 
 std::string Player::getRace() const { return race; }
 int Player::getGoldNum() const { return gold; }
