@@ -11,12 +11,7 @@ Player::~Player() = default;
 std::string Player::getRace() const { return race; }
 int Player::getGoldNum() const { return gold; }
 char Player::getSymbol() const {
-    if (race == "Dwarf") return 'D';
-    if (race == "Vampire") return 'V';
-    if (race == "Troll") return 'T';
-    if (race == "Goblin") return 'G';
-    if (race == "Drow") return 'D';
-    return ' ';
+    return '@';
 }
 
 void Player::attack(Character* target) {
