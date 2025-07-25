@@ -185,35 +185,35 @@ void Level::appendMessage(const std::string& message) {
 void get_xy(Direction dir, int& x, int& y) {
     switch (dir) {
         case Direction::North:
-            x = -1;
-            y = 0;
+            x = 0;
+            y = -1;
             break;
         case Direction::South:
-            x = 1;
-            y = 0;
-            break;
-        case Direction::East:
             x = 0;
             y = 1;
             break;
+        case Direction::East:
+            x = 1;
+            y = 0;
+            break;
         case Direction::West:
-            x = 0;
-            y = -1;
+            x = -1;
+            y = 0;
             break;  
         case Direction::NorthEast:
-            x = -1;
+            x = 1;
             y = 1;
             break;
         case Direction::NorthWest:
             x = -1; 
-            y = -1;
+            y = 1;
             break;
         case Direction::SouthEast:
             x = 1;
-            y = 1;
+            y = -1;
             break;
         case Direction::SouthWest:
-            x = 1;
+            x = -1;
             y = -1;
             break;
         default:
@@ -227,10 +227,14 @@ void Level::playerMove(Direction dir) {
     int destX = player->getPosition().first + x;
     int destY = player->getPosition().second + y;
     if (map.isPassible(destX, destY)) {
+        player->setPosition(destX, destY);
         map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
         if (player->getRace() == "T" && player->getHP() < player->getMaxHP()) {
             player->setHP(player->getHP() + 5);
         }
+    }
+    else {
+        messageLog = "Player cannot move to " + std::to_string(destX) + ", " + std::to_string(destY) + ".";
     }
 }
 
