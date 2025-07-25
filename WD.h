@@ -1,10 +1,10 @@
+#include "Character.h"
 #include "Decorator.h"
 #include "Potion.h"
 
-class WoundDefDecorator : public CharacterDecorator {
+class WoundDefDecorator : public Decorator {
     int penalty;
 public:
-    WoundDefDecorator(std::shared_ptr<Character> base, int amount);
+    WoundDefDecorator(Character* base, int amount = 5);
     int getDef() const override;
-    PotionType getType() const override;
 };

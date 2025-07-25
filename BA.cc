@@ -1,18 +1,14 @@
 #pragma once
 #include "BA.h"
+#include "Character.h"
 
-BoostAtkDecorator::BoostAtkDecorator(std::shared_ptr<Character> base, int amount = 5)
-    : CharacterDecorator(base), boost(amount) {
-        if (base->getRace() == "Drow") {
+BoostAtkDecorator::BoostAtkDecorator(Character* next, int amount)
+    : Decorator(next), boost(amount) {
+        if (next->getRace() == "Drow") {
             boost = boost * 1.5;
         }
     }
 
 int BoostAtkDecorator::getAtk() const {
-    return base->getAtk() + boost;
+    return next->getAtk() + boost;
 }
-
-PotionType BoostAtkDecorator::getType() const {
-    return PotionType::BA;
-}  
-

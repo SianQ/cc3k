@@ -1,11 +1,11 @@
 #pragma once
+#include "Character.h"
 #include "Decorator.h"
 #include "Potion.h"
 
-class BoostDefDecorator : public CharacterDecorator {
+class BoostDefDecorator : public Decorator {
     int boost;
 public:
-    BoostDefDecorator(std::shared_ptr<Character> base, int amount);
+    BoostDefDecorator(Character* base, int amount = 5);
     int getDef() const override;
-    PotionType getType() const override;
 };

@@ -1,18 +1,14 @@
 #pragma once
 #include "BD.h"
+#include "Character.h"
 
-BoostDefDecorator::BoostDefDecorator(std::shared_ptr<Character> base, int amount = 5)
-    : CharacterDecorator(base), boost(amount) {
-        if (base->getRace() == "Drow") {
+BoostDefDecorator::BoostDefDecorator(Character* next, int amount)
+    : Decorator(next), boost(amount) {
+        if (next->getRace() == "Drow") {
             boost = boost * 1.5;
         }
     }
 
 int BoostDefDecorator::getDef() const {
-    return base->getDef() + boost;
+    return next->getDef() + boost;
 }
-
-PotionType BoostDefDecorator::getType() const {
-    return PotionType::BD;
-}  
-

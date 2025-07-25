@@ -269,11 +269,12 @@ void Level::playerPotion(Direction dir) {
     Tile potion_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
     Item* item = potion_tile.getItem();
     if (item->isPotion()) {
-        item->use(*player);
-        delete item;
-        switch (item->getType()) {
+        auto potion = static_cast<Potion*>(item);
+        map.clearTile(x, y);
+        switch (potion->getType()) {
             case PotionType::WD:
                 messageLog = "Player uses WD.";
+                player = new WD ()
                 break;
             case PotionType::WA:
                 messageLog = "Player uses WA.";

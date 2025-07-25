@@ -19,6 +19,7 @@ protected:
 
 public:
     Character(int hp, int atk, int def, int x, int y, int maxHP = 1);
+    Character();
     virtual ~Character();
     
     virtual int getAtk() const;

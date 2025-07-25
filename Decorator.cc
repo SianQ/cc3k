@@ -1,20 +1,6 @@
 #include "Decorator.h"
+#include "Character.h"
 
-CharacterDecorator::CharacterDecorator(std::shared_ptr<Character> base)
-    : Character(base->getHP(), base->getAtk(), base->getDef(), base->getPosition().first, base->getPosition().second, base->getMaxHP()), base{base} {}
+Decorator::Decorator(Character* next): next{next} {}
 
-int CharacterDecorator::getAtk() const {
-    return base->getAtk();
-}
-
-int CharacterDecorator::getDef() const {
-    return base->getDef();
-}
-
-int CharacterDecorator::getHP() const {
-    return base->getHP();
-}
-
-PotionType CharacterDecorator::getType() const {
-    return PotionType::WD;
-}
+Decorator::~Decorator() {delete next;}

@@ -1,18 +1,9 @@
 #include "Character.h"
-#include <memory>
-#include <algorithm>
-#include "Potion.h"
 
-class CharacterDecorator : public Character {
+class Decorator: public Character {
 protected:
-    std::shared_ptr<Character> base;
-
+    Character *next;
 public:
-    CharacterDecorator(std::shared_ptr<Character> base);
-    virtual ~CharacterDecorator() = default;
-
-    virtual int getAtk() const;
-    virtual int getDef() const;
-    virtual int getHP() const;
-    virtual PotionType getType() const;
+    Decorator(Character* next);
+    virtual ~Decorator();
 };
