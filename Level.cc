@@ -158,6 +158,26 @@ bool Level::spawnPlayer(const std::string& race) {
     return true;
 }
 
+const Player& Level::getPlayer() const {
+    return *player;
+}
+
+const Map& Level::getMap() const {
+    return map;
+}
+
+const std::string Level::getMessage() const {
+    return messageLog;
+}
+
+void Level::clearLog() {
+    messageLog = "";
+}
+
+void Level::appendMessage(const std::string& message) {
+    messageLog += message;
+}
+
 void get_xy(Direction dir, int& x, int& y) {
     switch (dir) {
         case Direction::North:
