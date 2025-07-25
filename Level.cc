@@ -209,8 +209,13 @@ void Level::playerAttack(Direction dir) {
     Tile& character_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
-        enemy->beAttackedBy(player.get());
+        if (enemy->getRace() == "L" && Level::isAttackSuccess()) {
+            if (player->getRace() == "V") {
+                player->setHP(player->getHP() + 5);
+            } else { enemy->beAttackedBy(player.get()); }
+        }
     }
+        
 }
 
 void Level::playerPotion(Direction dir) {
