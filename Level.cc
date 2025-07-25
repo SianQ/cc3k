@@ -123,7 +123,8 @@ void Level::placeNonPlayerObjects() {
             itemStore.push_back(std::move(g));
 
             // tell the dragon where its hoard lives
-            static_cast<Dragon*>(dr)->setHoard(t);        }
+            static_cast<Dragon*>(dr)->setHoard(t);        
+        }
     }
 
     // 3) Potions
