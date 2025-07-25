@@ -28,10 +28,10 @@ public:
     virtual ~Enemy() = default;
 
     // One turn of behavior: either attack or move
-    virtual void act(Map& Map, Player& pc) = 0;
+    virtual void act(Map& map, Player& pc, Level& level) = 0;
 
     // Perform the actual attack on the player
-    virtual void attack(Player& pc) = 0;
+    virtual void attack(Player& pc, bool isAttackSuccessful) = 0;
 
     // What items this enemy drops when slain
     virtual void dropLoot(Level& level, Map& map) const;
