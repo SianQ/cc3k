@@ -1,4 +1,5 @@
 #pragma once
+#include "Character.h"
 #include "Enemy.h"
 #include "Level.h"
 #include "Map.h"
@@ -13,7 +14,7 @@ class Dragon : public Enemy {
 public:
     Dragon();
     void setHoard(Tile* tile);
-    // void act(Map &map, Player &pc, Level &level) override;
+    void act(Map &map, Player &pc, Level &level) override;
     void attack(Player &pc, bool isAttackSuccessful) override;
-    void dropLoot(Level& level, Map& map) const override;
+    int beAttackedBy(Character* attacker) override;
 };

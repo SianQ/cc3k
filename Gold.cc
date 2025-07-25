@@ -41,3 +41,8 @@ bool Gold::isGuarded() const
 {
     return guardedByDragon;
 }
+
+void Gold::changeGuarded()
+{
+    guardedByDragon = !guardedByDragon;
+}

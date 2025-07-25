@@ -33,6 +33,8 @@ public:
     // Whether this gold is guarded by a dragon
     bool isGuarded() const;
 
+    void changeGuarded();
+
 private:
     int value;
     bool guardedByDragon;
