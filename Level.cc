@@ -260,7 +260,7 @@ void Level::playerAttack(Direction dir) {
         }
         else { damage = enemy->beAttackedBy(player.get()); }
     }
-    messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getRace() + " ( " + std::to_string(enemy->getHP()) + " HP ).";
+    messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
 }
 
 void Level::playerPotion(Direction dir) {
