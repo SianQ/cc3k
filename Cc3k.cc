@@ -41,7 +41,7 @@ void Cc3k::run() {
 
     string playerRace = chooseRace();
     output.clearScreen();
-    level.setPlayer(Player::create(playerRace));
+    level.spawnPlayer(playerRace);
 
     output.render(level);
 
@@ -52,11 +52,4 @@ void Cc3k::run() {
         level.updateEnemies();
         output.render(level);
     }
-}
-
-bool Cc3k::isEnded() {
-    if (levelNum == 5 || level.getPlayer().getHP() <= 0) {
-        return true;
-    }
-    return false;
 }

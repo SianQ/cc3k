@@ -11,7 +11,6 @@
 
 class Cc3k {
 private:
-    int levelNum;
     Level level;
     Input input;
     Output output;
