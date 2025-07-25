@@ -17,7 +17,8 @@ public:
     int getWidth() const;
     int getHeight() const;
     Tile& getTile(int x, int y) const;
-    bool isPassible(int x, int y);
+    bool isPassible(int x, int y) const;
+    bool canSpawn(int x, int y) const;
     void moveCharacter(int fromX, int fromY, int toX, int toY);
     void clearTile(int x, int y);
 };

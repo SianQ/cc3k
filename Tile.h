@@ -36,4 +36,5 @@ public:
     void setY(int y);
 
     bool isPassable() const;
+    bool canSpawn() const;
 };

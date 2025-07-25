@@ -75,10 +75,11 @@ Tile& Map::getTile(int x, int y) const {
     return const_cast<Tile&>( grid.at(y * width + x) );
 }
 
-bool Map::isPassible(int x, int y) {
+
+bool Map::canSpawn(int x, int y) const {
     if (x < 0 || x >= width || y < 0 || y >= height) return false;
     Tile& t = getTile(x,y);
-    return t.isPassable();
+    return t.canSpawn();
 }
 
 void Map::moveCharacter(int fromX, int fromY, int toX, int toY) {
@@ -96,3 +97,4 @@ void Map::clearTile(int x, int y) {
     t.setCharacter(nullptr);
     t.setItem(nullptr);
 }
+
