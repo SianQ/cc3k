@@ -273,6 +273,7 @@ void Level::playerAttack(Direction dir) {
         bool attackSuccess = Level::isAttackSuccess();
         if (enemy->getRace() == "L" && attackSuccess && player->getRace() != "Vampire") {
             player->setHP(player->getHP() + 5);
+            damage = enemy->beAttackedBy(player.get());
         }
         else if (!attackSuccess) {
             messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
