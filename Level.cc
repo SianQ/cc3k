@@ -3,7 +3,19 @@
 #include "Stair.h"     
 #include "Gold.h"          
 #include "Potion.h"
-#include "Dragon.h"      
+#include "Dragon.h"    
+#include "Human.h"
+#include "Dwarf.h"
+#include "Halfling.h"
+#include "Elf.h"
+#include "Orc.h"
+#include "Merchant.h"
+#include "Player.h"
+#include "Tile.h"
+#include "Map.h"
+#include "Character.h"
+#include "Enemy.h"
+
 
 #include <algorithm>       
 #include <stdexcept>       
