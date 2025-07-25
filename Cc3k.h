@@ -14,6 +14,8 @@ private:
     Level level;
     Input input;
     Output output;
+    std::default_random_engine masterRng;
+    std::string mapPath;
     bool isRunning;
 
 public:

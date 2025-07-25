@@ -1,7 +1,6 @@
 // module Cc3k;
 
 #include "Cc3k.h"
-#include "Character.h"
 #include "Level.h"
 
 using namespace std;
@@ -10,7 +9,9 @@ Cc3k::Cc3k(std::string mapPath, int seed):
     level(mapPath, seed),
     input(),
     output(),
-    isRunning(true) 
+    masterRng(seed),
+    mapPath(mapPath),
+    isRunning(true)
 {}
 
 void displayStartScreen() {
@@ -67,8 +68,12 @@ void Cc3k::run() {
 
         level.updateEnemies();
         output.render(level);
-        if (level.isFinished()) {
-            level = Level(mapPath, seed);
+
+        if (level.isFinished) {
+            unsigned nextSeed = masterRng();
+            level = Level(mapPath, nextSeed);
+            level.spawnPlayer(playerRace);
+            output.render(level);       
         }
     }
 }
