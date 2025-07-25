@@ -1,6 +1,4 @@
 #include "Dragon.h"
-#include "Map.h"
-#include "Map.h"
 #include "Tile.h"
 #include <cstdlib>
 
