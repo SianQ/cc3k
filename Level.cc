@@ -209,19 +209,19 @@ void get_xy(Direction dir, int& x, int& y) {
             break;  
         case Direction::NorthEast:
             x = 1;
-            y = 1;
+            y = -1;
             break;
         case Direction::NorthWest:
             x = -1; 
-            y = 1;
+            y = -1;
             break;
         case Direction::SouthEast:
             x = 1;
-            y = -1;
+            y = 1;
             break;
         case Direction::SouthWest:
             x = -1;
-            y = -1;
+            y = 1;
             break;
         default:
             break;
@@ -274,6 +274,7 @@ void Level::playerAttack(Direction dir) {
         bool attackSuccess = Level::isAttackSuccess();
         if (enemy->getRace() == "L" && attackSuccess && player->getRace() != "Vampire") {
             player->setHP(player->getHP() + 5);
+            damage = enemy->beAttackedBy(player.get());
         }
         else if (!attackSuccess) {
             messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";

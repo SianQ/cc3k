@@ -14,6 +14,7 @@ protected:
     bool        isDragon;  // dragons never move
     std::string type;      // symbol code
     std::string race;
+    bool        deathProcessed = false; // whether death cleanup has been done
 
 public:
     Enemy(int hp, int atk, int def,          

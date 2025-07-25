@@ -42,10 +42,16 @@ static inline std::pair<int,int> dirToDelta(Direction d) {
 
 
 void Enemy::act(Map& map, Player& pc, Level& level) {
-    if (this->isDead()) {
-        // Clear the tile and drop loot when dead
+    // If dead and haven't processed death yet, handle death cleanup
+    if (this->isDead() && !deathProcessed) {
         map.clearTile(x, y);
         dropLoot(level, map);
+        deathProcessed = true;
+        return;
+    }
+    
+    // If dead and already processed, do nothing
+    if (this->isDead()) {
         return;
     }
 
