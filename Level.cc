@@ -1,20 +1,15 @@
-#pragma once
-#include "Level.h"
-#include "Human.h"
-#include "Dwarf.h"
-#include "Halfling.h"
-#include "Elf.h"
-#include "Orc.h"
-#include "Merchant.h"
-#include "Dragon.h"
-#include "Potion.h"
-#include "Gold.h"
-#include "Stair.h"
+// Level.cpp
+#include "Level.h"         
+#include "Stair.h"     
+#include "Gold.h"          
+#include "Potion.h"        
 
-#include <algorithm>    // std::shuffle
-#include <stdexcept>    // std::runtime_error
-#include <random>
-
+#include <algorithm>       
+#include <stdexcept>       
+#include <random>          
+#include <utility>         
+#include <cstdlib>     
+    
 static constexpr int NON_DRAGON_ENEMIES = 20;
 static constexpr int POTION_COUNT       = 10;
 static constexpr int GOLD_COUNT         = 10;
