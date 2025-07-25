@@ -229,9 +229,15 @@ void Level::playerMove(Direction dir) {
         player->setHP(player->getHP() + 5);
     }
     Tile tile = map.getTile(player->getPosition().first, player->getPosition().second);
+}
+
+bool Level::isFinished() const {
     if (tile.getItem() != nullptr && tile.getItem()->isStair()) {
         levelNum++;
-        isFinished = true;
+        return true;
+    }
+    else {
+        return false;
     }
 }
 
