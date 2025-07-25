@@ -270,10 +270,11 @@ void Level::playerAttack(Direction dir) {
     Tile& character_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
-        if (enemy->getRace() == "L" && Level::isAttackSuccess() && player->getRace() != "Vampire") {
+        bool attackSuccess = Level::isAttackSuccess();
+        if (enemy->getRace() == "L" && attackSuccess && player->getRace() != "Vampire") {
             player->setHP(player->getHP() + 5);
         }
-        else if (!Level::isAttackSuccess()) {
+        else if (!attackSuccess) {
             messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
         }
         else { damage = enemy->beAttackedBy(player.get()); }
