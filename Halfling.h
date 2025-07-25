@@ -9,9 +9,4 @@
 class Halfling : public Enemy {
 public:
     Halfling();
-
-    void act(Map& map, Player& pc, Level& level) override;
-    void attack(Player& pc, bool isAttackSuccessful) override;
-    void dropLoot(Level& level, Map& map) const override;
-    int beAttackedBy(Character* attacker) override;
 };
