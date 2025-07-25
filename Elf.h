@@ -8,7 +8,7 @@
  */
 class Elf : public Enemy {
 public:
-    Elf(int row, int col);
+    Elf();
 
     void act(Map& map, Player& pc) override;
     void attack(Player& pc) override;

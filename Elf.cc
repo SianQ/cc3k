@@ -2,8 +2,8 @@
 #include "Gold.h"
 #include <cstdlib>
 
-Elf::Elf(int row, int col)
-  : Enemy(140,30,10,row,col,"E",true,false) {}
+Elf::Elf()
+  : Enemy(140,30,10,"E",true,false) {}
 
 void Elf::act(Map& map, Player& pc) {
     for(int dr=-1; dr<=1; ++dr) {

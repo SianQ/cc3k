@@ -4,8 +4,8 @@
 #include "Tile.h"
 #include <cstdlib>
 
-Dragon::Dragon(int row, int col)
-  : Enemy(150,20,20,row,col,"D",true,true) {}
+Dragon::Dragon()
+  : Enemy(150,20,20,"D",true,true) {}
 
 void Dragon::act(Map& Map, Player& pc) {
     for (int dr=-1; dr<=1; ++dr) for (int dc=-1; dc<=1; ++dc) {

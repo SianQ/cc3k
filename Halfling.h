@@ -8,7 +8,7 @@
  */
 class Halfling : public Enemy {
 public:
-    Halfling(int row, int col);
+    Halfling();
 
     void act(Map& map, Player& pc) override;
     void attack(Player& pc) override;

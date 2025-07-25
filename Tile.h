@@ -22,13 +22,10 @@ public:
     void setCharacter(Character* character);
 
     Item* getItem() const;
-    virtual bool isGold();
-    virtual bool isPotion();
-    virtual bool isStair();
     void setItem(Item* item);
 
     TerrainType getTerrain() const;
     void setTerrain(TerrainType terrain);
 
-    bool isPassable();
+    bool isPassable() const;
 };

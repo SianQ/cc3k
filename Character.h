@@ -15,7 +15,7 @@ class Player;
 class Character {    
 protected:
     int hp, atk, def;
-    int row, col;
+    int row = -1, col = -1;
     int maxHP;
 
 public:
