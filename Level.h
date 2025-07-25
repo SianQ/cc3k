@@ -42,6 +42,7 @@ public:
 
     void clearLog();
     void appendMessage(const std::string& message);
+    void placeGold(int value, Tile& tile);
 
     // Player actions
     void playerMove(Direction dir);
