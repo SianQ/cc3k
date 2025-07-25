@@ -1,5 +1,4 @@
 #include "Gold.h"
-#include "Character.h"
 
 Gold::Gold(int value, bool guarded)
     : Item(), value(value), guardedByDragon(guarded) {}

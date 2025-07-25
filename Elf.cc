@@ -19,5 +19,7 @@ void Elf::attack(Player& pc, bool isAttackSuccessful, Level& level) {
                 level.appendMessage("E deals " + std::to_string(damage2) + " damage to PC.");
             }
         }
+    } else {
+        level.appendMessage("E misses PC.");
     }
 }

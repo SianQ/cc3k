@@ -36,7 +36,6 @@ static constexpr int GOLD_COUNT         = 10;
 
 Level::Level(const std::string& mapPath, unsigned seed): 
     map(mapPath, seed),
-    gameOver(false),
     rng(seed)
 {
     // 1) Build 20 weighted foes + 1 Dragon
@@ -239,6 +238,15 @@ void Level::playerMove(Direction dir) {
             player->setHP(player->getHP() + 5);
         }
     }
+    else if (map.getTile(destX, destY).getItem() != nullptr) {
+        Item* item = map.getTile(destX, destY).getItem();
+        if (item->isGold()) {
+            Gold* gold = static_cast<Gold*>(item);
+            player->pickUpGold(gold);
+            map.clearTile(destX, destY);
+            messageLog = "Player picks up " + std::to_string(gold->getValue()) + " gold.";
+        }
+    }
     else {
         messageLog = "Player cannot move to " + std::to_string(destX) + ", " + std::to_string(destY) + ".";
     }
@@ -264,6 +272,9 @@ void Level::playerAttack(Direction dir) {
     if (enemy != nullptr) {
         if (enemy->getRace() == "L" && Level::isAttackSuccess() && player->getRace() != "Vampire") {
             player->setHP(player->getHP() + 5);
+        }
+        else if (!Level::isAttackSuccess()) {
+            messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
         }
         else { damage = enemy->beAttackedBy(player.get()); }
     }

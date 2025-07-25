@@ -1,3 +1,4 @@
+#include "Gold.h"
 #include "Shade.h"
 #include "Drow.h"
 #include "Vampire.h"
@@ -39,6 +40,6 @@ std::unique_ptr<Player> Player::create(const std::string& race) {
     return nullptr;
 }
 
-void Player::resetFloorEffects() {
-    
+void Player::pickUpGold(Gold* gold) {
+    this->gold += gold->getValue();
 }
