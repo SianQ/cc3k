@@ -25,3 +25,10 @@ int Character::calculateDamage(int attackerAtk, int defenderDef) {
     return std::ceil((100.0 / (100 + defenderDef)) * attackerAtk);
 }
 
+std::string Character::getRace() const {
+    return "";
+}
+
+char Character::getSymbol() const {
+    return '?';
+}

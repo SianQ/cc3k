@@ -16,9 +16,6 @@ class Gold : public Item
 public:
     Gold(int value, bool guarded);
 
-    // If not guarded, adds value to the consumer's gold
-    void use(Character &consumer) override;
-
     // Returns "Gold" or a formatted display name
     char getSymbol() const override;
 

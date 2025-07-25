@@ -1,3 +1,4 @@
+#pragma once
 #include "Potion.h"
 #include "Item.h"
 

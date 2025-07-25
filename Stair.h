@@ -22,11 +22,6 @@ public:
         return true;
     }
 
-    void use(Character &consumer) override {
-        // Stairs cannot be "used" in the traditional sense.
-        // The game logic (e.g., in Level) should handle stair stepping.
-    }
-
     char getSymbol() const override {
         return '\\';  // Display character for stairs
     }
