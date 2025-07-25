@@ -7,7 +7,6 @@
 /// Drive the entire enemy phase.
 /// Clears the previous log, then for each live enemy:
 ///   • call act(map,*player)
-///   • if the player died, set gameOver, append a message, and stop.
 void Level::updateEnemies() {
     // Loop in spawn order, removing dead enemies after they clean up
     for (auto it = enemyStore.begin(); it != enemyStore.end(); ) {
