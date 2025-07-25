@@ -4,6 +4,9 @@
 #include "Troll.h"
 #include "Goblin.h"
 
+Player::Player(int hp, int atk, int def, int maxHP, const std::string& race)
+    : Character(hp, atk, def, -1, -1, maxHP), race(race) {}
+
 std::string Player::getRace() const { return race; }
 int Player::getGoldNum() const { return gold; }
 char Player::getSymbol() const {
