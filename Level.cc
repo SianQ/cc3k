@@ -227,9 +227,8 @@ void Level::playerMove(Direction dir) {
     int destX = player->getPosition().first + x;
     int destY = player->getPosition().second + y;
     if (map.isPassible(destX, destY)) {
-        player->setPosition(destX, destY);
         map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
-        if (player->getRace() == "T" && player->getHP() < player->getMaxHP()) {
+        if (player->getRace() == "Troll" && player->getHP() < player->getMaxHP()) {
             player->setHP(player->getHP() + 5);
         }
     }
@@ -256,7 +255,7 @@ void Level::playerAttack(Direction dir) {
     Tile& character_tile = map.getTile(player->getPosition().first + x, player->getPosition().second + y);
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
-        if (enemy->getRace() == "L" && Level::isAttackSuccess() && player->getRace() != "V") {
+        if (enemy->getRace() == "L" && Level::isAttackSuccess() && player->getRace() != "Vampire") {
             player->setHP(player->getHP() + 5);
         }
         else { damage = enemy->beAttackedBy(player.get()); }

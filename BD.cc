@@ -3,7 +3,7 @@
 
 BoostDefDecorator::BoostDefDecorator(std::shared_ptr<Character> base, int amount = 5)
     : CharacterDecorator(base), boost(amount) {
-        if (base->getRace() == "D") {
+        if (base->getRace() == "Drow") {
             boost = boost * 1.5;
         }
     }

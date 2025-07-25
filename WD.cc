@@ -2,7 +2,7 @@
 
 WoundDefDecorator::WoundDefDecorator(std::shared_ptr<Character> base, int amount = 5)
     : CharacterDecorator(base), penalty(amount) {
-        if (base->getRace() == "D") {
+        if (base->getRace() == "Drow") {
             penalty = penalty * 1.5;
         }
     }

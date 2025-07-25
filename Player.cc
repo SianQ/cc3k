@@ -16,7 +16,7 @@ char Player::getSymbol() const {
 
 void Player::attack(Character* target) {
     target->beAttackedBy(this);
-    if (this->getRace() == "G" && target->isDead()) {
+    if (this->getRace() == "Goblin" && target->isDead()) {
         this->gold += 5;
     }
 }

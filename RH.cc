@@ -2,7 +2,7 @@
 
 void RestoreHealthPotion::use(Character& target) {
     int healed = 0;
-    if (target.getRace() == "V") {
+    if (target.getRace() == "Vampire") {
         healed = 10;
     } else {
         healed = std::min(10, target.getMaxHP() - target.getHP());

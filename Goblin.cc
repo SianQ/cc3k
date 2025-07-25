@@ -1,6 +1,6 @@
 #include "Goblin.h"
 
 Goblin::Goblin()
-  : Player(110,15,20,110,"G") {}
+    : Player(110,15,20,110,"Goblin") {}
 
-Goblin::~Goblin() {}
+  Goblin::~Goblin() {}
