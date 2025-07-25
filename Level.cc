@@ -208,3 +208,7 @@ void Level::playerPotion(Direction dir) {
         delete item;
     }
 }
+
+bool Level::isGameOver() const {
+    return gameOver;
+}

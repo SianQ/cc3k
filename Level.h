@@ -19,7 +19,7 @@ private:
     bool                                  gameOver;
     std::string                           messageLog;
     std::default_random_engine            rng;
-
+    inline static int levelNum = 1;
     // [0]=PC, [1]=stair, [2..] everything else
     std::vector<Tile*>                    spawnSpots;
 

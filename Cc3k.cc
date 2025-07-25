@@ -53,3 +53,10 @@ void Cc3k::run() {
         output.render(level);
     }
 }
+
+bool Cc3k::isEnded() {
+    if (levelNum == 5 || level.getPlayer().getHP() <= 0) {
+        return true;
+    }
+    return false;
+}
