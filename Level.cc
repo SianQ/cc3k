@@ -238,14 +238,14 @@ void Level::playerMove(Direction dir) {
         if (player->getRace() == "Troll" && player->getHP() < player->getMaxHP()) {
             player->setHP(player->getHP() + 5);
         }
-    }
-    else if (map.getTile(destX, destY).getItem() != nullptr) {
-        Item* item = map.getTile(destX, destY).getItem();
-        if (item->isGold()) {
-            Gold* gold = static_cast<Gold*>(item);
-            player->pickUpGold(gold);
-            map.clearTile(destX, destY);
-            messageLog = "Player picks up " + std::to_string(gold->getValue()) + " gold.";
+        if (map.getTile(destX, destY).getItem() != nullptr) {
+            Item* item = map.getTile(destX, destY).getItem();
+            if (item->isGold()) {
+                Gold* gold = static_cast<Gold*>(item);
+                player->pickUpGold(gold);
+                map.clearItem(destX, destY);
+                messageLog = "Player picks up " + std::to_string(gold->getValue()) + " gold.";
+            }
         }
     }
     else {
@@ -272,16 +272,22 @@ void Level::playerAttack(Direction dir) {
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
         bool attackSuccess = Level::isAttackSuccess();
-        if (enemy->getRace() == "L" && attackSuccess && player->getRace() != "Vampire") {
-            player->setHP(player->getHP() + 5);
+        if (enemy->getRace() == "L") {
+            if (!attackSuccess) {
+                messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
+                return;
+            }
+            else if (attackSuccess && player->getRace() == "Vampire") {
+                player->setHP(player->getHP() + 5);
+            }
             damage = enemy->beAttackedBy(player.get());
+            messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
         }
-        else if (!attackSuccess) {
-            messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
+        else {
+            damage = enemy->beAttackedBy(player.get());
+            messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
         }
-        else { damage = enemy->beAttackedBy(player.get()); }
     }
-    messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
 }
 
 void Level::playerPotion(Direction dir) {
@@ -291,7 +297,7 @@ void Level::playerPotion(Direction dir) {
     Item* item = potion_tile.getItem();
     if (item->isPotion()) {
         auto potion = static_cast<Potion*>(item);
-        map.clearTile(x, y);
+        map.clearItem(x, y);
         switch (potion->getType()) {
             case PotionType::WD:
                 messageLog = "Player uses WD.";

@@ -44,7 +44,7 @@ static inline std::pair<int,int> dirToDelta(Direction d) {
 void Enemy::act(Map& map, Player& pc, Level& level) {
     // If dead and haven't processed death yet, handle death cleanup
     if (this->isDead() && !deathProcessed) {
-        map.clearTile(x, y);
+        map.clearCharacter(x, y);
         dropLoot(level, map);
         deathProcessed = true;
         return;

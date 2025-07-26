@@ -98,10 +98,14 @@ void Map::moveCharacter(int fromX, int fromY, int toX, int toY) {
     c->setPosition(dst.getX(), dst.getY());
 }
 
-void Map::clearTile(int x, int y) {
+void Map::clearItem(int x, int y) {
+    Tile& t = getTile(x, y);
+    t.setItem(nullptr);
+}
+
+void Map::clearCharacter(int x, int y) {
     Tile& t = getTile(x, y);
     t.setCharacter(nullptr);
-    t.setItem(nullptr);
 }
 
 bool Map::inBounds(int x, int y) const {
