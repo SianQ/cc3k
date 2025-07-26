@@ -1,4 +1,4 @@
-#include "Gold.h"
+module Gold;
 
 Gold::Gold(int value, bool guarded)
     : Item(), value(value), guardedByDragon(guarded) {}

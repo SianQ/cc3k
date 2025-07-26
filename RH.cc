@@ -1,6 +1,5 @@
-#pragma once
-#include "RH.h"
-#include <algorithm>
+module RH;
+import <algorithm>;
 
 RHDecorator::RHDecorator(std::shared_ptr<Player> next)
     : Decorator(next) {

@@ -1,11 +1,10 @@
-#pragma once
-#include "Dragon.h"
-#include "Tile.h"
-#include "Map.h"
-#include "Player.h"
-#include "Level.h"
-#include "Gold.h"
-#include <cstdlib>
+module Dragon;
+import Tile;
+import Map;
+import Player;
+import Level;
+import Gold;
+import <cstdlib>;
 
 Dragon::Dragon()
     : Enemy(150, 20, 20, "D", true, true), hoard(nullptr) {}

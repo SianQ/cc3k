@@ -1,8 +1,7 @@
-// EnemyUpdater.cc
-#include "EnemyUpdater.h"
-#include "Level.h"
-#include "Enemy.h"
-#include "Player.h"
+module EnemyUpdater;
+import Level;
+import Enemy;
+import Player;
 
 /// Drive the entire enemy phase.
 /// Clears the previous log, then for each live enemy:

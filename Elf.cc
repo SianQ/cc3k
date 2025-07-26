@@ -1,7 +1,7 @@
-#include "Elf.h"
-#include "Player.h"
-#include "Level.h"
-#include <cstdlib>
+module Elf;
+import Player
+import Level;
+import <cstdlib>;
 
 Elf::Elf()
   : Enemy(140,30,10,"E",true,false) {}

@@ -1,4 +1,4 @@
-#include "Stair.h"
+module Stair;
 
 bool isGold() {
     return false;

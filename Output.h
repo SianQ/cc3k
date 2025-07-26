@@ -1,13 +1,7 @@
-// export module Output;
+export module Output;
+import Level;
 
-// import Level;
-
-// export
-
-#pragma once
-#include "Level.h"
-
-class Output{
+export class Output{
 public:
     void render(const Level& level);
     void renderGameOver();

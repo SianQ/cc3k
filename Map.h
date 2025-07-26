@@ -1,13 +1,10 @@
-// export module Map;
 
-// import Tile;
+export module Map;
 
-// export
-#pragma once
-#include "Tile.h"
-#include <vector>
+import Tile;
+import <vector>;
 
-class Map {
+export class Map {
 private:
     int width;
     int height;

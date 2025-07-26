@@ -1,9 +1,9 @@
-#pragma once
-#include "Character.h"
-#include "Decorator.h"
-#include <algorithm>
+export module PH;
+import Character;
+import Decorator;
+import <algorithm>;
 
-class PHDecorator : public Decorator {
+export class PHDecorator : public Decorator {
 public:
     PHDecorator(std::shared_ptr<Player> next);
 

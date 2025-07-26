@@ -1,7 +1,12 @@
+// export module PotionType;
+
+// export
+export module PotionType;
+
 /**
  * Enumeration of potion types
  */
-enum class PotionType
+export enum class PotionType
 {
     RH,
     BA,

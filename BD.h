@@ -1,9 +1,8 @@
-#pragma once
-#include "Character.h"
-#include "Decorator.h"
-#include "Potion.h"
-
-class BoostDefDecorator : public Decorator {
+export module BD;
+import Character;
+import Decorator;
+import Potion;
+export class BoostDefDecorator : public Decorator {
     int boost;
 public:
     BoostDefDecorator(std::shared_ptr<Player> next, int amount = 5);

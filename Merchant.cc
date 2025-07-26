@@ -1,9 +1,9 @@
-#pragma once
-#include "Merchant.h"
-#include "Map.h"
-#include "Player.h"
-#include "Level.h"
-#include <cstdlib>
+module Merchant;
+import Enemy;
+import Map;
+import Player;
+import Level;
+import <cstdlib>;
 
 bool Merchant::hostileAll = false;
 

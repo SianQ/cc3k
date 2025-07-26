@@ -1,6 +1,5 @@
-#pragma once
-#include "BA.h"
-#include "Player.h"
+module BA;
+import Player;
 
 BoostAtkDecorator::BoostAtkDecorator(std::shared_ptr<Player> next, int amount)
     : Decorator(next), boost(amount) {

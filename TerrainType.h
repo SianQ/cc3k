@@ -1,4 +1,7 @@
-enum class TerrainType {
+
+export module TerrainType;
+
+export enum class TerrainType {
     WallVertical,
     WallHorizontal,
     Floor,

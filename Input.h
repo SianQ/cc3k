@@ -1,17 +1,10 @@
-// export module Input;
+export module Input;
 
-// import Level;
+import Level;
 
-// import <iostream>;
+import <iostream>;
 
-// export
-
-#pragma once
-#include "Level.h"
-
-#include <iostream>
-
-class Input{
+export class Input{
 public:
     void applyInput(Level& level);
 };

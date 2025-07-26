@@ -1,6 +1,5 @@
-#pragma once
-#include "WD.h"
-#include "Player.h"
+export module WD;
+import Player;
 
 WoundDefDecorator::WoundDefDecorator(std::shared_ptr<Player> next, int amount)
     : Decorator(next), penalty(amount) {

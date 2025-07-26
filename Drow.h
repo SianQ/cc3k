@@ -1,5 +1,6 @@
-#include "Player.h"
-#include "Potion.h"
+export module Drow;
+import Player;
+import Potion;
 
 class Drow : public Player {
 public:

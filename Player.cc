@@ -1,9 +1,10 @@
-#include "Gold.h"
-#include "Shade.h"
-#include "Drow.h"
-#include "Vampire.h"
-#include "Troll.h"
-#include "Goblin.h"
+module Player;
+import Gold;
+import Shade;
+import Drow;
+import Vampire;
+import Troll;
+import Goblin;
 
 Player::Player(int hp, int atk, int def, int maxHP, const std::string& race)
     : Character(hp, atk, def, -1, -1, maxHP), race(race) {}

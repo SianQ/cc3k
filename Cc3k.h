@@ -3,13 +3,13 @@
 // import level;
 
 // export 
+export module Cc3k;
+import Input;
+import Level;
+import Output;
 
-#pragma once
-#include "Input.h"
-#include "Level.h"
-#include "Output.h"
 
-class Cc3k {
+export class Cc3k {
 private:
     Level level;
     Input input;

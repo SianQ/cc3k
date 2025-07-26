@@ -1,6 +1,12 @@
-#include "Player.h" 
+// export module Goblin;
 
-class Goblin : public Player {
+// import Player;
+
+// export
+export module Goblin;
+import Player;
+
+export class Goblin : public Player {
 public:
     Goblin();
     ~Goblin() override;

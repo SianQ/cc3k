@@ -1,12 +1,11 @@
-#include "Enemy.h"
-#include "Map.h"
-#include "Player.h"
-#include "Level.h"
-#include "Gold.h"
-#include "Potion.h"
-
-#include <cstdlib>    
-#include <utility>    
+module Enemy;
+import Map;
+import Player;
+import Level;
+import Gold;
+import Potion;
+import <cstdlib>;
+import <utility>;
 
 Enemy::Enemy(int hp_, int atk_, int def_,             
              const std::string& typeSymbol,

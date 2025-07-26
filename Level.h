@@ -1,15 +1,15 @@
-#pragma once
-#include "Map.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Item.h"
-#include "Direction.h"
-#include <memory>
-#include <vector>
-#include <string>
-#include <random>
+export module Level;
+import Map;
+import Player;
+import Enemy;
+import Item;
+import Direction;
+import <memory>;
+import <vector>;
+import <string>;
+import <random>;
 
-class Level {
+export class Level {
 private:
     Map                                   map;
     std::shared_ptr<Player>               player;

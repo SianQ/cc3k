@@ -1,5 +1,6 @@
-#include "Tile.h"
-#include "Character.h"
+
+module Tile;
+import Character;
 
 Tile::Tile()
   : terrain(TerrainType::Empty),

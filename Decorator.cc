@@ -1,4 +1,4 @@
-#include "Decorator.h"
+module Decorator;
 
 Decorator::Decorator(std::shared_ptr<Player> nxt)
   : Player(

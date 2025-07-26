@@ -1,7 +1,8 @@
-#include "Map.h"
-#include <fstream>
-#include <string>
-#include <stdexcept>
+module Map;
+import <fstream>;
+import <string>;
+import <stdexcept>;
+import <vector>;
 
 using namespace std;
 

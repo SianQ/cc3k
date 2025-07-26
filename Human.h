@@ -1,5 +1,10 @@
+// export module Human;
+
+// import Enemy;
+
+// export
 #pragma once
-#include "Enemy.h"
+import Enemy;
 
 /**
  * Human: HP=140, Atk=20, Def=20.

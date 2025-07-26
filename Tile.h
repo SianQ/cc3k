@@ -1,15 +1,10 @@
-// export module Tile;
+export module Tile;
 
-// import Character;
-// import Item;
+import Character;
+import Item;
+import TerrainType;
 
-#pragma once
-#include "Character.h"
-#include "Item.h"
-#include "TerrainType.h"
-
-// export
-class Tile {
+export class Tile {
 private:
     TerrainType terrain;
     Character* character;

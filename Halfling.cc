@@ -1,5 +1,5 @@
-#include "Halfling.h"
-#include <cstdlib>
+module Halfling;
+imprort <cstdlib>;
 
 // static inline std::pair<int,int> dirToDelta(Direction d) {
 //     switch (d) {

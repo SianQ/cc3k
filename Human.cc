@@ -1,6 +1,5 @@
-#include "Human.h"
-#include "Level.h"
-#include "Level.h"
+module Human;
+import Level;
 
 Human::Human()
   : Enemy(140,20,20,"H",true,false) {}

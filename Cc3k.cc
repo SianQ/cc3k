@@ -1,10 +1,6 @@
-// module Cc3k;
-
-#pragma once
-#include "Cc3k.h"
-#include "Level.h"
-#include "Output.h"
-
+module Cc3k;
+import Level;
+import Output;
 using namespace std;
 
 Cc3k::Cc3k(std::string mapPath, int seed):

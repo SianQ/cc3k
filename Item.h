@@ -1,8 +1,14 @@
+// export module Item;
+
+// import <string>;
+// import PotionType;
+
+// export
 // Item.h
 #pragma once
 
-#include <string>
-#include "PotionType.h"
+import <string>;
+import PotionType;
 
 /**
  * Abstract base class: common interface for all items (gold, potions, etc.)

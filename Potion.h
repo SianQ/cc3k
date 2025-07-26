@@ -1,18 +1,23 @@
+export module Potion;
+
+// import <memory>;
+// import <string>;
+// import Item;
+
+// export
 // Potion.h
-#pragma once
 
-#include <memory>
-#include <string>
-#include "Item.h"
 
-// Forward declaration
-class Character;
+import <memory>;
+import <string>;
+import Item;
+import Character;
 
 /**
  * Potion: applying use() applies an effect to the consumer
  * and marks the potion as discovered.
  */
-class Potion : public Item
+export class Potion : public Item
 {
 public:
     Potion(PotionType t);

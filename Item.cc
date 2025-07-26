@@ -1,4 +1,4 @@
-#include "Item.h"
+module Item;
 
 Item::~Item() = default;
 

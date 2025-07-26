@@ -1,6 +1,5 @@
-#pragma once
-#include "WA.h"
-#include "Player.h"
+module WA;
+import Player;
 
 WoundAtkDecorator::WoundAtkDecorator(std::shared_ptr<Player> next, int amount)
     : Decorator(next), penalty(amount) {

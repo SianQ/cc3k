@@ -1,12 +1,8 @@
-#pragma once
+export module Stair;
 
-#include "Item.h"
+import Item;
 
-/**
- * Represents a staircase to the next floor.
- * Has no effect when used.
- */
-class Stair : public Item {
+export class Stair : public Item {
 public:
     ~Stair() override = default;
 

@@ -1,34 +1,64 @@
-// Level.cpp
-#pragma once
-#include "Level.h"         
-#include "Stair.h"     
-#include "Gold.h"          
-#include "Potion.h"
-#include "Dragon.h"    
-#include "Human.h"
-#include "Dwarf.h"
-#include "Halfling.h"
-#include "Elf.h"
-#include "Orc.h"
-#include "Merchant.h"
-#include "Player.h"
-#include "Tile.h"
-#include "Map.h"
-#include "Character.h"
-#include "Enemy.h"
-#include "BA.h"
-#include "BD.h"
-#include "RH.h"
-#include "PH.h"
-#include "WA.h"
-#include "WD.h"
+// // Level.cpp
+// #pragma once
+// #include "Level.h"         
+// #include "Stair.h"     
+// #include "Gold.h"          
+// #include "Potion.h"
+// #include "Dragon.h"    
+// #include "Human.h"
+// #include "Dwarf.h"
+// #include "Halfling.h"
+// #include "Elf.h"
+// #include "Orc.h"
+// #include "Merchant.h"
+// #include "Player.h"
+// #include "Tile.h"
+// #include "Map.h"
+// #include "Character.h"
+// #include "Enemy.h"
+// #include "BA.h"
+// #include "BD.h"
+// #include "RH.h"
+// #include "PH.h"
+// #include "WA.h"
+// #include "WD.h"
 
 
-#include <algorithm>       
-#include <stdexcept>       
-#include <random>          
-#include <utility>         
-#include <cstdlib>     
+// #include <algorithm>       
+// #include <stdexcept>       
+// #include <random>          
+// #include <utility>         
+// #include <cstdlib>     
+
+module Level;
+import Map;
+import Player;
+import Enemy;
+import Item;
+import Stair;
+import Direction;
+import Gold;
+import Dragon;
+import Potion;
+import Human;
+import Dwarf;
+import Halfling;
+import Elf;
+import Orc;
+import Merchant;
+import BA;
+import BD;
+import RH;
+import PH;
+import WA;
+import WD;
+import Decorator;
+
+import <algorithm>;
+import <stdexcept>;
+import <random>;
+import <utility>;
+import <cstdlib>;
 
 static constexpr int NON_DRAGON_ENEMIES = 20;
 static constexpr int POTION_COUNT       = 10;

@@ -1,17 +1,13 @@
-// export module Player;
+export module Player;
 
-// export
-#ifndef PLAYER_H
-#define PLAYER_H
+import Character;
+import Potion;
+import Gold;
+import <memory>;
+import <string>;
+import <vector>;
 
-#include "Character.h"
-class Potion;
-class Gold;
-#include <memory>
-#include <string>
-#include <vector>
-
-class Player: public Character {
+export class Player: public Character {
 protected:
     int gold = 0;
     std::string race;

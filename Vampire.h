@@ -1,6 +1,8 @@
-#include "Player.h"
+export module Vampire;
 
-class Vampire : public Player {
+import Player;
+
+export class Vampire : public Player {
 public:
     Vampire();
     ~Vampire() override;

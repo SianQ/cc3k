@@ -1,10 +1,7 @@
-// module Input;
-
-#pragma once
-#include "Input.h"
-#include "Level.h"
-#include <unordered_map>
-#include <sstream>
+module Input;
+import Level;
+import <unordered_map>;
+import <sstream>;
 
 using namespace std;
 

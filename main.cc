@@ -1,9 +1,8 @@
-// main.cpp
-#include "Cc3k.h"
-#include <iostream>
-#include <string>
-#include <chrono>
-#include <stdexcept>
+import "Cc3k.h";
+import <iostream>;
+import <string>;
+import <chrono>;
+import <stdexcept>;
 
 int main(int argc, char* argv[]) {
     // 1) Defaults

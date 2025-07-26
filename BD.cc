@@ -1,6 +1,5 @@
-#pragma once
-#include "BD.h"
-#include "Player.h"
+module BD;
+import Player;
 
 BoostDefDecorator::BoostDefDecorator(std::shared_ptr<Player> next, int amount)
     : Decorator(next), boost(amount) {

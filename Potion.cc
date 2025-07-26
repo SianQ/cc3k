@@ -1,6 +1,5 @@
-#pragma once
-#include "Potion.h"
-#include "Item.h"
+module Potion;
+import Item;
 
 Potion::Potion(PotionType t) : type(t) {}
 

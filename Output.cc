@@ -1,7 +1,5 @@
-// module Output;
-
-#include "Output.h"
-#include <iostream>
+module Output;
+import <iostream>;
 
 using namespace std;
 

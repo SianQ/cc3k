@@ -1,7 +1,7 @@
-#pragma once
-#include "Character.h"
-#include <cmath>
-#include <utility>
+
+module Character;
+import <cmath>;
+import <utility>;
 
 Character::Character(int hp, int atk, int def, int x, int y, int maxHP) : hp{hp}, atk{atk}, def{def}, x{x}, y{y}, maxHP{maxHP} {}
 Character::~Character() = default;

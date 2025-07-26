@@ -1,14 +1,17 @@
-#pragma once
+// export module Enemy;
 
-#include "Character.h"   // we *derive* from Character
-#include <string>
+// import Character;
+// import <string>;
 
-class Map;
-class Player;
-class Level;
+// export
 
+import Character;
+import Map;
+import Player;
+import Level;
+import <string>;
 
-class Enemy : public Character {
+export class Enemy : public Character {
 protected:
     bool        hostile;   // whether this enemy attacks on sight
     bool        isDragon;  // dragons never move

@@ -1,17 +1,9 @@
-// export module Character;
+export module Character;
+import <utility>;
+import <memory>;
+import <algorithm>;
 
-// import Player;
-// import Enemy;
-// import Item;
-
-// export
-#pragma once
-#include "Item.h"
-#include <utility>
-#include <memory>
-#include <algorithm>
-
-class Character {    
+export class Character {    
 protected:
     int hp, atk, def;
     int x = -1, y = -1;

@@ -1,6 +1,5 @@
-#pragma once
-#include "PH.h"
-#include <algorithm>
+module PH;
+import <algorithm>;
 
 PHDecorator::PHDecorator(std::shared_ptr<Player> next)
     : Decorator(next) {

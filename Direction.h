@@ -1,4 +1,9 @@
-enum class Direction {
+// export module Direction;
+
+// export
+export module Direction;
+
+export enum class Direction {
     North,    
     South,    
     East,     

@@ -1,17 +1,13 @@
-// Gold.h
-#pragma once
-
-#include <string>
-#include "Item.h"
-
-// Forward declaration
-class Character;
+export module Gold;
+import Item;
+import Character;
+import <string>;
 
 /**
  * Gold: when picked up, gives currency to the consumer.
  * If guardedByDragon == true, it cannot be picked up.
  */
-class Gold : public Item
+export class Gold : public Item
 {
 public:
     Gold(int value, bool guarded);

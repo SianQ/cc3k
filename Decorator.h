@@ -1,10 +1,9 @@
-#pragma once
-#include "Character.h"
-#include "Player.h"
-#include <memory.h>
-#include <memory>
+export module Decorator;
+import Player;
+import Character;
+import <memory>;
 
-class Decorator: public Player {
+export class Decorator: public Player {
 protected:
     std::shared_ptr<Player> next;
 public:

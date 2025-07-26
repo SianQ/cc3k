@@ -1,8 +1,9 @@
-#pragma once
-#include "Player.h"
-#include "Decorator.h"
+export module WD;
 
-class WoundDefDecorator : public Decorator {
+import Player;
+import Decorator;
+
+export class WoundDefDecorator : public Decorator {
     int penalty;
 public:
     WoundDefDecorator(std::shared_ptr<Player> next, int amount = 5);

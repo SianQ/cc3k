@@ -1,15 +1,11 @@
-#pragma once
-#include "Character.h"
-#include "Enemy.h"
-#include "Level.h"
-#include "Map.h"
-#include "Tile.h"
+export module Dragon;
+import Character;
+import Enemy;
+import Map;
+import Level;
+import Tile;
 
-/**
- * Dragon: HP=150, Atk=20, Def=20.
- * Stationary; guards a hoard placed on map.
- */
-class Dragon : public Enemy {
+export class Dragon : public Enemy {
     Tile* hoard;
 public:
     Dragon();

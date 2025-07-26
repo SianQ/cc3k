@@ -1,9 +1,9 @@
-#pragma once
-#include "Character.h"
-#include "Decorator.h"
-#include <algorithm>
+export module RH;
+import Character;
+import Decorator;
+import <algorithm>;
 
-class RHDecorator : public Decorator {
+export class RHDecorator : public Decorator {
 public:
     RHDecorator(std::shared_ptr<Player> next);
     int getHP() const override;

@@ -1,6 +1,8 @@
-#include "Player.h"
+export module Shade;
 
-class Shade : public Player {
+import Player;
+
+export class Shade : public Player {
 public:
     Shade();
     ~Shade() override;

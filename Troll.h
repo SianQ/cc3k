@@ -1,6 +1,8 @@
-#include "Player.h"
+export module Troll;
 
-class Troll : public Player {
+import Player;
+
+export class Troll : public Player {
 public:
     Troll();
     ~Troll() override;
