@@ -91,12 +91,12 @@ void Cc3k::run() {
 
             if (level.isGameOver()) {
                 if (!displayGameOver(false)) exit(0);
-                break;  // break inner loop, restart outer
+                break;
             }
 
             if (level.isGameComplete()) {
                 if (!displayGameOver(true)) exit(0);
-                break;  // break inner loop, restart outer
+                break;
             }
 
             level.clearLog();

@@ -6,7 +6,7 @@ import <vector>;
 
 using namespace std;
 
-Map::Map(const std::string& mapPath, int seed): width(0), height(0) {
+Map::Map(const std::string mapPath, int seed): width(0), height(0) {
     std::ifstream ifs(mapPath);
     if (!ifs) {
         throw std::runtime_error("Failed to open map file: " + mapPath);

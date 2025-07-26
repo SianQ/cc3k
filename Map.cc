@@ -8,11 +8,11 @@ import <memory>;
 
 export class Map {
 private:
-    std::vector<std::vector<std::unique_ptr<Tile>>> grid;
+    std::vector<Tile> grid;
     int width, height;
 
 public:
-    Map(const std::string& mapPath, int seed);
+    Map(const std::string mapPath, int seed);
     ~Map();
 
     // Grid access
