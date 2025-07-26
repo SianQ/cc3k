@@ -302,16 +302,22 @@ void Level::playerAttack(Direction dir) {
     Character* enemy = character_tile.getCharacter();
     if (enemy != nullptr) {
         bool attackSuccess = Level::isAttackSuccess();
-        if (enemy->getRace() == "L" && attackSuccess && player->getRace() != "Vampire") {
-            player->setHP(player->getHP() + 5);
+        if (enemy->getRace() == "L") {
+            if (!attackSuccess) {
+                messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
+                return;
+            }
+            else if (attackSuccess && player->getRace() == "Vampire") {
+                player->setHP(player->getHP() + 5);
+            }
             damage = enemy->beAttackedBy(player.get());
+            messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
         }
-        else if (!attackSuccess) {
-            messageLog = messageLog + "Player attacks " + enemy->getSymbol() + " but misses.\n";
+        else {
+            damage = enemy->beAttackedBy(player.get());
+            messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
         }
-        else { damage = enemy->beAttackedBy(player.get()); }
     }
-    messageLog = "Player deals " + std::to_string(damage) + " damage to " + enemy->getSymbol() + " ( " + std::to_string(enemy->getHP()) + " HP ).\n";
 }
 
 void Level::playerPotion(Direction dir) {
