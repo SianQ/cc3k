@@ -21,5 +21,4 @@ private:
 public:
     Cc3k(std::string mapPath, int seed);
     void run();
-    bool isEnded();
 };

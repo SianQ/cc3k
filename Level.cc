@@ -27,8 +27,10 @@ private:
     void placeNonPlayerObjects();
 
 public:
-    /// Load terrain from `mapPath` and seed RNG with `seed`
     bool isFinished() const;
+    bool isGameOver() const;
+    bool isGameComplete() const;
+
     Level(const std::string& mapPath, unsigned seed);
 
     /// Once race is chosen, place the PC and return success
@@ -40,7 +42,6 @@ public:
     const Player&     getPlayer()  const;
     const Map&        getMap()     const;
     const std::string getMessage() const;
-    bool              isGameOver() const;
 
     void clearLog();
     void appendMessage(const std::string& message);

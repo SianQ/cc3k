@@ -1,35 +1,3 @@
-// // Level.cpp
-// #pragma once
-// #include "Level.h"         
-// #include "Stair.h"     
-// #include "Gold.h"          
-// #include "Potion.h"
-// #include "Dragon.h"    
-// #include "Human.h"
-// #include "Dwarf.h"
-// #include "Halfling.h"
-// #include "Elf.h"
-// #include "Orc.h"
-// #include "Merchant.h"
-// #include "Player.h"
-// #include "Tile.h"
-// #include "Map.h"
-// #include "Character.h"
-// #include "Enemy.h"
-// #include "BA.h"
-// #include "BD.h"
-// #include "RH.h"
-// #include "PH.h"
-// #include "WA.h"
-// #include "WD.h"
-
-
-// #include <algorithm>       
-// #include <stdexcept>       
-// #include <random>          
-// #include <utility>         
-// #include <cstdlib>     
-
 module Level;
 import Map;
 import Player;
@@ -382,5 +350,13 @@ Direction Level::randomDir() {
       case 1: return Direction::South;
       case 2: return Direction::East;
       default: return Direction::West;
+    }
+}
+
+bool isGameComplete() const {
+    if (Level::levelNum >= 5) {
+        return true;
+    } else {
+        return false;
     }
 }
