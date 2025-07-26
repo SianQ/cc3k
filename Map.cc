@@ -2,6 +2,7 @@ export module Map;
 
 import Tile;
 import Character;
+import TerrainType;
 import <vector>;
 import <string>;
 import <memory>;
