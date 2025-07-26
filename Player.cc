@@ -1,7 +1,6 @@
 export module Player;
 
 import Character;
-import Potion;
 import Gold;
 import <memory>;
 import <string>;
