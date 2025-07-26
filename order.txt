@@ -2,59 +2,8 @@ Direction.cc
 PotionType.cc
 TerrainType.cc
 
-Cc3k.cc
-Cc3k-impl.cc
-
-Level.cc
-Level-impl.cc
-
-Input.cc
-Input-impl.cc
-
-Output.cc
-Output-impl.cc
-
 Character.cc
 Character-impl.cc
-
-Player.cc
-Player-impl.cc
-
-Decorator.cc
-Decorator-impl.cc
-
-Tile.cc
-Tile-impl.cc
-
-Map.cc
-Map-impl.cc
-
-Enemy.cc
-Enemy-impl.cc
-
-EnemyUpdater.cc
-EnemyUpdater-impl.cc
-
-Dragon.cc
-Dragon-impl.cc
-
-Drow.cc
-Drow-impl.cc
-
-Dwarf.cc
-Dwarf-impl.cc
-
-Elf.cc
-Elf-impl.cc
-
-Goblin.cc
-Goblin-impl.cc
-
-Halfling.cc
-Halfling-impl.cc
-
-Human.cc
-Human-impl.cc
 
 Item.cc
 Item-impl.cc
@@ -62,22 +11,44 @@ Item-impl.cc
 Gold.cc
 Gold-impl.cc
 
-Merchant.cc
-Merchant-impl.cc
+Potion.cc
+Potion-impl.cc
+
+Stair.cc
+Stair-impl.cc
+
+Tile.cc
+Tile-impl.cc
+
+Map.cc
+Map-impl.cc
+
+Player.cc
+Player-impl.cc
+
+Level.cc
+Level-impl.cc
+
+Enemy.cc
+Enemy-impl.cc
+
+Human.cc
+Human-impl.cc
+
+Dwarf.cc
+Dwarf-impl.cc
+
+Elf.cc
+Elf-impl.cc
 
 Orc.cc
 Orc-impl.cc
 
-Potion.cc
-Potion-impl.cc
-Race.cc
+Halfling.cc
+Halfling-impl.cc
 
-Shade.cc
-Shade-impl.cc
-
-Stair.cc
-Stair-impl.cc
-TerrainType.cc
+Goblin.cc
+Goblin-impl.cc
 
 Troll.cc
 Troll-impl.cc
@@ -85,11 +56,17 @@ Troll-impl.cc
 Vampire.cc
 Vampire-impl.cc
 
-WA.cc
-WA-impl.cc
+Merchant.cc
+Merchant-impl.cc
 
-WD.cc
-WD-impl.cc
+Dragon.cc
+Dragon-impl.cc
+
+Drow.cc
+Drow-impl.cc
+
+Decorator.cc
+Decorator-impl.cc
 
 BA.cc
 BA-impl.cc
@@ -103,5 +80,25 @@ PH-impl.cc
 RH.cc
 RH-impl.cc
 
+WA.cc
+WA-impl.cc
+
+WD.cc
+WD-impl.cc
+
+Shade.cc
+Shade-impl.cc
+
+EnemyUpdater.cc
+EnemyUpdater-impl.cc
+
+Input.cc
+Input-impl.cc
+
+Output.cc
+Output-impl.cc
+
+Cc3k.cc
+Cc3k-impl.cc
 
 main.cc
