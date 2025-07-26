@@ -43,7 +43,7 @@ static inline std::pair<int,int> dirToDelta(Direction d) {
 void Enemy::act(Map& map, Player& pc, Level& level) {
     // If dead and haven't processed death yet, handle death cleanup
     if (this->isDead() && !deathProcessed) {
-        map.clearTile(x, y);
+        map.clearCharacter(x, y);
         dropLoot(level, map);
         deathProcessed = true;
         return;
@@ -64,7 +64,7 @@ void Enemy::act(Map& map, Player& pc, Level& level) {
         Direction dir = level.randomDir();
         auto [dr, dc] = dirToDelta(dir);
         int nr = x + dr, nc = y + dc;
-        if (map.isPassible(nr, nc)) { 
+        if (map.isPassible(nr, nc) && map.inBounds(nr, nc)) { 
             map.moveCharacter(x, y, nr, nc);
             x = nr;
             y = nc;

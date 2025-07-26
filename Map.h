@@ -17,6 +17,7 @@ public:
     bool isPassible(int x, int y) const;
     bool canSpawn(int x, int y) const;
     void moveCharacter(int fromX, int fromY, int toX, int toY);
-    void clearTile(int x, int y);
+    void clearItem(int x, int y);
+    void clearCharacter(int x, int y);
     bool inBounds(int x, int y) const;
 };

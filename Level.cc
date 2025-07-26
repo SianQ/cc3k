@@ -264,18 +264,18 @@ void Level::playerMove(Direction dir) {
     int destX = player->getPosition().first + x;
     int destY = player->getPosition().second + y;
     if (map.isPassible(destX, destY)) {
-        map.moveCharacter(player->getPosition().first, player->getPosition().second, player->getPosition().first + x, player->getPosition().second + y);
+        map.moveCharacter(player->getPosition().first, player->getPosition().second, destX, destY);
         if (player->getRace() == "Troll" && player->getHP() < player->getMaxHP()) {
             player->setHP(player->getHP() + 5);
         }
-    }
-    else if (map.getTile(destX, destY).getItem() != nullptr) {
-        Item* item = map.getTile(destX, destY).getItem();
-        if (item->isGold()) {
-            Gold* gold = static_cast<Gold*>(item);
-            player->pickUpGold(gold);
-            map.clearTile(destX, destY);
-            messageLog = "Player picks up " + std::to_string(gold->getValue()) + " gold.";
+        if (map.getTile(destX, destY).getItem() != nullptr) {
+            Item* item = map.getTile(destX, destY).getItem();
+            if (item->isGold()) {
+                Gold* gold = static_cast<Gold*>(item);
+                player->pickUpGold(gold);
+                map.clearItem(destX, destY);
+                messageLog = "Player picks up " + std::to_string(gold->getValue()) + " gold.";
+            }
         }
     }
     else {
@@ -321,7 +321,7 @@ void Level::playerPotion(Direction dir) {
     Item* item = potion_tile.getItem();
     if (item->isPotion()) {
         auto potion = static_cast<Potion*>(item);
-        map.clearTile(x, y);
+        map.clearItem(x, y);
         switch (potion->getType()) {
             case PotionType::WD:
                 messageLog = "Player uses WD.";
