@@ -7,4 +7,5 @@ public:
     Drow();
     ~Drow() override;
     
+    std::string getRace() const override;
 };
