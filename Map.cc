@@ -1,23 +1,33 @@
-
 export module Map;
 
 import Tile;
+import Character;
 import <vector>;
+import <string>;
+import <memory>;
 
 export class Map {
 private:
-    int width;
-    int height;
-    std::vector<Tile> grid;
+    std::vector<std::vector<std::unique_ptr<Tile>>> grid;
+    int width, height;
+
 public:
-    Map(std::string mapPath, int seed);
+    Map(const std::string& mapPath, int seed);
+    ~Map();
+
+    // Grid access
+    Tile* getTile(int row, int col);
+    const Tile* getTile(int row, int col) const;
+    
+    // Map operations
+    bool isPassible(int row, int col) const;
+    void moveCharacter(int fromRow, int fromCol, int toRow, int toCol);
+    void clearTile(int row, int col);
+    
+    // Getters
     int getWidth() const;
     int getHeight() const;
-    Tile& getTile(int x, int y) const;
-    bool isPassible(int x, int y) const;
-    bool canSpawn(int x, int y) const;
-    void moveCharacter(int fromX, int fromY, int toX, int toY);
-    void clearItem(int x, int y);
-    void clearCharacter(int x, int y);
-    bool inBounds(int x, int y) const;
+    
+    // Display
+    void display() const;
 };

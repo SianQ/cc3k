@@ -1,40 +1,28 @@
 export module Potion;
 
-// import <memory>;
-// import <string>;
-// import Item;
-
-// export
-// Potion.h
-
-
-import <memory>;
-import <string>;
 import Item;
-import Character;
+import PotionType;
+import <string>;
 
 /**
- * Potion: applying use() applies an effect to the consumer
- * and marks the potion as discovered.
+ * Potion: can be consumed by the player.
+ * Each potion has a specific type and effect.
  */
-export class Potion : public Item
-{
+export class Potion : public Item {
+private:
+    PotionType type;
+
 public:
+    // Constructor
     Potion(PotionType t);
 
-    // If discovered, returns the specific name (e.g. "Restore Health Potion"),
-    // otherwise returns "Unknown Potion"
-    
+    // Item interface
+    bool isGold() override;
+    bool isPotion() override;
+    bool isStair() override;
     char getSymbol() const override;
     PotionType getType() const override;
 
-    // Override pure virtual functions from Item
-    bool isGold() override { return false; }
-    bool isPotion() override { return true; }
-    bool isStair() override { return false; }
-
-private:
-    PotionType type;
-    std::string name;
-    // bool discovered = false;
+    // Potion-specific methods
+    void applyEffect(class Player& player);
 };
