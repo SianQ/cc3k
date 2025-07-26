@@ -1,5 +1,5 @@
 module Human;
-import Level;
+import LevelFwd;
 
 Human::Human()
   : Enemy(140,20,20,"H",true,false) {}

@@ -1,7 +1,10 @@
 export module BD;
-import Character;
 import Decorator;
+import Player;
 import Potion;
+import Character;
+import <memory>;
+
 export class BoostDefDecorator : public Decorator {
     int boost;
 public:

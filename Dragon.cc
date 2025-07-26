@@ -1,9 +1,10 @@
 export module Dragon;
 import Character;
 import Enemy;
-import Map;
-import Level;
+import Map; 
+import LevelFwd;
 import Tile;
+import Player;
 
 export class Dragon : public Enemy {
     Tile* hoard;

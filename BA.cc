@@ -3,6 +3,7 @@ import Decorator;
 import Player;
 import Potion;
 import Character;
+import <memory>;
 
 export class BoostAtkDecorator : public Decorator {
     int boost;

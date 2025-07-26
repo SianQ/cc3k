@@ -1,7 +1,9 @@
 export module RH;
-import Character;
 import Decorator;
-import <algorithm>;
+import Player;
+import Potion;
+import Character;
+import <memory>;
 
 export class RHDecorator : public Decorator {
 public:

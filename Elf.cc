@@ -1,10 +1,12 @@
-// export module Elf;
+export module Elf;
 
 // import Enemy;
 
 // export
 
 import Enemy;
+import LevelFwd;
+import Player;
 
 /**
  * Elf: HP=140, Atk=30, Def=10.

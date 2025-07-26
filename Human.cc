@@ -1,5 +1,7 @@
 export module Human;
+import LevelFwd;
 import Enemy;
+import Map;
 
 export class Human : public Enemy {
 public:

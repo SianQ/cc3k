@@ -7,6 +7,9 @@
 export module WA;
 import Decorator;
 import Player;
+import Potion;
+import Character;
+import <memory>;
 
 export class WoundAtkDecorator : public Decorator {
     int penalty;

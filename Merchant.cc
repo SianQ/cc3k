@@ -1,10 +1,12 @@
-// export module Merchant;
+export module Merchant;
 
 // import Enemy;
 
 // export
-export module Merchant;
 import Enemy;
+import Player;
+import LevelFwd;
+import Map;
 
 /**
  * Merchant: HP=30, Atk=70, Def=5.

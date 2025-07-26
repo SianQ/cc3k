@@ -1,4 +1,4 @@
-// export module Enemy;
+export module Enemy;
 
 // import Character;
 // import <string>;
@@ -8,7 +8,7 @@
 import Character;
 import Map;
 import Player;
-import Level;
+import LevelFwd;
 import <string>;
 
 export class Enemy : public Character {

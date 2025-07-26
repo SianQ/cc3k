@@ -35,6 +35,4 @@ public:
     virtual int getGoldNum() const;
     virtual char getSymbol() const override;
 
-    friend class Level; // Allow Level to access private members
-    friend class Enemy; // Allow Enemy to access private members
 };

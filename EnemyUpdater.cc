@@ -1,5 +1,5 @@
 export module EnemyUpdater;
-import Level;
+import LevelFwd;
 
 /**
  *  Collects and runs all of the enemy‐turn logic in one place,

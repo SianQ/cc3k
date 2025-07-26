@@ -1,7 +1,10 @@
 export module WD;
 
-import Player;
 import Decorator;
+import Player;
+import Potion;
+import Character;
+import <memory>;
 
 export class WoundDefDecorator : public Decorator {
     int penalty;

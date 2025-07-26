@@ -2,6 +2,7 @@ export module Potion;
 
 import Item;
 import PotionType;
+import PlayerFwd;
 import <string>;
 
 /**
@@ -24,5 +25,5 @@ public:
     PotionType getType() const override;
 
     // Potion-specific methods
-    void applyEffect(class Player& player);
+    void applyEffect(Player& player);
 };

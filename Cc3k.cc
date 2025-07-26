@@ -7,6 +7,8 @@ export module Cc3k;
 import Input;
 import Level;
 import Output;
+import <string>;
+import <random>;
 
 
 export class Cc3k {
