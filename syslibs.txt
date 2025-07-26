@@ -2,7 +2,10 @@ iostream
 random
 vector
 memory
+random
 algorithm
+map
+cmath
 cstdlib
 utility
 sstream

@@ -1,11 +1,10 @@
-// export module Item;
+export module Item;
 
 // import <string>;
 // import PotionType;
 
 // export
 // Item.h
-#pragma once
 
 import <string>;
 import PotionType;
@@ -13,7 +12,7 @@ import PotionType;
 /**
  * Abstract base class: common interface for all items (gold, potions, etc.)
  */
-class Item {
+export class Item {
 public:
     virtual ~Item();
 

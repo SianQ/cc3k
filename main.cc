@@ -1,4 +1,4 @@
-import "Cc3k.h";
+import Cc3k;
 import <iostream>;
 import <string>;
 import <chrono>;
