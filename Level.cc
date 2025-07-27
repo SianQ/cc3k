@@ -1,4 +1,5 @@
 export module Level;
+import Level;  
 import Map;
 import Player;
 import Enemy;

@@ -4,6 +4,7 @@ import Player;
 import Level;
 import Gold;
 import Potion;
+import Direction;
 import <cstdlib>;
 import <utility>;
 

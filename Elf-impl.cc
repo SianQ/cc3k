@@ -1,5 +1,5 @@
 module Elf;
-import Player
+import Player;
 import Level;
 import <cstdlib>;
 

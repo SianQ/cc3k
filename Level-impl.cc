@@ -1,6 +1,8 @@
 module Level;
+
 import Map;
 import Player;
+import PlayerFactory;
 import Enemy;
 import Item;
 import Stair;
@@ -27,6 +29,9 @@ import <stdexcept>;
 import <random>;
 import <utility>;
 import <cstdlib>;
+import <memory>;
+import <string>;
+
 
 static constexpr int NON_DRAGON_ENEMIES = 20;
 static constexpr int POTION_COUNT       = 10;

@@ -3,6 +3,8 @@ iostream
 fstream
 sstream
 cstdlib
+unordered_map
+chrono
 cmath
 cstddef
 cstdint
