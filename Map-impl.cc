@@ -57,17 +57,17 @@ int Map::getHeight() const {
     return height;
 }
 
-Tile& Map::getTile(int x, int y) const {
+Tile& Map::getTile(int x, int y) {
     if (!inBounds(x, y)) {
         cerr << ("Tile coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
-        return nullptr;
+        throw std::out_of_range("Tile coordinates out of bounds");
     }
     return grid.at(y * width + x);
 }
 
-const vector<typename Tile>& Map::getAdjacentTiles(int x, int y) const {
+vector<Tile*> Map::getAdjacentTiles(int x, int y) {
     if (!inBounds(x, y)) {
-        err << ("Get adjacent tiles coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
+        cerr << ("Get adjacent tiles coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
         return {};
     }
 
@@ -83,31 +83,24 @@ const vector<typename Tile>& Map::getAdjacentTiles(int x, int y) const {
     return adjacentTiles;
 }
 
-bool Map::isPassible(int x, int y) const {
+bool Map::isPassible(int x, int y) {
     if (!inBounds(x, y)) return false;
     return getTile(x, y).isPassable();
 }
 
-bool isEnemyPassable(int x, int y) const {
+bool Map::isEnemyPassible(int x, int y) {
     if (!inBounds(x, y)) return false;
     return getTile(x, y).isEnemyPassable();
 }
 
-
-bool Map::isEnemyPassible(int x, int y) const {
-    if (!inBounds(x, y)) return false;
-    return getTile(x, y).isEnemyPassable();
-}
-
-
-bool Map::canSpawn(int x, int y) const {
+bool Map::canSpawn(int x, int y) {
     if (!inBounds(x, y)) return false;
     return getTile(x, y).canSpawn();
 }
 
 void Map::clearItem(int x, int y) {
     if (!inBounds(x, y)) {
-        err << "Clear tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        cerr << "Clear tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
         return;
     }
     Tile& t = getTile(x, y);
@@ -116,16 +109,16 @@ void Map::clearItem(int x, int y) {
 
 void Map::setItem(int x, int y, Item* item) {
     if (!inBounds(x, y)) {
-        err << "Set tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        cerr << "Set tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
         return;
     }
     Tile& t = getTile(x, y);
     t.setItem(item);
 }
 
-Item* Map::getItem(int x, int y) const {
+Item* Map::getItem(int x, int y) {
     if (!inBounds(x, y)) {
-        err << "Get tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        cerr << "Get tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
         return nullptr;
     }
     Tile& t = getTile(x, y);
@@ -134,7 +127,7 @@ Item* Map::getItem(int x, int y) const {
 
 void Map::clearCharacter(int x, int y) {
     if (!inBounds(x, y)) {
-        err << "Clear tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        cerr << "Clear tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
         return;
     }
     Tile& t = getTile(x, y);
@@ -143,16 +136,16 @@ void Map::clearCharacter(int x, int y) {
 
 void Map::setCharacter(int x, int y, Character* character) {
     if (!inBounds(x, y)) {
-        err << "Set tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        cerr << "Set tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
         return;
     }
     Tile& t = getTile(x, y);
     t.setCharacter(character);
 }
 
-Character* Map::getCharacter(int x, int y) const {
+Character* Map::getCharacter(int x, int y) {
     if (!inBounds(x, y)) {
-        err << "Get tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        cerr << "Get tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
         return nullptr;
     }
     Tile& t = getTile(x, y);

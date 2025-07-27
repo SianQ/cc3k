@@ -13,7 +13,6 @@ protected:
 
 public:
     Player(Race race, int hp, int atk, int def);
-    static std::unique_ptr<Player> create(const std::string& race);
     virtual ~Player();
 
     virtual bool isPlayer() const override;

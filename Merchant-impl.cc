@@ -1,5 +1,6 @@
 module Merchant;
 import Race;
+import Enemy;
 
 Merchant::Merchant()
   : Enemy(Race::Merchant, 30,70,5) {}

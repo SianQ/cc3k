@@ -1,4 +1,6 @@
 module Shade;
+
+import Race;
 import Race;
 
 Shade::Shade()

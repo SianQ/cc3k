@@ -2,6 +2,7 @@ module Output;
 
 import Item;
 import Tile;
+import Map;
 import TerrainType;
 import Character;
 
@@ -15,14 +16,14 @@ static constexpr const char* GREEN  = "\033[32m";
 static constexpr const char* YELLOW = "\033[33m";
 static constexpr const char* BLUE   = "\033[34m";
 
-void Output::render(const Level & level) {
-    const Map & m = level.getMap();
+void Output::render(Level & level) {
+    Map & m = level.getMap();
     int h = m.getHeight();
     int w = m.getWidth();
 
     for (int y = 0; y < h; ++y) {
         for (int x = 0; x < w; ++x) {
-            const Tile & tile = m.getTile(x, y);
+            Tile & tile = m.getTile(x, y);
 
             // 1) Character first
             if (Character* c = tile.getCharacter()) {
@@ -84,12 +85,12 @@ void Output::render(const Level & level) {
         std::cout << '\n';
     }
 
-    cout << "Race: "   << level.getPlayer().getRace()    << " ";
-    cout << "Gold: "   << level.getPlayer().getGoldNum() << endl;
-    cout << "HP: "     << level.getPlayer().getHP()      << endl;
-    cout << "Atk: "    << level.getPlayer().getAtk()     << endl;
-    cout << "Def: "    << level.getPlayer().getDef()     << endl;
-    cout << "Action: " << level.getMessage()             << endl;
+    cout << "Race: "   << level.getPlayerRace() << " ";
+    cout << "Gold: "   << level.getPlayerGold() << endl;
+    cout << "HP: "     << level.getPlayerHp()   << endl;
+    cout << "Atk: "    << level.getPlayerAtk()  << endl;
+    cout << "Def: "    << level.getPlayerDef()  << endl;
+    cout << "Action: " << level.getMessage()    << endl;
 }
 
 void Output::clearScreen() {

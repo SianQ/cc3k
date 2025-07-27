@@ -1,6 +1,7 @@
 module Dragon;
 
 import Race;
+import Enemy;
 
 Dragon::Dragon()
     : Enemy(Race::Dragon, 150, 20, 20) {}

@@ -4,8 +4,8 @@ import Race;
 PH::PH(std::shared_ptr<Player> next)
 : Decorator(next) {
     if (next->getRace() == Race::Drow) {
-        next->setHP(next->getHP() - 15);
+        next->setHp(next->getHp() - 15);
     } else {
-        next->setHP(next->getHP() - 10);
+        next->setHp(next->getHp() - 10);
     }
 }

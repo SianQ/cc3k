@@ -34,7 +34,7 @@ private:
     bool isAttackSuccess();
     Direction randomDir();
 
-    Tile& getDirTile(Character& character, Direction dir) const;
+    Tile& getDirTile(Character& character, Direction dir);
     bool moveCharacter(Character& character, Direction dir);
     bool moveEnemy(Character& enemy, Direction dir);
 
@@ -47,11 +47,19 @@ public:
     Level(const std::string& mapPath, unsigned seed);
 
     // Game status
-    bool isFinished() const;
-    bool isGameOver() const;
-    bool isGameComplete() const;
+    bool isFinished();
+    bool isGameOver();
+    bool isGameComplete();
+
+    std::string getPlayerRace();
+    int getPlayerHp() const;
+    int getPlayerAtk() const;
+    int getPlayerDef() const;
+    int getPlayerGold() const;
+    Map& getMap();
 
     // Add player
+    std::shared_ptr<Player> create(Race race);
     void spawnPlayer(const Race race);
 
     // Logs

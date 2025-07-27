@@ -8,6 +8,12 @@ import Map;
 import Tile;
 
 import Player;
+    import Drow;
+    import Vampire;
+    import Troll;
+    import Goblin;
+    import Shade;
+    
     import BA;
     import BD;
     import RH;
@@ -34,6 +40,10 @@ import <stdexcept>;
 import <random>;
 import <utility>;
 import <cstdlib>;
+import <iostream>;
+import <vector>;
+import <memory>;
+import <string>;
 
 using namespace std;
 
@@ -177,7 +187,7 @@ Direction Level::randomDir() {
     }
 }
 
-Tile& Level::getDirTile(Character& character, Direction dir) const {
+Tile& Level::getDirTile(Character& character, Direction dir) {
     int x = character.getX();
     int y = character.getY();
 
@@ -192,7 +202,10 @@ Tile& Level::getDirTile(Character& character, Direction dir) const {
         case Direction::SouthWest:  x -= 1;  y += 1;  break;
         default:                                      break;
     }
-
+    if (!map.inBounds(x, y)) {
+        std::cerr << "Direction out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        throw std::out_of_range("Direction out of bounds");
+    }
     Tile& dst = map.getTile(x, y);
     return dst;
 }
@@ -252,7 +265,7 @@ bool Level::moveEnemy(Character& character, Direction dir) {
     Tile& src = map.getTile(x, y);
     Tile& dst = map.getTile(destX, destY);
 
-    if (!map.isEnemyPassable(destX, destY)) {
+    if (!map.isEnemyPassible(destX, destY)) {
         return false;
     }
 
@@ -306,7 +319,7 @@ void Level::playerMove(Direction dir) {
         Item* item = tile.getItem();
         if (item->isGold()) {
             Gold* gold = static_cast<Gold*>(item);
-            pickUpGold(tile);
+            pickUpGold();
             tile.setItem(nullptr);
             messageLog += " Player picked up " + to_string(gold->getValue()) + " gold.";
         } else if (item->isStair()) {
@@ -317,148 +330,141 @@ void Level::playerMove(Direction dir) {
 }
 
 void Level::playerAttack(Direction dir) {
+
     Tile& tile = getDirTile(*player, dir);
-    if (!tile) {
-        messageLog = "Player attacks out of bounds.";
-        return;
-    }
     if (!tile.hasCharacter()) {
         messageLog = "Player attacks empty tile.";
         return;
     }
-    int damage = player.attack(getDirTile(*player, dir).getCharacter(), isAttackSuccess());
+    int damage = player->attack(tile.getCharacter(), isAttackSuccess());
     if (damage > 0) {
-        messageLog = "Player attacks " + getDirTile(*player, dir).getCharacter().getRace() + " for " + to_string(damage) + " damage.";
+        messageLog = "Player attacks " + toString(tile.getCharacter()->getRace()) + " for " + to_string(damage) + " damage.";
     } else {
         messageLog = "Player attack missed.";
     }
 }
 
 void Level::playerPotion(Direction dir) {
-    // 1) getDirTile should return a pointer so you can check for nullptr
-    Tile* tile = getDirTile(*player, dir);
-    if (!tile) {
+    try {
+        // getDirTile throws if out of bounds
+        Tile &tile = getDirTile(*player, dir);
+
+        if (!tile.hasItem()) {
+            messageLog = "Player uses potion on empty tile.";
+            return;
+        }
+
+        Item* item = tile.getItem();
+        if (!item->isPotion()) {
+            messageLog = "Player tried to use a non-potion item.";
+            return;
+        }
+
+        auto potion = static_cast<Potion*>(item);
+
+        // clear the consumed potion
+        map.clearItem(tile.getX(), tile.getY());
+
+        // wrap player in the correct decorator
+        switch (potion->getType()) {
+            case PotionType::WD:
+                player = std::make_shared<WD>(player);
+                messageLog = "Player uses WD.";
+                break;
+            case PotionType::WA:
+                player = std::make_shared<WA>(player);
+                messageLog = "Player uses WA.";
+                break;
+            case PotionType::BD:
+                player = std::make_shared<BD>(player);
+                messageLog = "Player uses BD.";
+                break;
+            case PotionType::BA:
+                player = std::make_shared<BA>(player);
+                messageLog = "Player uses BA.";
+                break;
+            case PotionType::PH:
+                player = std::make_shared<PH>(player);
+                messageLog = "Player uses PH.";
+                break;
+            case PotionType::RH:
+                player = std::make_shared<RH>(player);
+                messageLog = "Player uses RH.";
+                break;
+            default:
+                messageLog = "Unknown potion type.";
+                break;
+        }
+    }
+    catch (const std::out_of_range&) {
+        // cover the "tile out of bounds" case
         messageLog = "Player uses potion out of bounds.";
-        return;
-    }
-
-    // 2) use -> when you have a Tile*
-    if (!tile->hasItem()) {
-        messageLog = "Player uses potion on empty tile.";
-        return;
-    }
-
-    Item* item = tile->getItem();
-    if (!item->isPotion()) {
-        messageLog = "Player tried to use a non-potion item.";
-        return;
-    }
-
-    auto potion = static_cast<Potion*>(item);
-
-    // 3) clear the item at the actual tile coordinates
-    map.clearItem(tile->getX(), tile->getY());
-
-    // 4) wrap the player in the correct decorator
-    switch (potion->getType()) {
-        case PotionType::WD:
-            player = std::make_shared<WD>(player);
-            messageLog = "Player uses WD.";
-            break;
-        case PotionType::WA:
-            player = std::make_shared<WA>(player);
-            messageLog = "Player uses WA.";
-            break;
-        case PotionType::BD:
-            player = std::make_shared<BD>(player);
-            messageLog = "Player uses BD.";
-            break;
-        case PotionType::BA:
-            player = std::make_shared<BA>(player);
-            messageLog = "Player uses BA.";
-            break;
-        case PotionType::PH:
-            player = std::make_shared<PH>(player);
-            messageLog = "Player uses PH.";
-            break;
-        case PotionType::RH:
-            player = std::make_shared<RH>(player);
-            messageLog = "Player uses RH.";
-            break;
-        default:
-            messageLog = "Unknown potion type.";
-            break;
     }
 }
 
 void Level::updateEnemies() {
-    for (auto& enemy : enemyStore) {
-        // Skip dead enemies
-        if (enemy->isDead()) continue;
+    for (auto& enemyPtr : enemyStore) {
+        Enemy* enemy = enemyPtr.get();
+        if (enemy->isDead()) 
+            continue;
 
         bool attacked = false;
 
-        // Check all adjacent tiles for the player
-        for (Tile& tile : map.getAdjacentTiles(enemy->getX(), enemy->getY())) {
-            Character* c = tile.getCharacter();
+        // Iterate the pointers, not Tile&:
+        for (Tile* tile : map.getAdjacentTiles(enemy->getX(), enemy->getY())) {
+            Character* c = tile->getCharacter();
             if (c && c->isPlayer()) {
-                // Merchant only attacks if hostile
+                Character* playerPtr = player.get();
+
                 if (enemy->getRace() == Race::Merchant) {
-                    Merchant* m = static_cast<Merchant*>(enemy.get());
-                    if (!m->isHostile()) {
-                        // non‑hostile merchant does nothing
+                    auto m = static_cast<Merchant*>(enemy);
+                    if (!m->isHostile()) 
                         break;
-                    }
-                    // hostile merchant attacks once
-                    int dmg = enemy->attack(*player, isAttackSuccess());
+
+                    int dmg = enemy->attack(playerPtr, isAttackSuccess());
                     if (dmg > 0)
-                        appendMessage(enemy->getRaceString()
+                        appendMessage(toString(enemy->getRace())
                                       + " attacks you for "
                                       + std::to_string(dmg)
                                       + " damage.");
                     else
-                        appendMessage(enemy->getRaceString()
+                        appendMessage(toString(enemy->getRace())
                                       + " attack missed.");
                 }
-                // Elf attacks twice
                 else if (enemy->getRace() == Race::Elf) {
                     for (int i = 0; i < 2; ++i) {
-                        int dmg = enemy->attack(*player, isAttackSuccess());
+                        int dmg = enemy->attack(playerPtr, isAttackSuccess());
                         if (dmg > 0)
-                            appendMessage(enemy->getRaceString()
+                            appendMessage(toString(enemy->getRace())
                                           + " attacks you for "
                                           + std::to_string(dmg)
                                           + " damage.");
                         else
-                            appendMessage(enemy->getRaceString()
+                            appendMessage(toString(enemy->getRace())
                                           + " attack missed.");
                     }
                 }
-                // All other enemies attack once
                 else {
-                    int dmg = enemy->attack(*player, isAttackSuccess());
+                    int dmg = enemy->attack(playerPtr, isAttackSuccess());
                     if (dmg > 0)
-                        appendMessage(enemy->getRaceString()
+                        appendMessage(toString(enemy->getRace())
                                       + " attacks you for "
                                       + std::to_string(dmg)
                                       + " damage.");
                     else
-                        appendMessage(enemy->getRaceString()
+                        appendMessage(toString(enemy->getRace())
                                       + " attack missed.");
                 }
 
                 attacked = true;
-                break;  // only attack one adjacent player
+                break;
             }
         }
 
-        // If no attack happened, move (except for Dragons)
         if (!attacked) {
-            if (enemy->getRace() == Race::Dragon) {
-                // Dragons neither move nor attack here
+            if (enemy->getRace() == Race::Dragon)
                 continue;
-            }
-            // Randomly move until a valid move succeeds
+
             Direction dir;
             do {
                 dir = randomDir();
@@ -467,8 +473,8 @@ void Level::updateEnemies() {
     }
 }
 
-bool Level::isFinished() const {
-    Tile tile = map.getTile(player->getPosition().first, player->getPosition().second);
+bool Level::isFinished() {
+    Tile tile = map.getTile(player->getX(), player->getY());
     if (tile.getItem() != nullptr && tile.getItem()->isStair()) {
         levelNum++;
         return true;
@@ -478,14 +484,14 @@ bool Level::isFinished() const {
     }
 }
 
-bool Level::isGameOver() const {
-    if (player->getHP() <= 0) {
+bool Level::isGameOver() {
+    if (player->getHp() <= 0) {
         return true;
     }
     return false;
 }
 
-bool Level::isGameComplete() const {
+bool Level::isGameComplete() {
     if (Level::levelNum >= 5) {
         return true;
     } else {
@@ -493,8 +499,20 @@ bool Level::isGameComplete() const {
     }
 }
 
+std::shared_ptr<Player> Level::create(Race race) {
+    switch (race) {
+      case Race::Drow:     return std::make_shared<Drow>();
+      case Race::Vampire:  return std::make_shared<Vampire>();
+      case Race::Troll:    return std::make_shared<Troll>();
+      case Race::Goblin:   return std::make_shared<Goblin>();
+      case Race::Shade:    return std::make_shared<Shade>();
+      default:             return nullptr;
+    }
+}
+
+
 void Level::spawnPlayer(const Race race) {
-    auto p = Player::create(race);
+    auto p = create(race);
     if (!p) { return; }
     Tile* t = spawnSpots[0];  // reserved player spot
     t->setCharacter(p.get());
@@ -504,7 +522,6 @@ void Level::spawnPlayer(const Race race) {
 
     player = move(p);
     messageLog = "Player character has spawned.";
-    return true;
 }
 
 const string Level::getMessage() const {
@@ -516,7 +533,29 @@ void Level::clearLog() {
 }
 
 void Level::perTermEvent() {
-    player.perTermEvent();
+    player->perTermEvent();
 }
 
+string Level::getPlayerRace() {
+    return toString(player->getRace());
+}
 
+int Level::getPlayerHp() const {
+    return player->getHp();
+}
+
+int Level::getPlayerAtk() const {
+    return player->getAtk();
+}
+
+int Level::getPlayerDef() const {
+    return player->getDef();
+}
+
+int Level::getPlayerGold() const {
+    return player->getGoldNum();
+}
+
+Map& Level::getMap() {
+    return map;
+}   

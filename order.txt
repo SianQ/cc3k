@@ -47,6 +47,7 @@ Dragon-impl.cc
 Drow-impl.cc
 Dwarf-impl.cc
 Enemy-impl.cc
+Elf-impl.cc
 Goblin-impl.cc
 Halfling-impl.cc
 Human-impl.cc

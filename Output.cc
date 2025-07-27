@@ -3,7 +3,7 @@ import Level;
 
 export class Output{
 public:
-    void render(const Level& level);
+    void render(Level& level);
     void renderGameOver();
     void clearScreen();
 };

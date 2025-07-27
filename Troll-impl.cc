@@ -1,9 +1,9 @@
 module Troll;
+import <algorithm>;
+import Race;
 
 Troll::Troll()
-  : Player(120,25,15,120,"Troll") {}
-
-Troll::~Troll() = default;
+  : Player(Race::Troll,120,25,15) {}
 
 void Troll::perTermEvent() {
     if (hp < maxHP) {

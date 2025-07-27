@@ -1,12 +1,13 @@
 module Vampire;
 
+import Race;
+import <algorithm>;
+
 Vampire::Vampire()
-  : Player(50,25,25,50,"Vampire") {}
+  : Player(Race::Vampire, 50, 25, 25) {}
 
-Vampire::~Vampire() = default;
-
-int Vampire::attack(const Character* target, bool isSuccess) {
-    if (target == nullptr || (target->getRace == Race::Halfling && !isSuccess)) { return 0; }
+int Vampire::attack(Character* target, bool isSuccess) {
+    if (target == nullptr || (target->getRace() == Race::Halfling && !isSuccess)) { return 0; }
     
     int damage = calculateDamage(getAtk(), target->getDef());
     target->takeDamage(damage, this);
