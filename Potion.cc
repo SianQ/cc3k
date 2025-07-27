@@ -2,7 +2,6 @@ export module Potion;
 
 import Item;
 import PotionType;
-import PlayerFwd;
 import <string>;
 
 /**
@@ -24,6 +23,4 @@ public:
     char getSymbol() const override;
     PotionType getType() const override;
 
-    // Potion-specific methods
-    void applyEffect(Player& player);
 };
