@@ -1,7 +1,13 @@
 module Item;
 
-Item::~Item() = default;
+bool Item::isGold() {
+    return false;
+}
 
-PotionType Item::getType() const {
-    return PotionType::WD;
+bool Item::isPotion() {
+    return false;
+}
+
+bool Item::isStair() {
+    return false;
 }

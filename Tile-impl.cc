@@ -60,6 +60,14 @@ bool Tile::isPassable() const {
     return walkableTerrain && emptyOfCharacters;
 }
 
+bool Tile::isEnemyPassable() const {
+    bool walkableTerrain = 
+        terrain == TerrainType::Floor;
+    bool emptyOfCharacters = (getCharacter() == nullptr);
+
+    return walkableTerrain && emptyOfCharacters;
+}
+
 bool Tile::canSpawn() const {
     bool walkableTerrain = 
         terrain == TerrainType::Floor;

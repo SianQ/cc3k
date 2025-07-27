@@ -1,7 +1,6 @@
 export module Player;
 
 import Character;
-import Gold;
 
 import <memory>;
 import <string>;
@@ -12,14 +11,16 @@ protected:
     int gold = 0;
 
 public:
+    Player::Player(Race race, int hp, int atk, int def);
     static std::unique_ptr<Player> create(const std::string& race);
-    PlayerPlayer(Race race, int hp, int atk, int def, int maxHP, const std::string& race);
     virtual ~Player();
 
-    void usePotion(Potion* potion);
     virtual bool isPlayer() const override;
-    virtual std::string getRace() const override;
-    virtual int getGoldNum() const;
+    int getGoldNum() const;
+    void addGoldNum(int newGold);
+
+    virtual int attack(const Character* target, bool isSuccess) override;
+    virtual int takeDamage(const Character* source) override;
     
     virtual void perTermEvent();
 };

@@ -14,8 +14,8 @@ protected:
     char symbol;
 
 public:
-    Character(Race race, int hp, int atk, int def, int maxHP);
-    virtual ~Character();
+    Character(Race race, int hp, int atk, int def);
+    ~Character() = default;
     
     virtual int getAtk() const;
     int getDef() const;
@@ -33,8 +33,9 @@ public:
     virtual bool isPlayer() const;
     virtual bool isDead() const;
 
-    virtual int attack(const Character* target) = 0;
+    virtual int attack(const Character* target, bool isSuccess) = 0;
     virtual int takeDamage(int damage, const Character* source) = 0;
 
-    static int calculateDamage(const int atk, const int def);
+
+    int calculateDamage(const int atk, const int def);
 };

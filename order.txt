@@ -26,7 +26,6 @@ Map-impl.cc
 Player.cc
 Shade.cc
 Level.cc
-EnemyFactory.cc
 Enemy.cc
 Human.cc
 Dwarf.cc
@@ -46,7 +45,6 @@ PH.cc
 RH.cc
 WA.cc
 WD.cc
-EnemyUpdater.cc
 Input.cc
 Output.cc
 Cc3k.cc
@@ -74,7 +72,6 @@ RH-impl.cc
 WA-impl.cc
 WD-impl.cc
 Shade-impl.cc
-EnemyUpdater-impl.cc
 Input-impl.cc
 Output-impl.cc
 Cc3k-impl.cc

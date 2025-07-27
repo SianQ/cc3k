@@ -3,8 +3,8 @@ module Character;
 import <cmath>;
 import <utility>;
 
-Character::Character(Race race, int hp, int atk, int def, int maxHP): 
-    race{race}, hp{hp}, atk{atk}, def{def}, maxHP{maxHP}
+Character::Character(Race race, int hp, int atk, int def): 
+    race{race}, hp{hp}, atk{atk}, def{def}, maxHP{hp}, 
 {
     if      (race == Race::Human)     symbol = 'H';
     else if (race == Race::Dwarf)     symbol = 'W';
@@ -18,8 +18,8 @@ Character::Character(Race race, int hp, int atk, int def, int maxHP):
 
 Character::~Character() = default;
 
-int Character::getAtk() const { return atk; }
-int Character::getDef() const { return def; }
+virtual int Character::getAtk() const { return atk; }
+virtual int Character::getDef() const { return def; }
 int Character::getHP() const { return hp; }
 Race Character::getRace() const { return race; }
 char Character::getSymbol() const { return symbol; }
@@ -28,7 +28,12 @@ int Character::getX() const { return x; }
 int Character::getY() const { return y; }
 
 void Character::setHp(const int newHp) {
-    hp = std::max(0, newHp);
+    if (race == Race::Vampire) {
+        hp = std::max(0, newHp);
+    } else {
+        hp = std::max(0, newHp);
+        if (hp > maxHP) { hp = maxHP; }
+    }
 }
 int Character::setX(const int x) {
     this->x = x;
@@ -42,6 +47,6 @@ int Character::setY(const int y) {
 bool Character::isPlayer() const { return false; }
 bool Character::isDead() const { return hp <= 0; }
 
-int Character::calculateDamage(int attackerAtk, int defenderDef) {
+static int Character::calculateDamage(int attackerAtk, int defenderDef) {
     return std::ceil((100.0 / (100 + defenderDef)) * attackerAtk);
 }

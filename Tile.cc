@@ -31,5 +31,6 @@ public:
     void setY(int y);
 
     bool isPassable() const;
+    bool isEnemyPassable() const;
     bool canSpawn() const;
 };

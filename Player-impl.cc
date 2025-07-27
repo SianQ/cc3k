@@ -8,9 +8,8 @@ import Vampire;
 import Troll;
 import Goblin;
 
-Player::Player(Race race, int hp, int atk, int def, int maxHP, const std::string& race)
-    : Character(race, hp, atk, def, maxHP) {}
-Player::~Player() = default;
+Player::Player(Race race, int hp, int atk, int def)
+    : Character(race, hp, atk, def) {}
 
 std::unique_ptr<Player> Player::create(const Race race) {
     if (race == Race::Drow) return std::make_unique<Drow>();
@@ -23,10 +22,15 @@ std::unique_ptr<Player> Player::create(const Race race) {
 
 int Player::getGoldNum() const { return gold; }
 
+void Player::addGoldNum(int newGold) {
+    gold += newGold;
+}
+
 bool Player::isPlayer() const { return true; }
 
-int Player::attack(const Character* target) {
-    int damage = Character::calculateDamage(atk, target->getDef());
+int Player::attack(const Character* target, bool isSuccess) {
+    if (target->getRace == Race::Halfling && !isSuccess) { return 0; }
+    int damage = Character::calculateDamage(getAtk(), target->getDef());
     target->takeDamage(damage, this);
     return damage;
 }

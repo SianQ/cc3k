@@ -33,6 +33,7 @@ private:
 
     Tile& getDirTile(Character& character, Direction dir) const;
     bool moveCharacter(Character& character, Direction dir);
+    bool moveEnemy(Character& enemy, Direction dir);
 
     void placeGold(int value, Tile& tile);
     void pickUpGold();

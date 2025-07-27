@@ -88,6 +88,12 @@ bool Map::isPassible(int x, int y) const {
     return getTile(x, y).isPassable();
 }
 
+bool Map::isEnemyPassible(int x, int y) const {
+    if (!inBounds(x, y)) return false;
+    return getTile(x, y).isEnemyPassable();
+}
+
+
 bool Map::canSpawn(int x, int y) const {
     if (!inBounds(x, y)) return false;
     return getTile(x, y).canSpawn();

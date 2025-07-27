@@ -1,4 +1,4 @@
-#include <iterator>
+#include <cerrno>
 module Level;
 
 import Direction;
@@ -229,6 +229,40 @@ bool Level::moveCharacter(Character& character, Direction dir) {
     return true;
 }
 
+bool Level::moveEnemy(Character& enemy, Direction dir) {
+    int x = character.getX();
+    int y = character.getY();
+
+    int destX = x, destY = y;
+
+    switch (dir) { 
+        case Direction::North:      destY = y - 1;                  break;
+        case Direction::South:      destY = y + 1;                  break;
+        case Direction::East:       destX = x + 1;                  break;
+        case Direction::West:       destX = x - 1;                  break;  
+        case Direction::NorthEast:  destX = x + 1;  destY = y - 1;  break;
+        case Direction::NorthWest:  destX = x - 1;  destY = y - 1;  break;
+        case Direction::SouthEast:  destX = x + 1;  destY = y + 1;  break;
+        case Direction::SouthWest:  destX = x - 1;  destY = y + 1;  break;
+        default:                                                    break;
+    }
+
+    Tile& src = getTile(fromX, fromY);
+    Tile& dst = getTile(toX, toY);
+
+    if (!map.isEnemyPassable(destX, destY)) {
+        return false;
+    }
+
+    Character* c = src.getCharacter();
+    src.setCharacter(nullptr);
+    dst.setCharacter(c);
+    c->setPosition(dst.getX(), dst.getY());
+
+    return true;
+}
+
+
 void Level::placeGold(int value, Tile& tile) {
     if (!tile.canSpawn()) {
         throw runtime_error("Cannot place gold on non-spawnable tile");
@@ -241,6 +275,12 @@ void Level::placeGold(int value, Tile& tile) {
     itemStore.push_back(move(g));
 }
 
+void Level::giveRandomGold(Tile& tile) {
+    uniform_int_distribution<int> goldDist(1, 2);
+    int value = goldDist(rng);
+    player->addGoldNum(value);
+}
+
 void Level::pickUpGold() {
     Tile& tile = map.getTile(player->getX(), player->getY());
     if (!tile.hasItem() || !tile.getItem()->isGold()) {
@@ -248,7 +288,7 @@ void Level::pickUpGold() {
         return;
     }
     Gold* gold = static_cast<Gold*>(tile.getItem());
-    player->pickUpGold(gold);
+    player->addGoldNum(gold->getValue());
     tile.setItem(nullptr);
     messageLog = "Player picked up " + to_string(gold->getValue()) + " gold.";
 }
@@ -309,27 +349,27 @@ void Level::playerPotion(Direction dir) {
         switch (potion->getType()) {
             case PotionType::WD:
                 messageLog = "Player uses WD.";
-                player = make_shared<WoundDefDecorator>(player);
+                player = make_shared<WD>(player);
                 break;
             case PotionType::WA:
                 messageLog = "Player uses WA.";
-                player = make_shared<WoundAtkDecorator>(player);
+                player = make_shared<WA>(player);
                 break;
             case PotionType::BD:
                 messageLog = "Player uses BD.";
-                player = make_shared<BoostDefDecorator>(player);
+                player = make_shared<BD>(player);
                 break;
             case PotionType::BA:
-                player = make_shared<BoostAtkDecorator>(player);
+                player = make_shared<BA>(player);
                 messageLog = "Player uses BA.";
                 break;
             case PotionType::PH:
                 messageLog = "Player uses PH.";
-                player = make_shared<PHDecorator>(player);
+                player = make_shared<PH>(player);
                 break;
             case PotionType::RH:
                 messageLog = "Player uses RH.";
-                player = make_shared<RHDecorator>(player);
+                player = make_shared<RH>(player);
                 break;
         }
     }
@@ -337,23 +377,76 @@ void Level::playerPotion(Direction dir) {
 
 void Level::updateEnemies() {
     for (auto& enemy : enemyStore) {
-        if (enemy->isDead()) {
-            continue;
-        }
-        if (enemy->isHostile()) {
-            for (auto& tile : map.getAdjacentTiles(enemy->getX(), enemy->getY())) {
-                if (tile.hasCharacter() && tile.getCharacter().isPlayer()) {
-                    enemy->attack(*player, isAttackSuccess());
-                    break;
+        // Skip dead enemies
+        if (enemy->isDead()) continue;
+
+        bool attacked = false;
+
+        // Check all adjacent tiles for the player
+        for (Tile& tile : map.getAdjacentTiles(enemy->getX(), enemy->getY())) {
+            Character* c = tile.getCharacter();
+            if (c && c->isPlayer()) {
+                // Merchant only attacks if hostile
+                if (enemy->getRace() == Race::Merchant) {
+                    Merchant* m = static_cast<Merchant*>(enemy.get());
+                    if (!m->isHostile()) {
+                        // non‑hostile merchant does nothing
+                        break;
+                    }
+                    // hostile merchant attacks once
+                    int dmg = enemy->attack(*player, isAttackSuccess());
+                    if (dmg > 0)
+                        appendMessage(enemy->getRaceString()
+                                      + " attacks you for "
+                                      + std::to_string(dmg)
+                                      + " damage.");
+                    else
+                        appendMessage(enemy->getRaceString()
+                                      + " attack missed.");
                 }
+                // Elf attacks twice
+                else if (enemy->getRace() == Race::Elf) {
+                    for (int i = 0; i < 2; ++i) {
+                        int dmg = enemy->attack(*player, isAttackSuccess());
+                        if (dmg > 0)
+                            appendMessage(enemy->getRaceString()
+                                          + " attacks you for "
+                                          + std::to_string(dmg)
+                                          + " damage.");
+                        else
+                            appendMessage(enemy->getRaceString()
+                                          + " attack missed.");
+                    }
+                }
+                // All other enemies attack once
+                else {
+                    int dmg = enemy->attack(*player, isAttackSuccess());
+                    if (dmg > 0)
+                        appendMessage(enemy->getRaceString()
+                                      + " attacks you for "
+                                      + std::to_string(dmg)
+                                      + " damage.");
+                    else
+                        appendMessage(enemy->getRaceString()
+                                      + " attack missed.");
+                }
+
+                attacked = true;
+                break;  // only attack one adjacent player
             }
-        } else {
-            if (enemy->isDragon()) {
+        }
+
+        // If no attack happened, move (except for Dragons)
+        if (!attacked) {
+            if (enemy->getRace() == Race::Dragon) {
+                // Dragons neither move nor attack here
                 continue;
             }
-            while(!moveCharacter(*enemy, randomDir())) {
-                Direction dir = randomDir();
-            }
+            // Randomly move until a valid move succeeds
+            Direction dir;
+            do {
+                dir = randomDir();
+            } while (!moveEnemy(*enemy, dir));
         }
     }
 }

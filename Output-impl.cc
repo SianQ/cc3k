@@ -19,7 +19,7 @@ void Output::render(const Level & level) {
             const Tile & tile = m.getTile(x, y);
 
             // 1) Character first
-            if (Character * c = tile.getCharacter()) {
+            if (Character* c = tile.getCharacter()) {
                 char sym = c->getSymbol();
                 // Assume Character has isPlayer() to identify the PC
                 if (c->isPlayer()) {
