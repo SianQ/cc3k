@@ -58,4 +58,6 @@ public:
     // Logs
     const std::string getMessage() const;
     void clearLog();
+
+    void perTermEvent();
 };

@@ -10,5 +10,5 @@ export class Goblin : public Player {
 public:
     Goblin();
     ~Goblin() override;
-    
+    int attack(const Character* target) override;
 };

@@ -79,6 +79,7 @@ void Cc3k::run() {
         output.render(level);
 
         while (true) {
+            level.perTermEvent();
             input.applyInput(level);
             level.updateEnemies();
             output.render(level);

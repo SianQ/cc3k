@@ -33,7 +33,7 @@ public:
     virtual bool isPlayer() const;
     virtual bool isDead() const;
 
-    virtual bool attack(const Character* target) = 0;
+    virtual int attack(const Character* target) = 0;
     virtual int takeDamage(int damage, const Character* source) = 0;
 
     static int calculateDamage(const int atk, const int def);

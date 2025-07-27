@@ -1,3 +1,4 @@
+#include <iterator>
 module Level;
 
 import Direction;
@@ -402,4 +403,8 @@ const string Level::getMessage() const {
 
 void Level::clearLog() {
     messageLog = "";
+}
+
+void Level::perTermEvent() {
+    player.perTermEvent();
 }

@@ -6,5 +6,5 @@ export class Troll : public Player {
 public:
     Troll();
     ~Troll() override;
-    
+    void perTermEvent() override;
 };
