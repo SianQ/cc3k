@@ -12,3 +12,13 @@ PotionType Potion::getType() const {
 }
 
 Potion::~Potion() = default;
+
+bool Potion::isGold() {
+    return false; // Potions are not gold
+}
+bool Potion::isPotion() {
+    return true; // This is a potion
+}
+bool Potion::isStair() {
+    return false; // Potions are not stairs
+}

@@ -59,7 +59,8 @@ void Output::render(const Level& level) {
     
     // 显示玩家状态
     const Player& player = level.getPlayer();
-    cout << "Race: " << player.getRace() 
+    cout << "Player create successfully " << player
+    << "Race: " << player.getRace() 
          << " Gold: " << player.getGoldNum()
          << " HP: " << player.getHP() << "/" << player.getMaxHP()
          << " Atk: " << player.getAtk()

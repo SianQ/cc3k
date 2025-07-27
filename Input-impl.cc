@@ -38,7 +38,7 @@ void Input::applyInput(Level& level) {
             level.playerAttack(dir);
             break;
         case 'u': // 使用药水
-            level.playerUsePotion(dir);
+            level.playerPotion(dir);
             break;
         case 'q': // 退出
             // 设置游戏结束标志

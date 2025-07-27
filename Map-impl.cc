@@ -60,6 +60,10 @@ const Tile& Map::getTile(int x, int y) const {
     return grid.at(y * width + x);
 }
 
+Tile& Map::getTile(int r, int c) {
+    return grid.at(r * width + c);
+}
+
 bool Map::isPassible(int x, int y) const {
     if (x < 0 || x >= width || y < 0 || y >= height) return false;
     return getTile(x, y).isPassable();
