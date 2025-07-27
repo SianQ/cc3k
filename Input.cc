@@ -1,10 +1,9 @@
 export module Input;
 
-import Level;
-
+import GameCore;  // 改为import GameCore
 import <iostream>;
 
-export class Input{
+export class Input {
 public:
-    void applyInput(Level& level);
+    void applyInput(Level& level);  // Level现在来自GameCore
 };

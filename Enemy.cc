@@ -1,14 +1,9 @@
-// export module Enemy;
-
-// import Character;
-// import <string>;
-
-// export
+export module Enemy;
 
 import Character;
 import Map;
 import Player;
-import Level; 
+import Level;
 import <string>;
 
 export class Enemy : public Character {
@@ -25,7 +20,7 @@ public:
           bool hostile = true,
           bool isDragon = false,
           int x = -1, int y = -1);
-    virtual ~Enemy() = default;
+    virtual ~Enemy(); // 需要实现析构函数体，确保虚表生成
 
     // One turn of behavior: either attack or move
     virtual void act(Map& map, Player& pc, Level& level);
@@ -42,4 +37,7 @@ public:
     virtual char getSymbol() const override;  
     virtual std::string getRace() const override;
 };
+
+// 实现析构函数体，确保虚表生成
+Enemy::~Enemy() = default;
 

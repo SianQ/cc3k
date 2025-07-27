@@ -1,5 +1,6 @@
-export module WD;
+module WD;
 import Player;
+import <algorithm>;
 
 WoundDefDecorator::WoundDefDecorator(std::shared_ptr<Player> next, int amount)
     : Decorator(next), penalty(amount) {

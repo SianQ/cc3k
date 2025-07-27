@@ -23,4 +23,5 @@ public:
     char getSymbol() const override;
     PotionType getType() const override;
 
+    virtual ~Potion();
 };

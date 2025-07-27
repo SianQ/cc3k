@@ -1,91 +1,81 @@
 module Output;
+import GameCore;
+import Map;
+import Tile;
+import Character;
+import Player;
+import Item;
+import TerrainType;
 import <iostream>;
 
 using namespace std;
 
-static constexpr const char* RESET  = "\033[0m";
-static constexpr const char* RED    = "\033[31m";
-static constexpr const char* GREEN  = "\033[32m";
-static constexpr const char* YELLOW = "\033[33m";
-static constexpr const char* BLUE   = "\033[34m";
-
-void Output::render(const Level & level) {
-    const Map & m = level.getMap();
-    int h = m.getHeight();
-    int w = m.getWidth();
-
-    for (int y = 0; y < h; ++y) {
-        for (int x = 0; x < w; ++x) {
-            const Tile & tile = m.getTile(x, y);
-
-            // 1) Character first
-            if (Character * c = tile.getCharacter()) {
-                char sym = c->getSymbol();
-                // Assume Character has isPlayer() to identify the PC
-                if (c->isPlayer()) {
-                    std::cout << BLUE << sym << RESET;
-                } else {
-                    std::cout << RED  << sym << RESET;
-                }
-                continue;
+void Output::render(const Level& level) {
+    clearScreen();
+    
+    const Map& map = level.getMap();
+    int height = map.getHeight();
+    int width = map.getWidth();
+    
+    // 渲染地图
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            const Tile& tile = map.getTile(x, y);
+            
+            // 优先显示角色
+            if (Character* character = tile.getCharacter()) {
+                cout << character->getSymbol();
             }
-
-            // 2) Then Item
-            if (Item * it = tile.getItem()) {
-                char sym = it->getSymbol();
-                if (it->isStair()) {
-                    // Staircase in blue
-                    std::cout << BLUE   << sym << RESET;
-                }
-                else if (it->isPotion()) {
-                    // Potions in green
-                    std::cout << GREEN  << sym << RESET;
-                }
-                else if (it->isGold()) {
-                    // Treasure in yellow
-                    std::cout << YELLOW << sym << RESET;
-                }
-                else {
-                    // any other item default color
-                    std::cout << sym;
-                }
-                continue;
+            // 其次显示物品
+            else if (Item* item = tile.getItem()) {
+                cout << item->getSymbol();
             }
-
-            // 3) Otherwise, terrain
-            switch (tile.getTerrain()) {
-                case TerrainType::Floor:
-                    std::cout << '.';
-                    break;
-                case TerrainType::Passage:
-                    std::cout << '#';
-                    break;
-                case TerrainType::WallHorizontal:
-                    std::cout << '-';
-                    break;
-                case TerrainType::WallVertical:
-                    std::cout << '|';
-                    break;
-                case TerrainType::Door:
-                    std::cout << '+';
-                    break;
-                case TerrainType::Empty:
-                default:
-                    std::cout << ' ';
-                    break;
+            // 最后显示地形
+            else {
+                switch (tile.getTerrain()) {
+                    case TerrainType::Floor:
+                        cout << '.';
+                        break;
+                    case TerrainType::Passage:
+                        cout << '#';
+                        break;
+                    case TerrainType::WallHorizontal:
+                        cout << '-';
+                        break;
+                    case TerrainType::WallVertical:
+                        cout << '|';
+                        break;
+                    case TerrainType::Door:
+                        cout << '+';
+                        break;
+                    case TerrainType::Empty:
+                        cout << ' ';
+                        break;
+                }
             }
         }
-        std::cout << '\n';
+        cout << '\n';
     }
+    
+    // 显示玩家状态
+    const Player& player = level.getPlayer();
+    cout << "Race: " << player.getRace() 
+         << " Gold: " << player.getGoldNum()
+         << " HP: " << player.getHP() << "/" << player.getMaxHP()
+         << " Atk: " << player.getAtk()
+         << " Def: " << player.getDef()
+         << " Floor: " << level.getFloorNumber() << endl;
+    
+    // 显示消息
+    for (const string& msg : level.getMessages()) {
+        cout << msg << endl;
+    }
+}
 
-    cout << "Race: "   << level.getPlayer().getRace()    << " ";
-    cout << "Gold: "   << level.getPlayer().getGoldNum() << endl;
-    cout << "HP: "     << level.getPlayer().getHP()      << endl;
-    cout << "Atk: "    << level.getPlayer().getAtk()     << endl;
-    cout << "Def: "    << level.getPlayer().getDef()     << endl;
-    cout << "Action: " << level.getMessage()             << endl;
+void Output::renderGameOver() {
+    cout << "Game Over!" << endl;
 }
 
 void Output::clearScreen() {
-    std::cout << "\x1B[2J\x1B[H";
+    cout << "\033[2J\033[H"; // ANSI清屏命令
 }

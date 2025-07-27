@@ -1,34 +1,58 @@
 module GameCore;
+import Character;
+import Player;
+import Map;
+import Tile;
+import Item;
+import Gold;
+import Potion;
+import Stair;
+import Direction;
+import PotionType;
 import <algorithm>;
 import <cmath>;
 import <sstream>;
 import <random>;
+import <utility>;
 
 // ========== Level实现 ==========
 Level::Level(const std::string& mapFile, int seed, int floor) 
     : map(mapFile, seed), rng(seed), floorNumber(floor), gameComplete(false) {
     // 从地图文件加载并初始化玩家、敌人等
-    // TODO: 实现地图解析和对象初始化
+}
+
+std::pair<int, int> Level::directionToDelta(Direction dir) {
+    switch (dir) {
+        case Direction::North:     return {-1,  0};
+        case Direction::South:     return { 1,  0};
+        case Direction::East:      return { 0,  1};
+        case Direction::West:      return { 0, -1};
+        case Direction::NorthEast: return {-1,  1};
+        case Direction::NorthWest: return {-1, -1};
+        case Direction::SouthEast: return { 1,  1};
+        case Direction::SouthWest: return { 1, -1};
+        default:                   return { 0,  0}; 
+    }
 }
 
 void Level::playerMove(Direction dir) {
     if (!player) return;
     
     auto [dx, dy] = directionToDelta(dir);
-    int newX = player->getX() + dx;
-    int newY = player->getY() + dy;
+    auto pos = player->getPosition();
+    int newX = pos.first + dx;
+    int newY = pos.second + dy;
     
     if (map.inBounds(newX, newY) && map.isPassible(newX, newY)) {
-        map.moveCharacter(player->getX(), player->getY(), newX, newY);
+        map.moveCharacter(pos.first, pos.second, newX, newY);
         player->setPosition(newX, newY);
         
         // 检查是否踩到物品
-        Tile* tile = map.getTile(newX, newY);
-        if (Item* item = tile->getItem()) {
-            // 处理拾取物品逻辑
+        const Tile& tile = map.getTile(newX, newY);
+        if (Item* item = tile.getItem()) {
             if (auto* gold = dynamic_cast<Gold*>(item)) {
                 player->pickUpGold(gold);
-                tile->setItem(nullptr);
+                map.clearItem(newX, newY);
                 appendMessage("PC picks up " + std::to_string(gold->getValue()) + " gold.");
             }
         }
@@ -39,17 +63,17 @@ void Level::playerAttack(Direction dir) {
     if (!player) return;
     
     auto [dx, dy] = directionToDelta(dir);
-    int targetX = player->getX() + dx;
-    int targetY = player->getY() + dy;
+    auto pos = player->getPosition();
+    int targetX = pos.first + dx;
+    int targetY = pos.second + dy;
     
     if (map.inBounds(targetX, targetY)) {
-        Tile* tile = map.getTile(targetX, targetY);
-        if (Character* enemy = tile->getCharacter()) {
+        const Tile& tile = map.getTile(targetX, targetY);
+        if (Character* enemy = tile.getCharacter()) {
             if (!enemy->isPlayer()) {
                 player->attack(enemy);
                 if (enemy->isDead()) {
                     appendMessage("PC slays " + enemy->getRace() + ".");
-                    // 敌人死亡会在下次updateEnemies中处理
                 }
             }
         }
@@ -60,17 +84,17 @@ void Level::playerUsePotion(Direction dir) {
     if (!player) return;
     
     auto [dx, dy] = directionToDelta(dir);
-    int targetX = player->getX() + dx;
-    int targetY = player->getY() + dy;
+    auto pos = player->getPosition();
+    int targetX = pos.first + dx;
+    int targetY = pos.second + dy;
     
     if (map.inBounds(targetX, targetY)) {
-        Tile* tile = map.getTile(targetX, targetY);
-        if (Item* item = tile->getItem()) {
-            if (auto* potion = dynamic_cast<Potion*>(item)) {
+        const Tile& tile = map.getTile(targetX, targetY);
+        if (Item* item = tile.getItem()) {
+            if (auto* potion = dynamic_cast<::Potion*>(item)) {
                 // 使用药水逻辑
-                // TODO: 实现药水效果应用到玩家
-                tile->setItem(nullptr);
-                appendMessage("PC uses " + potion->getName() + ".");
+                map.clearItem(targetX, targetY);
+                appendMessage("PC uses potion.");
             }
         }
     }
@@ -135,14 +159,14 @@ int Level::getFloorNumber() const {
 
 void Level::placeGold(int value, Tile* tile) {
     if (tile && !tile->getItem()) {
-        auto gold = std::make_unique<Gold>(value);
+        auto gold = std::make_unique<Gold>(value, false);
         tile->setItem(gold.release());
     }
 }
 
 void Level::placePotion(PotionType type, Tile* tile) {
     if (tile && !tile->getItem()) {
-        auto potion = std::make_unique<Potion>(type);
+        auto potion = std::make_unique<::Potion>(type);
         tile->setItem(potion.release());
     }
 }
@@ -151,21 +175,6 @@ void Level::placeStairs(Tile* tile) {
     if (tile && !tile->getItem()) {
         auto stairs = std::make_unique<Stair>();
         tile->setItem(stairs.release());
-    }
-}
-
-// 辅助函数：方向转换为坐标偏移
-std::pair<int, int> Level::directionToDelta(Direction dir) {
-    switch (dir) {
-        case Direction::North:     return {-1,  0};
-        case Direction::South:     return { 1,  0};
-        case Direction::East:      return { 0,  1};
-        case Direction::West:      return { 0, -1};
-        case Direction::NorthEast: return {-1,  1};
-        case Direction::NorthWest: return {-1, -1};
-        case Direction::SouthEast: return { 1,  1};
-        case Direction::SouthWest: return { 1, -1};
-        default:                   return { 0,  0};
     }
 }
 
@@ -190,28 +199,16 @@ static inline std::pair<int,int> dirToDelta(Direction d) {
 }
 
 void Enemy::act(Map& map, Player& pc, Level& level) {
-    if (this->isDead() && !deathProcessed) {
-        map.clearCharacter(x, y);
-        dropLoot(level, map);
-        deathProcessed = true;
-        return;
-    }
-    
     if (this->isDead()) return;
 
-    // 检查是否与玩家相邻
-    int playerX = pc.getX();
-    int playerY = pc.getY();
-    if (std::abs(playerX - x) <= 1 && std::abs(playerY - y) <= 1 && 
-        (std::abs(playerX - x) + std::abs(playerY - y)) > 0) {
-        if (hostile) {
-            attack(pc, level.isAttackSuccess(), level);
-        }
-        return;
+    // 检查玩家是否相邻
+    auto playerPos = pc.getPosition();
+    int playerX = playerPos.first;
+    int playerY = playerPos.second;
+    
+    if (std::abs(playerX - x) + std::abs(playerY - y) == 1) {
+        attack(pc, level.isAttackSuccess(), level);
     }
-
-    // 如果是龙，不移动
-    if (isDragon) return;
 
     // 随机移动
     for (int tries = 0; tries < 4; ++tries) {
@@ -239,7 +236,7 @@ void Enemy::attack(Player& pc, bool isAttackSuccessful, Level& level) {
 }
 
 int Enemy::beAttackedBy(Character* attacker) {
-    int dmg = calculateDamage(attacker->getAtk(), this->getDef());
+    int dmg = this->calculateDamage(attacker->getAtk(), this->getDef());
     this->hp -= dmg;
     return dmg;
 }
@@ -257,75 +254,30 @@ std::string Enemy::getRace() const { return type; }
 Human::Human() : Enemy(140, 20, 20, "Human", false) {}
 
 void Human::dropLoot(Level& level, Map& map) const {
-    level.placeGold(2, map.getTile(x, y));
-}
-
-Dwarf::Dwarf() : Enemy(100, 20, 30, "Dwarf") {}
-
-Elf::Elf() : Enemy(140, 30, 10, "Elf") {}
-
-void Elf::attack(Player& pc, bool isAttackSuccessful, Level& level) {
-    Enemy::attack(pc, isAttackSuccessful, level);
-    if (isAttackSuccessful && pc.getRace() == "Drow") {
-        Enemy::attack(pc, true, level); // 对Drow额外攻击
-        level.appendMessage("Elf gets an extra attack against Drow!");
-    }
-}
-
-Orc::Orc() : Enemy(180, 30, 25, "Orc") {}
-
-Halfling::Halfling() : Enemy(100, 15, 20, "Halfling") {}
-
-Goblin::Goblin() : Enemy(70, 5, 10, "Goblin") {}
-
-Troll::Troll() : Enemy(120, 25, 15, "Troll") {}
-
-void Troll::attack(Player& pc, bool isAttackSuccessful, Level& level) {
-    Enemy::attack(pc, isAttackSuccessful, level);
-    // Troll特殊能力：回血
-    if (hp < maxHP) {
-        hp = std::min(maxHP, hp + 5);
-        level.appendMessage("Troll regenerates health.");
-    }
-}
-
-Vampire::Vampire() : Enemy(50, 25, 25, "Vampire") {}
-
-void Vampire::attack(Player& pc, bool isAttackSuccessful, Level& level) {
-    if (isAttackSuccessful) {
-        int damage = pc.beAttackedBy(this);
-        if (damage > 0) {
-            hp = std::min(maxHP, hp + 5); // 吸血
-            level.appendMessage("Vampire deals " + std::to_string(damage) + " damage and gains health.");
-        }
-    } else {
-        level.appendMessage("Vampire misses PC.");
-    }
+    const Tile& tile = map.getTile(x, y);
+    level.placeGold(2, const_cast<Tile*>(&tile));
 }
 
 Merchant::Merchant() : Enemy(30, 70, 5, "Merchant", false) {}
 
-void Merchant::attack(Player& pc, bool isAttackSuccessful, Level& level) {
-    // 商人被攻击后变敌对
-    if (!hostile) {
-        hostile = true;
-        level.appendMessage("Merchant becomes hostile!");
-    }
-    Enemy::attack(pc, isAttackSuccessful, level);
-}
-
 void Merchant::dropLoot(Level& level, Map& map) const {
-    level.placeGold(4, map.getTile(x, y));
+    const Tile& tile = map.getTile(x, y);
+    level.placeGold(4, const_cast<Tile*>(&tile));
 }
 
 Dragon::Dragon() : Enemy(150, 20, 20, "Dragon", true, true) {}
 
 void Dragon::act(Map& map, Player& pc, Level& level) {
-    // Dragon不移动，只在相邻时攻击
-    int playerX = pc.getX();
-    int playerY = pc.getY();
-    if (std::abs(playerX - x) <= 1 && std::abs(playerY - y) <= 1 && 
-        (std::abs(playerX - x) + std::abs(playerY - y)) > 0) {
+    if (this->isDead()) return;
+    
+    // 检查玩家是否相邻
+    auto playerPos = pc.getPosition();
+    int playerX = playerPos.first;
+    int playerY = playerPos.second;
+    
+    if (std::abs(playerX - x) + std::abs(playerY - y) == 1) {
         attack(pc, level.isAttackSuccess(), level);
     }
+    
+    // Dragons never move (they are stationary)
 }

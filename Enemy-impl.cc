@@ -93,3 +93,5 @@ int Enemy::beAttackedBy(Character* attacker) {
 
 void Enemy::dropLoot(Level& level, Map& map) const {}
 
+Enemy::~Enemy() = default;
+

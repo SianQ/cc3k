@@ -10,3 +10,5 @@ char Potion::getSymbol() const {
 PotionType Potion::getType() const {
     return type;
 }
+
+Potion::~Potion() = default;

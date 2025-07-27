@@ -1,66 +1,47 @@
 module Input;
-import Level;
-import <unordered_map>;
-import <sstream>;
+import Direction;
+import <iostream>;
+import <string>;
 
 using namespace std;
 
-static const std::unordered_map<std::string, Direction> dirMap = {
-    {"no", Direction::North},
-    {"so", Direction::South},
-    {"ea", Direction::East},
-    {"we", Direction::West},
-    {"ne", Direction::NorthEast},
-    {"nw", Direction::NorthWest},
-    {"se", Direction::SouthEast},
-    {"sw", Direction::SouthWest},
-};
-
-void Input::applyInput(Level & level) {
-    while (true) {
-        std::cout << "Enter command (no/so/ea/we/ne/nw/se/sw, a <dir>, u <dir>): ";
-        std::string line;
-        if (!std::getline(std::cin, line)) {
-            // EOF
-            return;
+void Input::applyInput(Level& level) {
+    string command;
+    cout << "Enter command: ";
+    getline(cin, command);
+    
+    if (command.empty()) return;
+    
+    char action = command[0];
+    Direction dir = Direction::North; // 默认方向
+    
+    // 解析方向（如果有第二个字符）
+    if (command.length() > 1) {
+        switch (command[1]) {
+            case 'n': dir = Direction::North; break;
+            case 's': dir = Direction::South; break;
+            case 'e': dir = Direction::East; break;
+            case 'w': dir = Direction::West; break;
+            case 'a': dir = Direction::NorthEast; break;
+            case 'z': dir = Direction::NorthWest; break;
+            case 'd': dir = Direction::SouthEast; break;
+            case 'x': dir = Direction::SouthWest; break;
         }
-
-        std::istringstream iss(line);
-        std::string cmd;
-        iss >> cmd;
-        if (cmd.empty()) {
-            continue;
-        }
-
-        // Attack or Use-Potion: "a no" or "u so"
-        if (cmd == "a" || cmd == "u") {
-            std::string dirToken;
-            if (!(iss >> dirToken)) {
-                std::cout << "Please specify a direction after '"
-                          << cmd << "' (no/so/ea/…).\n";
-                continue;
-            }
-            auto it = dirMap.find(dirToken);
-            if (it == dirMap.end()) {
-                std::cout << "Unknown direction: '" << dirToken
-                          << "'. Try again.\n";
-                continue;
-            }
-            Direction d = it->second;
-            if (cmd == "a")       level.playerAttack(d);
-            else /* cmd == "u" */ level.playerPotion(d);
-            break;  // valid attack/use, exit loop
-
-        } else {
-            // Movement commands: "no", "so", etc.
-            auto it = dirMap.find(cmd);
-            if (it == dirMap.end()) {
-                std::cout << "Unknown command: '" << cmd
-                          << "'. Try again.\n";
-                continue;
-            }
-            level.playerMove(it->second);
-            break;  // valid move, exit loop
-        }
+    }
+    
+    switch (action) {
+        case 'n': case 's': case 'e': case 'w':
+        case 'a': case 'z': case 'd': case 'x':
+            level.playerMove(static_cast<Direction>(action - 'a'));
+            break;
+        case 'f': // 攻击
+            level.playerAttack(dir);
+            break;
+        case 'u': // 使用药水
+            level.playerUsePotion(dir);
+            break;
+        case 'q': // 退出
+            // 设置游戏结束标志
+            break;
     }
 }

@@ -2,6 +2,7 @@ export module Player;
 
 import Character;
 import Gold;
+import Potion;
 import <memory>;
 import <string>;
 import <vector>;
@@ -25,8 +26,8 @@ public:
     Player();
     virtual ~Player();
 
-    void usePotion(class Potion* potion);
-    void pickUpGold(class Gold* gold);
+    void usePotion(Potion* potion);
+    void pickUpGold(Gold* gold);
     virtual void attack(Character* target);
     virtual int beAttackedBy(Character* enemy) override;
     virtual bool isPlayer() const override;

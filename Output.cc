@@ -1,9 +1,9 @@
 export module Output;
-import Level;
+import GameCore;  // 改为import GameCore
 
-export class Output{
+export class Output {
 public:
-    void render(const Level& level);
+    void render(const Level& level);  // Level现在来自GameCore
     void renderGameOver();
     void clearScreen();
 };

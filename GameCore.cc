@@ -78,17 +78,6 @@ public:
     Goblin();
 };
 
-export class Troll : public Enemy {
-public:
-    Troll();
-    void attack(Player& pc, bool isAttackSuccessful, Level& level) override;
-};
-
-export class Vampire : public Enemy {
-public:
-    Vampire();
-    void attack(Player& pc, bool isAttackSuccessful, Level& level) override;
-};
 
 export class Merchant : public Enemy {
 public:
@@ -144,4 +133,7 @@ public:
     void placeGold(int value, Tile* tile);
     void placePotion(PotionType type, Tile* tile);
     void placeStairs(Tile* tile);
+
+    // 添加这个方法声明
+    std::pair<int, int> directionToDelta(Direction dir);
 };
