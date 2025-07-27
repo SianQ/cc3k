@@ -1,10 +1,11 @@
 module Character;
+import Race;
 
 import <cmath>;
 import <utility>;
 
 Character::Character(Race race, int hp, int atk, int def): 
-    race{race}, hp{hp}, atk{atk}, def{def}, maxHP{hp}, 
+    race{race}, hp{hp}, atk{atk}, def{def}, maxHP{hp} 
 {
     if      (race == Race::Human)     symbol = 'H';
     else if (race == Race::Dwarf)     symbol = 'W';
@@ -16,14 +17,12 @@ Character::Character(Race race, int hp, int atk, int def):
     else                              symbol = '@';
 }
 
-Character::~Character() = default;
-
-virtual int Character::getAtk() const { return atk; }
-virtual int Character::getDef() const { return def; }
-int Character::getHP() const { return hp; }
+int Character::getAtk() const { return atk; }
+int Character::getDef() const { return def; }
+int Character::getHp() const { return hp; }
 Race Character::getRace() const { return race; }
 char Character::getSymbol() const { return symbol; }
-int getMaxHp() const { return maxHP; }
+int Character::getMaxHp() const { return maxHP; }
 int Character::getX() const { return x; }
 int Character::getY() const { return y; }
 
@@ -47,6 +46,6 @@ int Character::setY(const int y) {
 bool Character::isPlayer() const { return false; }
 bool Character::isDead() const { return hp <= 0; }
 
-static int Character::calculateDamage(int attackerAtk, int defenderDef) {
+int Character::calculateDamage(int attackerAtk, int defenderDef) {
     return std::ceil((100.0 / (100 + defenderDef)) * attackerAtk);
 }

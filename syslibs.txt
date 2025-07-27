@@ -1,4 +1,6 @@
 iostream
+cstdlib
+unordered_map
 vector
 memory
 map
@@ -11,3 +13,4 @@ utility
 cmath
 stdexcept
 string
+utility

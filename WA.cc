@@ -1,6 +1,7 @@
 export module WA;
 import Player;
 import Decorator;
+import <memory>;
 
 export class WA : public Decorator {
     int penalty;

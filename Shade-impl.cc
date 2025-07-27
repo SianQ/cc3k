@@ -1,6 +1,5 @@
 module Shade;
+import Race;
 
 Shade::Shade()
-  : Player(125,25,25,125,"Shade") {}
-
-Shade::~Shade() = default;
+  : Player(Race::Shade, 125,25,25) {}

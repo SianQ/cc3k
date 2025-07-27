@@ -1,12 +1,12 @@
 module RH;
+import Player;
+import Race;
 
 RH::RH(std::shared_ptr<Player> next)
 : Decorator(next) {
-    if (next->getRace() == "Drow") {
-        next->setHP(next->getHP() + 15);
+    if (next->getRace() == Race::Drow) {
+        next->setHP(next->getHp() + 15);
     } else {
-        next->setHP(next->getHP() + 10);
+        next->setHP(next->getHp() + 10);
     }
 }
-
-RH::~RH() = default;

@@ -57,9 +57,9 @@ int Map::getHeight() const {
     return height;
 }
 
-const Tile& Map::getTile(int x, int y) const {
+Tile& Map::getTile(int x, int y) const {
     if (!inBounds(x, y)) {
-        err << ("Tile coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
+        cerr << ("Tile coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
         return nullptr;
     }
     return grid.at(y * width + x);
@@ -87,6 +87,12 @@ bool Map::isPassible(int x, int y) const {
     if (!inBounds(x, y)) return false;
     return getTile(x, y).isPassable();
 }
+
+bool isEnemyPassable(int x, int y) const {
+    if (!inBounds(x, y)) return false;
+    return getTile(x, y).isEnemyPassable();
+}
+
 
 bool Map::isEnemyPassible(int x, int y) const {
     if (!inBounds(x, y)) return false;

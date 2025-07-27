@@ -21,4 +21,4 @@ public:
     void setHostile(bool isHostile);
 
     void takeDamage(int damage, const Character* source) override;
-}
+};

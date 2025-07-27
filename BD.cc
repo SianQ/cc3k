@@ -1,8 +1,10 @@
 export module BD;
 import Player;
 import Decorator;
+import <memory>;
+
 export class BD : public Decorator {
 public:
-    BoostDefDecorator(std::shared_ptr<Player> next);
+    BD(std::shared_ptr<Player> next);
     int getDef() const override;
 };

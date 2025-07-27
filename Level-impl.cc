@@ -1,11 +1,10 @@
-#include <cerrno>
 module Level;
 
 import Direction;
-import EnemyRace;
+import Race;
+import PotionType;
 
 import Map;
-
 import Tile;
 
 import Player;
@@ -117,7 +116,8 @@ void Level::placeNonPlayerObjects() {
     for (auto& uptr: enemyStore) {
         Tile* t = spawnSpots[idx++];
         t->setCharacter(uptr.get());
-        uptr->setPosition(t->getX(), t->getY());
+        uptr->setX(t->getX());
+        uptr->setY(t->getY());
 
         if (auto dr = dynamic_cast<Dragon*>(uptr.get())) {
             // create a 4‑gold pile, owned by itemStore
@@ -127,7 +127,7 @@ void Level::placeNonPlayerObjects() {
             itemStore.push_back(move(g));
 
             // tell the dragon where its hoard lives
-            static_cast<Dragon*>(dr)->setHoard(t);        
+            static_cast<Dragon*>(dr)->setHoard(t->getX(), t->getY());        
         }
     }
 
@@ -193,7 +193,8 @@ Tile& Level::getDirTile(Character& character, Direction dir) const {
         default:                                      break;
     }
 
-    Tile& dst = getTile(toX, toY);
+    Tile& dst = map.getTile(x, y);
+    return dst;
 }
 
 bool Level::moveCharacter(Character& character, Direction dir) {
@@ -214,8 +215,8 @@ bool Level::moveCharacter(Character& character, Direction dir) {
         default:                                                    break;
     }
 
-    Tile& src = getTile(fromX, fromY);
-    Tile& dst = getTile(toX, toY);
+    Tile& src = map.getTile(x, y);
+    Tile& dst = map.getTile(destX, destY);
 
     if (!map.isPassible(destX, destY)) {
         return false;
@@ -224,12 +225,13 @@ bool Level::moveCharacter(Character& character, Direction dir) {
     Character* c = src.getCharacter();
     src.setCharacter(nullptr);
     dst.setCharacter(c);
-    c->setPosition(dst.getX(), dst.getY());
+    c->setX(dst.getX());
+    c->setY(dst.getY());
 
     return true;
 }
 
-bool Level::moveEnemy(Character& enemy, Direction dir) {
+bool Level::moveEnemy(Character& character, Direction dir) {
     int x = character.getX();
     int y = character.getY();
 
@@ -247,8 +249,8 @@ bool Level::moveEnemy(Character& enemy, Direction dir) {
         default:                                                    break;
     }
 
-    Tile& src = getTile(fromX, fromY);
-    Tile& dst = getTile(toX, toY);
+    Tile& src = map.getTile(x, y);
+    Tile& dst = map.getTile(destX, destY);
 
     if (!map.isEnemyPassable(destX, destY)) {
         return false;
@@ -257,11 +259,11 @@ bool Level::moveEnemy(Character& enemy, Direction dir) {
     Character* c = src.getCharacter();
     src.setCharacter(nullptr);
     dst.setCharacter(c);
-    c->setPosition(dst.getX(), dst.getY());
+    c->setX(dst.getX());
+    c->setY(dst.getY());
 
     return true;
 }
-
 
 void Level::placeGold(int value, Tile& tile) {
     if (!tile.canSpawn()) {
@@ -275,7 +277,7 @@ void Level::placeGold(int value, Tile& tile) {
     itemStore.push_back(move(g));
 }
 
-void Level::giveRandomGold(Tile& tile) {
+void Level::giveRandomGold() {
     uniform_int_distribution<int> goldDist(1, 2);
     int value = goldDist(rng);
     player->addGoldNum(value);
@@ -304,7 +306,7 @@ void Level::playerMove(Direction dir) {
         Item* item = tile.getItem();
         if (item->isGold()) {
             Gold* gold = static_cast<Gold*>(item);
-            player->pickUpGold(gold);
+            pickUpGold(tile);
             tile.setItem(nullptr);
             messageLog += " Player picked up " + to_string(gold->getValue()) + " gold.";
         } else if (item->isStair()) {
@@ -333,45 +335,59 @@ void Level::playerAttack(Direction dir) {
 }
 
 void Level::playerPotion(Direction dir) {
-    Tile& tile = getDirTile(*player, dir);
-    if (!tile) { 
+    // 1) getDirTile should return a pointer so you can check for nullptr
+    Tile* tile = getDirTile(*player, dir);
+    if (!tile) {
         messageLog = "Player uses potion out of bounds.";
         return;
     }
-    if (!tile.hasItem()) {
+
+    // 2) use -> when you have a Tile*
+    if (!tile->hasItem()) {
         messageLog = "Player uses potion on empty tile.";
         return;
     }
-    Item* item = tile.getItem();
-    if (item->isPotion()) {
-        auto potion = static_cast<Potion*>(item);
-        map.clearItem(x, y);
-        switch (potion->getType()) {
-            case PotionType::WD:
-                messageLog = "Player uses WD.";
-                player = make_shared<WD>(player);
-                break;
-            case PotionType::WA:
-                messageLog = "Player uses WA.";
-                player = make_shared<WA>(player);
-                break;
-            case PotionType::BD:
-                messageLog = "Player uses BD.";
-                player = make_shared<BD>(player);
-                break;
-            case PotionType::BA:
-                player = make_shared<BA>(player);
-                messageLog = "Player uses BA.";
-                break;
-            case PotionType::PH:
-                messageLog = "Player uses PH.";
-                player = make_shared<PH>(player);
-                break;
-            case PotionType::RH:
-                messageLog = "Player uses RH.";
-                player = make_shared<RH>(player);
-                break;
-        }
+
+    Item* item = tile->getItem();
+    if (!item->isPotion()) {
+        messageLog = "Player tried to use a non-potion item.";
+        return;
+    }
+
+    auto potion = static_cast<Potion*>(item);
+
+    // 3) clear the item at the actual tile coordinates
+    map.clearItem(tile->getX(), tile->getY());
+
+    // 4) wrap the player in the correct decorator
+    switch (potion->getType()) {
+        case PotionType::WD:
+            player = std::make_shared<WD>(player);
+            messageLog = "Player uses WD.";
+            break;
+        case PotionType::WA:
+            player = std::make_shared<WA>(player);
+            messageLog = "Player uses WA.";
+            break;
+        case PotionType::BD:
+            player = std::make_shared<BD>(player);
+            messageLog = "Player uses BD.";
+            break;
+        case PotionType::BA:
+            player = std::make_shared<BA>(player);
+            messageLog = "Player uses BA.";
+            break;
+        case PotionType::PH:
+            player = std::make_shared<PH>(player);
+            messageLog = "Player uses PH.";
+            break;
+        case PotionType::RH:
+            player = std::make_shared<RH>(player);
+            messageLog = "Player uses RH.";
+            break;
+        default:
+            messageLog = "Unknown potion type.";
+            break;
     }
 }
 
@@ -477,13 +493,14 @@ bool Level::isGameComplete() const {
     }
 }
 
-void Level::spawnPlayer(const string& race) {
+void Level::spawnPlayer(const Race race) {
     auto p = Player::create(race);
     if (!p) { return; }
     Tile* t = spawnSpots[0];  // reserved player spot
     t->setCharacter(p.get());
     t->setCharacter(p.get());
-    p->setPosition(t->getX(), t->getY());
+    p->setX(t->getX());
+    p->setY(t->getY());
 
     player = move(p);
     messageLog = "Player character has spawned.";
@@ -501,3 +518,5 @@ void Level::clearLog() {
 void Level::perTermEvent() {
     player.perTermEvent();
 }
+
+

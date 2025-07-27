@@ -5,10 +5,8 @@ Vampire::Vampire()
 
 Vampire::~Vampire() = default;
 
-int Vampire::attack(const Character* target) {
-    if (target == nullptr) {
-        return 0;
-    }
+int Vampire::attack(const Character* target, bool isSuccess) {
+    if (target == nullptr || (target->getRace == Race::Halfling && !isSuccess)) { return 0; }
     
     int damage = calculateDamage(getAtk(), target->getDef());
     target->takeDamage(damage, this);

@@ -1,5 +1,6 @@
 module Input;
 import Level;
+import Direction;
 import <unordered_map>;
 import <sstream>;
 

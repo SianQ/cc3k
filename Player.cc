@@ -1,6 +1,7 @@
 export module Player;
 
 import Character;
+import Race;
 
 import <memory>;
 import <string>;
@@ -11,7 +12,7 @@ protected:
     int gold = 0;
 
 public:
-    Player::Player(Race race, int hp, int atk, int def);
+    Player(Race race, int hp, int atk, int def);
     static std::unique_ptr<Player> create(const std::string& race);
     virtual ~Player();
 
@@ -19,8 +20,8 @@ public:
     int getGoldNum() const;
     void addGoldNum(int newGold);
 
-    virtual int attack(const Character* target, bool isSuccess) override;
-    virtual int takeDamage(const Character* source) override;
+    virtual int attack(Character* target, bool isSuccess);
+    void takeDamage(int damage, const Character* source);
     
     virtual void perTermEvent();
 };

@@ -5,5 +5,5 @@ export class Orc : public Enemy {
 public:
     Orc();
 
-    int attack(const Character* target, bool isSuccess) override;
+    int attack(Character* target, bool isSuccess) override;
 };

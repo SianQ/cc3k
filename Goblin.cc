@@ -4,5 +4,5 @@ import Player;
 export class Goblin : public Player {
 public:
     Goblin();
-    int attack(const Character* target) override;
+    int attack(Character* targe, bool isSuccess) override;
 };

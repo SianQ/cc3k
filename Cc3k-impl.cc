@@ -2,6 +2,9 @@ module Cc3k;
 import Level;
 import Output;
 import Race;
+
+import <iostream>;
+
 using namespace std;
 
 Cc3k::Cc3k(string mapPath, int seed):
@@ -20,7 +23,7 @@ void displayStartScreen() {
     getline(cin, temp);
 }
 
-string chooseRace() {
+Race chooseRace() {
     string line;
     while (true) {
         cout
@@ -74,7 +77,7 @@ void Cc3k::run() {
     while (true) {
         displayStartScreen();
 
-        string playerRace = chooseRace();
+        Race playerRace = chooseRace();
         level.spawnPlayer(playerRace);
         output.render(level);
 

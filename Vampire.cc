@@ -5,5 +5,5 @@ import Player;
 export class Vampire : public Player {
 public:
     Vampire();
-    int attack(const Character* target) override;
+    int attack(Character* target, bool isSuccess) override;
 };

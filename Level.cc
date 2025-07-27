@@ -4,6 +4,9 @@ import Player;
 import Enemy;
 import Item;
 import Direction;
+import Tile;
+import Character;
+import Race;
 import <memory>;
 import <vector>;
 import <string>;
@@ -36,13 +39,8 @@ private:
     bool moveEnemy(Character& enemy, Direction dir);
 
     void placeGold(int value, Tile& tile);
+    void giveRandomGold();
     void pickUpGold();
-
-    void playerMove(Direction dir);
-    void playerAttack(Direction dir);
-    void playerPotion(Direction dir);
-
-    void updateEnemies();
 
     
 public:
@@ -54,11 +52,17 @@ public:
     bool isGameComplete() const;
 
     // Add player
-    void spawnPlayer(const std::string& race);
+    void spawnPlayer(const Race race);
 
     // Logs
     const std::string getMessage() const;
     void clearLog();
+    
+    void playerMove(Direction dir);
+    void playerAttack(Direction dir);
+    void playerPotion(Direction dir);
+
+    void updateEnemies();
 
     void perTermEvent();
 };

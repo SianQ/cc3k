@@ -9,7 +9,7 @@ export enum class Race {
     Human,
     Dwarf,
     Elf,
-    Orcs,
+    Orc,
     Merchant,
     Dragon,
     Halfling

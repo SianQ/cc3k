@@ -18,7 +18,7 @@ public:
     ~Character() = default;
     
     virtual int getAtk() const;
-    int getDef() const;
+    virtual int getDef() const;
     int getHp() const; 
     Race getRace() const;
     virtual char getSymbol() const;
@@ -33,8 +33,8 @@ public:
     virtual bool isPlayer() const;
     virtual bool isDead() const;
 
-    virtual int attack(const Character* target, bool isSuccess) = 0;
-    virtual int takeDamage(int damage, const Character* source) = 0;
+    virtual int attack(Character* target, bool isSuccess) = 0;
+    virtual void takeDamage(int damage, const Character* source) = 0;
 
 
     int calculateDamage(const int atk, const int def);

@@ -1,4 +1,10 @@
 module Output;
+
+import Item;
+import Tile;
+import TerrainType;
+import Character;
+
 import <iostream>;
 
 using namespace std;

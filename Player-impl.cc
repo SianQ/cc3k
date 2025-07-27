@@ -1,7 +1,6 @@
 module Player;
 
 import Race;
-import Gold;
 import Shade;
 import Drow;
 import Vampire;
@@ -35,10 +34,8 @@ int Player::attack(const Character* target, bool isSuccess) {
     return damage;
 }
 
-int Player::takeDamage(const Character* source) {
-    int damage = Character::calculateDamage(source->getAtk(), def);
+void Player::takeDamage(int damage, const Character* source) {
     hp = std::max(0, hp - damage);
-    return damage;
 }
 
 void Player::perTermEvent() {

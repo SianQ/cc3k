@@ -8,6 +8,8 @@ import Input;
 import Level;
 import Output;
 
+import<random>;
+
 
 export class Cc3k {
 private:

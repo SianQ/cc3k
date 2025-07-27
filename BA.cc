@@ -1,6 +1,7 @@
 export module BA;
 import Decorator;
 import Player;
+import <memory>;
 
 export class BA : public Decorator {
 public:

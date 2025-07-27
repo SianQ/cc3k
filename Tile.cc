@@ -33,4 +33,7 @@ public:
     bool isPassable() const;
     bool isEnemyPassable() const;
     bool canSpawn() const;
+
+    bool hasItem() const;
+    bool hasCharacter() const;
 };
