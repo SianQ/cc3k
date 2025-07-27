@@ -8,7 +8,6 @@
 import Character;
 import Map;
 import Player;
-import Level;
 import <string>;
 
 export class Enemy : public Character {

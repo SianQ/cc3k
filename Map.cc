@@ -17,10 +17,14 @@ public:
     int getWidth() const;
     int getHeight() const;
     const Tile& getTile(int x, int y) const;
+    const Tile& getAdjacentTile(int x, int y) const;
     bool isPassible(int x, int y) const;
     bool canSpawn(int x, int y) const;
-    void moveCharacter(int fromX, int fromY, int toX, int toY);
     void clearItem(int x, int y);
+    void setItem(int x, int y, Item* item);
+    Item* getItem(int x, int y) const;
     void clearCharacter(int x, int y);
+    void setCharacter(int x, int y, Character* character);
+    Character* getCharacter(int x, int y);
     bool inBounds(int x, int y) const;
 };

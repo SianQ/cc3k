@@ -2,6 +2,7 @@ export module Player;
 
 import Character;
 import Gold;
+
 import <memory>;
 import <string>;
 import <vector>;
@@ -9,27 +10,13 @@ import <vector>;
 export class Player: public Character {
 protected:
     int gold = 0;
-    std::string race;
 
 public:
-    inline static const std::vector<std::string> RaceNames = {
-        "Shade",
-        "Vampire",
-        "Troll",
-        "Goblin",
-        "Drow"
-    };
-
-
     static std::unique_ptr<Player> create(const std::string& race);
-    Player(int hp, int atk, int def, int maxHP, const std::string& race);
-    Player();
+    PlayerPlayer(Race race, int hp, int atk, int def, int maxHP, const std::string& race);
     virtual ~Player();
 
-    void usePotion(class Potion* potion);
-    void pickUpGold(class Gold* gold);
-    virtual void attack(Character* target);
-    virtual int beAttackedBy(Character* enemy) override;
+    void usePotion(Potion* potion);
     virtual bool isPlayer() const override;
     virtual std::string getRace() const override;
     virtual int getGoldNum() const;

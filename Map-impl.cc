@@ -4,6 +4,7 @@ import <fstream>;
 import <string>;
 import <stdexcept>;
 import <vector>;
+import <iostream>;
 
 using namespace std;
 
@@ -57,37 +58,93 @@ int Map::getHeight() const {
 }
 
 const Tile& Map::getTile(int x, int y) const {
+    if (!inBounds(x, y)) {
+        err << ("Tile coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
+        return nullptr;
+    }
     return grid.at(y * width + x);
 }
 
+const vector<typename Tile>& Map::getAdjacentTiles(int x, int y) const {
+    if (!inBounds(x, y)) {
+        err << ("Get adjacent tiles coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")");
+        return {};
+    }
+
+    vector<Tile*> adjacentTiles;
+    for (int dy = -1; dy <= 1; ++dy) {
+        for (int dx = -1; dx <= 1; ++dx) {
+            if (dx == 0 && dy == 0) continue;
+            if (inBounds(x + dx, y + dy)) {
+                adjacentTiles.push_back(&getTile(x + dx, y + dy));
+            }
+        }
+    }
+    return adjacentTiles;
+}
+
 bool Map::isPassible(int x, int y) const {
-    if (x < 0 || x >= width || y < 0 || y >= height) return false;
+    if (!inBounds(x, y)) return false;
     return getTile(x, y).isPassable();
 }
 
 bool Map::canSpawn(int x, int y) const {
-    if (x < 0 || x >= width || y < 0 || y >= height) return false;
+    if (!inBounds(x, y)) return false;
     return getTile(x, y).canSpawn();
 }
 
-void Map::moveCharacter(int fromX, int fromY, int toX, int toY) {
-    Tile& src = const_cast<Tile&>(getTile(fromX, fromY));
-    Tile& dst = const_cast<Tile&>(getTile(toX, toY));
-
-    Character* c = src.getCharacter();
-    src.setCharacter(nullptr);
-    dst.setCharacter(c);
-    c->setPosition(dst.getX(), dst.getY());
-}
-
 void Map::clearItem(int x, int y) {
-    Tile& t = const_cast<Tile&>(getTile(x, y));
+    if (!inBounds(x, y)) {
+        err << "Clear tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        return;
+    }
+    Tile& t = getTile(x, y);
     t.setItem(nullptr);
 }
 
+void Map::setItem(int x, int y, Item* item) {
+    if (!inBounds(x, y)) {
+        err << "Set tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        return;
+    }
+    Tile& t = getTile(x, y);
+    t.setItem(item);
+}
+
+Item* Map::getItem(int x, int y) const {
+    if (!inBounds(x, y)) {
+        err << "Get tile item coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        return nullptr;
+    }
+    Tile& t = getTile(x, y);
+    return t.getItem();
+}
+
 void Map::clearCharacter(int x, int y) {
-    Tile& t = const_cast<Tile&>(getTile(x, y));
+    if (!inBounds(x, y)) {
+        err << "Clear tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        return;
+    }
+    Tile& t = getTile(x, y);
     t.setCharacter(nullptr);
+}
+
+void Map::setCharacter(int x, int y, Character* character) {
+    if (!inBounds(x, y)) {
+        err << "Set tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        return;
+    }
+    Tile& t = getTile(x, y);
+    t.setCharacter(character);
+}
+
+Character* Map::getCharacter(int x, int y) const {
+    if (!inBounds(x, y)) {
+        err << "Get tile character coordinates out of bounds: (" + to_string(x) + ", " + to_string(y) + ")";
+        return nullptr;
+    }
+    Tile& t = getTile(x, y);
+    return t.getCharacter();
 }
 
 bool Map::inBounds(int x, int y) const {

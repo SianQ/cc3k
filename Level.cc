@@ -11,48 +11,51 @@ import <random>;
 
 export class Level {
 private:
+    inline static int levelNum = 1;
     Map                                   map;
     std::shared_ptr<Player>               player;
     std::vector<std::unique_ptr<Enemy>>   enemyStore;   // owns all Enemy objects
     std::vector<std::unique_ptr<Item>>    itemStore;    // owns all Item objects
     std::string                           messageLog;
     std::default_random_engine            rng;
-    inline static int levelNum = 1;
-    // [0]=PC, [1]=stair, [2..] everything else
     std::vector<Tile*>                    spawnSpots;
 
-    // helpers for setup
+    bool levelFinished = false;
+
     void generateEnemies(unsigned seed);
     std::vector<Tile*> samplePassableTiles(size_t N);
     void placeNonPlayerObjects();
 
-public:
-    bool isFinished() const;
-    bool isGameOver() const;
-    bool isGameComplete() const;
-
-    Level(const std::string& mapPath, unsigned seed);
-
-    /// Once race is chosen, place the PC and return success
-    bool spawnPlayer(const std::string& race);
+    void appendMessage(const std::string& message);
 
     bool isAttackSuccess();
     Direction randomDir();
 
-    const Player&     getPlayer()  const;
-    const Map&        getMap()     const;
-    const std::string getMessage() const;
+    Tile& getDirTile(Character& character, Direction dir) const;
+    bool moveCharacter(Character& character, Direction dir);
 
-    void clearLog();
-    void appendMessage(const std::string& message);
     void placeGold(int value, Tile& tile);
+    void pickUpGold();
 
-    // Player actions
     void playerMove(Direction dir);
     void playerAttack(Direction dir);
     void playerPotion(Direction dir);
 
-    // Enemy turn
     void updateEnemies();
 
+    
+public:
+    Level(const std::string& mapPath, unsigned seed);
+
+    // Game status
+    bool isFinished() const;
+    bool isGameOver() const;
+    bool isGameComplete() const;
+
+    // Add player
+    void spawnPlayer(const std::string& race);
+
+    // Logs
+    const std::string getMessage() const;
+    void clearLog();
 };

@@ -68,3 +68,10 @@ bool Tile::canSpawn() const {
     return walkableTerrain && emptyOfCharacters;
 }
 
+bool Tile::hasItem() const {
+    return item != nullptr;
+}
+
+bool Tile::hasCharacter() const {
+    return character != nullptr;
+}

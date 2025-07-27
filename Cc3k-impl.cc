@@ -1,6 +1,7 @@
 module Cc3k;
 import Level;
 import Output;
+import Race;
 using namespace std;
 
 Cc3k::Cc3k(string mapPath, int seed):
@@ -36,11 +37,11 @@ string chooseRace() {
         }
         char c = tolower(line[0]);
         switch (c) {
-            case 's': return "Shade";
-            case 'd': return "Drow";
-            case 'v': return "Vampire";
-            case 'g': return "Goblin";
-            case 't': return "Troll";
+            case 's': return Race::Shade;
+            case 'd': return Race::Drow;
+            case 'v': return Race::Vampire;
+            case 'g': return Race::Goblin;
+            case 't': return Race::Troll;
             case 'q': exit(0);
             default:
                 cout 

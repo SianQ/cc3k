@@ -1,6 +1,3 @@
-// export module Direction;
-
-// export
 export module Direction;
 
 export enum class Direction {
