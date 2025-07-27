@@ -405,12 +405,40 @@ void Level::playerPotion(Direction dir) {
 void Level::updateEnemies() {
     for (auto& enemyPtr : enemyStore) {
         Enemy* enemy = enemyPtr.get();
-        if (enemy->isDead()) 
+
+        // 1) Handle dead enemies and drop loot once
+        if (enemy->isDead()) {
+            if (!enemy->isLooted()) {
+                enemy->setLooted(true);
+                switch (enemy->getRace()) {
+                  case Race::Dragon: {
+                    auto dr = static_cast<Dragon*>(enemy);
+                    Tile& hoardTile = map.getTile(dr->getHoardX(), dr->getHoardY());
+                    if (hoardTile.hasItem() && hoardTile.getItem()->isGold()) {
+                        auto gold = static_cast<Gold*>(hoardTile.getItem());
+                        gold->setGuarded(false);
+                        messageLog += "\nDragon's hoard is now unguarded.";
+                    }
+                    break;
+                  }
+                  case Race::Merchant:
+                    placeGold(2, map.getTile(enemy->getX(), enemy->getY()));
+                    break;
+                  case Race::Human:
+                    placeGold(1, map.getTile(enemy->getX(), enemy->getY()));
+                    break;
+                  default:
+                    giveRandomGold();
+                    messageLog += "\nEnemy defeated, player received gold.";
+                    break;
+                }
+            }
+            // dead enemies neither attack nor move
             continue;
+        }
 
+        // 2) Attempt to attack if player is adjacent
         bool attacked = false;
-
-        // Iterate the pointers, not Tile&:
         for (Tile* tile : map.getAdjacentTiles(enemy->getX(), enemy->getY())) {
             Character* c = tile->getCharacter();
             if (c && c->isPlayer()) {
@@ -418,9 +446,10 @@ void Level::updateEnemies() {
 
                 if (enemy->getRace() == Race::Merchant) {
                     auto m = static_cast<Merchant*>(enemy);
-                    if (!m->isHostile()) 
+                    if (!m->isHostile()) {
+                        attacked = true;  // skip movement too
                         break;
-
+                    }
                     int dmg = enemy->attack(playerPtr, isAttackSuccess());
                     if (dmg > 0)
                         appendMessage(toString(enemy->getRace())
@@ -432,6 +461,7 @@ void Level::updateEnemies() {
                                       + " attack missed.");
                 }
                 else if (enemy->getRace() == Race::Elf) {
+                    // Elf attacks twice
                     for (int i = 0; i < 2; ++i) {
                         int dmg = enemy->attack(playerPtr, isAttackSuccess());
                         if (dmg > 0)
@@ -445,6 +475,7 @@ void Level::updateEnemies() {
                     }
                 }
                 else {
+                    // All others attack once
                     int dmg = enemy->attack(playerPtr, isAttackSuccess());
                     if (dmg > 0)
                         appendMessage(toString(enemy->getRace())
@@ -457,14 +488,12 @@ void Level::updateEnemies() {
                 }
 
                 attacked = true;
-                break;
+                break;  // only one attack per enemy per turn
             }
         }
 
-        if (!attacked) {
-            if (enemy->getRace() == Race::Dragon)
-                continue;
-
+        // 3) If no attack occurred and this isn't a dragon, move randomly
+        if (!attacked && enemy->getRace() != Race::Dragon) {
             Direction dir;
             do {
                 dir = randomDir();

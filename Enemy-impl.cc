@@ -20,3 +20,11 @@ void Enemy::takeDamage(int damage, const Character* source) {
         hp = 0;
     }
 }
+
+bool Enemy::isLooted() const {
+    return looted;
+}
+
+void Enemy::setLooted(bool looted) {
+    this->looted = looted;
+}
