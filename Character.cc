@@ -19,16 +19,17 @@ public:
     
     virtual int getAtk() const;
     virtual int getDef() const;
-    int getHp() const; 
-    Race getRace() const;
+    virtual int getHp() const; 
+    virtual Race getRace() const;
     virtual char getSymbol() const;
     virtual int getMaxHp() const;
-    int getX() const;
-    int getY() const;
+    virtual int getX() const;
+    virtual int getY() const;
 
-    void setHp(const int newHp);
-    int setX(const int x);
-    int setY(const int y);
+    virtual void setHp(const int newHp);
+    virtual int setMaxHp(int maxHp);
+    virtual void setX(const int x);
+    virtual void setY(const int y);
 
     virtual bool isPlayer() const;
     virtual bool isDead() const;
@@ -37,5 +38,5 @@ public:
     virtual void takeDamage(int damage, const Character* source) = 0;
 
 
-    int calculateDamage(const int atk, const int def);
+    virtual int calculateDamage(const int atk, const int def);
 };

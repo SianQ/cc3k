@@ -16,11 +16,11 @@ public:
     virtual ~Player();
 
     virtual bool isPlayer() const override;
-    int getGoldNum() const;
-    void addGoldNum(int newGold);
+    virtual int getGoldNum() const;
+    virtual void addGoldNum(int newGold);
 
     virtual int attack(Character* target, bool isSuccess);
-    void takeDamage(int damage, const Character* source);
+    virtual void takeDamage(int damage, const Character* source);
     
     virtual void perTermEvent();
 };

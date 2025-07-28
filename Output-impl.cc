@@ -27,6 +27,9 @@ void Output::render(Level & level) {
 
             // 1) Character first
             if (Character* c = tile.getCharacter()) {
+                if (c->isDead()) {
+                    continue;
+                }
                 char sym = c->getSymbol();
                 // Assume Character has isPlayer() to identify the PC
                 if (c->isPlayer()) {

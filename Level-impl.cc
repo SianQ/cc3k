@@ -318,10 +318,8 @@ void Level::playerMove(Direction dir) {
     if (tile.hasItem()) {
         Item* item = tile.getItem();
         if (item->isGold()) {
-            Gold* gold = static_cast<Gold*>(item);
             pickUpGold();
             tile.setItem(nullptr);
-            messageLog += " Player picked up " + to_string(gold->getValue()) + " gold.";
         } else if (item->isStair()) {
             levelFinished = true;
                 messageLog += " Level completed.";
@@ -395,6 +393,7 @@ void Level::playerPotion(Direction dir) {
                 messageLog = "Unknown potion type.";
                 break;
         }
+        map.getTile(player->getX(), player->getY()).setCharacter(player.get());
     }
     catch (const std::out_of_range&) {
         // cover the "tile out of bounds" case

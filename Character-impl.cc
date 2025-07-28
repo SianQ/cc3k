@@ -34,13 +34,17 @@ void Character::setHp(const int newHp) {
         if (hp > maxHP) { hp = maxHP; }
     }
 }
-int Character::setX(const int x) {
+void Character::setX(const int x) {
     this->x = x;
-    return x;
 }
-int Character::setY(const int y) {
+void Character::setY(const int y) {
     this->y = y;
-    return y;
+}
+
+int Character::setMaxHp(int maxHp) {
+    this->maxHP = maxHp;
+    if (hp > maxHp) { hp = maxHp; }
+    return maxHp;
 }
 
 bool Character::isPlayer() const { return false; }
