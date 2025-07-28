@@ -49,6 +49,7 @@ Dwarf-impl.cc
 Enemy-impl.cc
 Elf-impl.cc
 Goblin-impl.cc
+Gold-impl.cc
 Halfling-impl.cc
 Human-impl.cc
 Input-impl.cc
